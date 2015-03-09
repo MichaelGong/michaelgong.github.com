@@ -10,6 +10,7 @@ require.config({
 		css: ['http://cdn.bootcss.com/require-css/0.1.5/css.min'], //css.min.js用于加载css文件,自动在页面上添加link标签，github:https://github.com/guybedford/require-css
 		qrcode : ['js/libs/qrcode'],//二维码生成插件 http://davidshimjs.github.io/qrcodejs/
 		shake : ['js/libs/shake'], //摇一摇 ，地址：https://github.com/alexgibson/shake.js
+		rainbow : ['js/libs/rainbow-custom.min'],
 	},
 	
 	shim: {
@@ -18,6 +19,10 @@ require.config({
 		},
 		qrcode: {
 			exports: 'QRCode'
+		},
+		rainbow: {
+			deps: ['css!styles/libs/rainbow'],
+			exports: 'Rainbow'
 		}
 	}
 });
