@@ -11,6 +11,7 @@ require.config({
 		qrcode : ['js/libs/qrcode'],//二维码生成插件 http://davidshimjs.github.io/qrcodejs/
 		shake : ['js/libs/shake'], //摇一摇 ，地址：https://github.com/alexgibson/shake.js
 	},
+	
 	shim: {
 		loading: {
 			deps: ['css!styles/libs/loading.min'],
