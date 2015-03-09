@@ -3,13 +3,11 @@
  */
 var urlConfig = 'js/require.config.js';
 require([urlConfig],function(){
-	require(['loading'],function(M){
-		init(M);
+	require(['loading','rainbow'],function(M,Rainbow){
+		Rainbow.color()
 	});
 	
-	function init(M){
-		M.loading(1,1);
-	}
+	
 
 });
 
