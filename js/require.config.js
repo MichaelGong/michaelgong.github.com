@@ -13,7 +13,7 @@ require.config({
 	},
 	shim: {
 		loading: {
-			deps: ['css!css2/libs/loading.min'],
+			deps: ['css!styles/libs/loading.min'],
 		},
 		qrcode: {
 			exports: 'QRCode'
