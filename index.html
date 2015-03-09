@@ -14,9 +14,43 @@
 	<body>
 		<!-- 
 			http://www.xuanfengge.com/canvas-3d-background.html 
-			http://www.xuanfengge.com/mobile-front-end-html5-performance-tuning-guide.html	
+			http://www.xuanfengge.com/mobile-front-end-html5-performance-tuning-guide.html
+			http://www.xuanfengge.com/jquery-event-binding-methods-bind-live-delegate-and-on-the-difference-between.html
 		-->
-		
+		<pre>
+			<code data-language="html">&lt;!-- inline styles! --&gt;
+&lt;style type="text/css"&gt;
+    body span.blah {
+        background: #000;
+        color: #fff;
+    }
+&lt;/style&gt;
+
+&lt;body&gt;
+    &lt;span class="blah" width="200" height="200"&gt;test code goes here&lt;/span&gt;
+&lt;/body&gt;
+
+&lt;!-- inline php! --&gt;
+&lt;?php
+    $test = true;
+
+    /**
+     * test
+     */
+    function what($test) {
+        return $test;
+    }
+?&gt;
+
+&lt;!-- inline javascript! --&gt;
+&lt;script type="text/javascript"&gt;
+    function prettyCool() {
+        doSomeJQueryOrWhatever();
+    }
+&lt;/script&gt;
+
+&lt;article title="&lt;?= $user->name ?&gt;"&gt;test&lt;/article&gt;</code>
+		</pre>
 		
 	</body>
 </html>
