@@ -1,5 +1,5 @@
 ﻿//进行默认的配置操作 http://cdn.bootcss.com/require.js/2.1.15/require.min.js
-var isDebug = false;
+var isDebug = true;
 require.config({
 	baseUrl: 'http://' + window.location.host + (isDebug ? '/michaelgong.github.com/' : ''),
 	paths: {
@@ -12,6 +12,7 @@ require.config({
 		qrcode : ['js/libs/qrcode'],//二维码生成插件 http://davidshimjs.github.io/qrcodejs/
 		shake : ['js/libs/shake'], //摇一摇 ，地址：https://github.com/alexgibson/shake.js
 		rainbow : ['js/libs/rainbow-custom.min'],
+		bootstrap : ['http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js'],//bootstrap
 	},
 	
 	shim: {
@@ -24,6 +25,6 @@ require.config({
 		rainbow: {
 			deps: ['css!styles/libs/rainbow'],
 			exports: 'Rainbow'
-		}
+		},
 	}
 });
