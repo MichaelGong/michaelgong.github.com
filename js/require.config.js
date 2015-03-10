@@ -1,5 +1,5 @@
 ﻿//进行默认的配置操作 http://cdn.bootcss.com/require.js/2.1.15/require.min.js
-var isDebug = true;
+var isDebug = false;
 require.config({
 	baseUrl: 'http://' + window.location.host + (isDebug ? '/michaelgong.github.com/' : ''),
 	paths: {
@@ -12,7 +12,9 @@ require.config({
 		qrcode : ['js/libs/qrcode'],//二维码生成插件 http://davidshimjs.github.io/qrcodejs/
 		shake : ['js/libs/shake'], //摇一摇 ，地址：https://github.com/alexgibson/shake.js
 		rainbow : ['js/libs/rainbow-custom.min'],
-		bootstrap : ['http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js'],//bootstrap
+		bootstrap : ['http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min'],//bootstrap
+		vector : ['js/libs/vector'], //3d背景
+		nicescroll : ['http://cdn.bootcss.com/jquery.nicescroll/3.5.1/jquery.nicescroll.min'], //scrollbar样式修改
 	},
 	
 	shim: {
@@ -26,5 +28,12 @@ require.config({
 			deps: ['css!styles/libs/rainbow'],
 			exports: 'Rainbow'
 		},
+		vector: { 
+			exports: 'Vector'
+		},
+		nicescroll: {
+			deps: ['jquery'],
+			exports: 'nicescroll'
+		}
 	}
 });
