@@ -1,0 +1,14 @@
+body{
+	background-color: #F2F2F2;
+	height: 100%;
+}
+.navbar{
+	background-color: #212121;
+	height: 50px;
+}
+#content{
+	padding-top:50px;
+}
+.container{
+	height: 100%;
+}
