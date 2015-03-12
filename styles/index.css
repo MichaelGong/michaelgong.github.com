@@ -2,7 +2,10 @@ html,body {
 	height: 100%;
 }
 a{
-	text-decoration: none !important;
+	text-decoration: none;
+}
+a:hover{
+	text-decoration: none;
 }
 *{
 	font-family: "Helvetica Neue",Helvetica,Arial,"Hiragino Sans GB","Hiragino Sans GB W3","Microsoft YaHei UI","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
