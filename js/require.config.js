@@ -17,6 +17,7 @@ require.config({
 		bootstrap : ['http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min'],//bootstrap
 		vector : ['js/libs/vector'], //3d背景
 		nicescroll : ['http://cdn.bootcss.com/jquery.nicescroll/3.5.1/jquery.nicescroll.min'], //scrollbar样式修改
+		bootstrap : ['http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min'],
 	},
 	
 	shim: {
@@ -36,6 +37,9 @@ require.config({
 		nicescroll: {
 			deps: ['jquery'],
 			exports: 'nicescroll'
+		},
+		bootstrap: {
+			deps: ['jquery'],
 		}
 	}
 });
