@@ -3,7 +3,7 @@
  */
 var urlConfig = 'js/require.config.js';
 require([urlConfig],function(){
-	require(['loading','jquery','nicescroll','vector'],function(M,$,nicescroll,Vector){
+	require(['loading','jquery','nicescroll','bootstrap','vector'],function(M,$,nicescroll,bootstrap,Vector){
 		$('html').niceScroll({cursorcolor:"#000",cursorborder:"none"});
 //		Rainbow.color()
 		var victor = new Victor('victor', 'output');
