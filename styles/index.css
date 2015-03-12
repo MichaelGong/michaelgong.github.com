@@ -13,7 +13,6 @@ a{
 	margin-bottom: 0;
 }
 #content {
-/*	padding-top: 50px;*/
 	height: 100%;
 }
 .container {
@@ -33,7 +32,7 @@ a{
 	height:180px;
 	display: block;
 	border-radius: 50%;
-	margin:15% auto 0 auto;
+	margin:10% auto 0 auto;
 }
 #victor .container{
 	width:100%;
