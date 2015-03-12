@@ -1,5 +1,7 @@
 ﻿//进行默认的配置操作 http://cdn.bootcss.com/require.js/2.1.15/require.min.js
-var isDebug = true;
+var hostnameIndex = window.location.hostname.split('.')[0];
+var ishost = (hostnameIndex == '192') || (hostnameIndex == '127') || (hostnameIndex == 'localhost');
+var isDebug = ishost  ? true : false;
 require.config({
 	baseUrl: 'http://' + window.location.host + (isDebug ? '/github/michaelgong.github.com/' : ''),
 	paths: {
