@@ -18,6 +18,7 @@ require.config({
 		vector : ['js/libs/vector'], //3d背景
 		nicescroll : ['http://cdn.bootcss.com/jquery.nicescroll/3.5.1/jquery.nicescroll.min'], //scrollbar样式修改
 		bootstrap : ['http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min'],
+		vue : ['http://cdn.bootcss.com/vue/0.11.4/vue.min'],//一个MVVM的库
 	},
 	
 	shim: {
