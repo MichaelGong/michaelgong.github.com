@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>-webkit-filter属性</title>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+		<meta content="no-cache" http-equiv="pragma">
+		<meta content="telephone=no, address=no" name="format-detection">
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="styles/article.css"/>
+		<link rel="stylesheet" type="text/css" href="styles/libs/github.css"/>
+		<link rel="shortcut icon" href="images/finger.png" />
+		<script src="http://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
+		<script src="http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+		<script src="js/docs.min.js"></script>
+		<!--<script data-main="js/article" src="//cdn.bootcss.com/require.js/2.1.15/require.min.js"></script>-->
+	</head>
+	<body>
+		<header class="navbar navbar-inverse navbar-fixed-top">
+			<section class="container">
+				<div class="navbar-header">
+					<a href="#" class="navbar-brand">Michael Gong's Blog</a>
+				</div>
+			</section>
+		</header>
+		<section id="content">
+			<section class="container">
+				<div class="row">
+					<section class="col-md-9" rol="main">
+						<div class="bs-docs-section">
+							<h1 class="page-header">CSS3 Filter属性解析</h1>
+							<p class="lead">css3 filter属性可以用来实现改变图片或者元素的灰度、透明度、对比度、模糊等效果，效果非常神奇。</p>
+							<h3>Filter语法</h3>
+							<div class="highlight">
+								<pre>
+									<code data-language="css">elm{
+	filter:none | &lt;filter-function &gt; [ &lt;filter-function&gt; ]* 
+}</code>
+								</pre>
+							</div>
+							<h3>Filter属性</h3>
+							<table  class="table table-striped" >
+								<tbody>
+									<tr>
+										<td>grayscale</td>
+										<td>灰度</td>
+										<td>值为0-1之间的小数</td>
+									</tr>
+									<tr>
+										<td>sepia</td>
+										<td>褐色</td>
+										<td>值为0-1之间的小数</td>
+									</tr>
+									<tr>
+										<td>saturate</td>
+										<td>饱和度</td>
+										<td>值为数字</td>
+									</tr>
+									<tr>
+										<td>hue-rotate</td>
+										<td>色相旋转</td>
+										<td>值为角度</td>
+									</tr>
+									<tr>
+										<td>invert</td>
+										<td>反色</td>
+										<td>值为0-1之间的小数</td>
+									</tr>
+									<tr>
+										<td>opacity</td>
+										<td> 透明度 </td>
+										<td>值为0-1之间的小数</td>
+									</tr>
+									<tr>
+										<td>brightness</td>
+										<td>亮度</td>
+										<td>值为数字</td>
+									</tr>
+									<tr>
+										<td>contrast</td>
+										<td>对比度</td>
+										<td>值为数字</td>
+									</tr>
+									<tr>
+										<td>blur</td>
+										<td>模糊</td>
+										<td>值为length</td>
+									</tr>
+									<tr>
+										<td>drop-shadow</td>
+										<td>阴影</td>
+										<td>值为length</td>
+									</tr>
+								</tbody>
+							</table>
+							
+							<h3>Filter效果展示</h3>
+							<h4>下面就看看那filter属性的各种炫酷效果！</h4>
+							<p>首先我们有一张默认的没有经过处理的图片(就是下面的手指图片了)，接下来我们就使用filter的各种属性这这张图片进行处理。
+							</p>
+							<p>
+								<img src="images/finger.png" />
+							</p>
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong>一、graysacle()灰度</strong>
+								</div>
+								<div class="panel-body">
+									<p>这个属性会把图片变成灰色的</p>
+									<p>
+										<img src="images/finger.png" style="-webkit-filter:grayscale(1);" />
+									</p>
+									<pre><code data-language="css">-webkit-filter:grayscale(1);</code></pre>
+									<p>grayscale()的取值在这里是1，它的取值可以是0-1之间的任何值，值越大灰度值就越大。</p>
+								</div>
+							</div>
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong>二、sepia()褐色</strong>
+								</div>
+								<div class="panel-body">
+									<p>这个属性会把图片变成褐色的</p>
+									<p>
+										<img src="images/finger.png" style="-webkit-filter:sepia(1);" />
+									</p>
+									<pre><code data-language="css">-webkit-filter:sepia(1);</code></pre>
+									<p>grayscale()的取值在这里是1，它的取值可以是0-1之间的任何值，值越大褐色值就越大。</p>
+								</div>
+							</div>
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong>三、saturate()饱和度</strong>
+								</div>
+								<div class="panel-body">
+									<p>这个属性用来修改图片的饱和度</p>
+									<p class="clearfix">
+										<img src="images/finger.png" style="-webkit-filter:saturate(0.5);width:33%;float:left;" />
+										<img src="images/finger.png" style="-webkit-filter:saturate(1);width:33%;float:left;margin-left:0.5%;" />
+										<img src="images/finger.png" style="-webkit-filter:saturate(3);width:33%;float:left;margin-left:0.5%;" />
+									</p>
+									<p>上述三幅图中saturate()的取值分别为0.5、1、3</p>
+									<pre><code data-language="css">-webkit-filter:saturate(1);</code></pre>
+								</div>
+							</div>
+							
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong>四、hue-rotate()色相旋转</strong>
+								</div>
+								<div class="panel-body">
+									<p>这个属性用于改变图片的色相</p>
+									<p class="clearfix">
+										<img src="images/finger.png" style="-webkit-filter:hue-rotate(90deg);width:33%;float:left;" />
+										<img src="images/finger.png" style="-webkit-filter:hue-rotate(180deg);width:33%;float:left;margin-left:0.5%;" />
+										<img src="images/finger.png" style="-webkit-filter:hue-rotate(360deg);width:33%;float:left;margin-left:0.5%;" />
+									</p>
+									<p>hue-rotate()的取值是角度值,且必须有单位，上述三图hue-rotate的取值分别为90、180、360，可以看出360的时候和正常的图片一致。</p>
+									<pre><code data-language="css">-webkit-filter:hue-rotate(90deg);</code></pre>
+								</div>
+							</div>
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong>五、invert()反色</strong>
+								</div>
+								<div class="panel-body">
+									<p class="clearfix">
+										<img src="images/finger.png" style="-webkit-filter:invert(0.2);width:33%;float:left;" />
+										<img src="images/finger.png" style="-webkit-filter:invert(0.5);width:33%;float:left;margin-left:0.5%;" />
+										<img src="images/finger.png" style="-webkit-filter:invert(1);width:33%;float:left;margin-left:0.5%;" />
+									</p>
+									<p>invert()的取值是0-1之间的数字,上述三图invert的取值分别为0.2、0.5、1，没错，没有搞错，中间的那个0.5就是这样的。</p>
+									<pre><code data-language="css">-webkit-filter:invert(0.5);</code></pre>
+								</div>
+							</div>
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong>六、opacity()透明</strong>
+								</div>
+								<div class="panel-body">
+									<p>用于改变图片的透明度</p>
+									<p class="clearfix">
+										<img src="images/finger.png" style="-webkit-filter:opacity(0.2);width:33%;float:left;" />
+										<img src="images/finger.png" style="-webkit-filter:opacity(0.5);width:33%;float:left;margin-left:0.5%;" />
+										<img src="images/finger.png" style="-webkit-filter:opacity(1);width:33%;float:left;margin-left:0.5%;" />
+									</p>
+									<p>opacity()的取值是0-1之间的数字,上述三图invert的取值分别为0.2、0.5、1。</p>
+									<pre><code data-language="css">-webkit-filter:opacity(0.5);</code></pre>
+								</div>
+							</div>
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong>七、brightness()亮度</strong>
+								</div>
+								<div class="panel-body">
+									<p class="clearfix">
+										<img src="images/finger.png" style="-webkit-filter:brightness(0.2);width:33%;float:left;" />
+										<img src="images/finger.png" style="-webkit-filter:brightness(1);width:33%;float:left;margin-left:0.5%;" />
+										<img src="images/finger.png" style="-webkit-filter:brightness(3);width:33%;float:left;margin-left:0.5%;" />
+									</p>
+									<p>brightness()的取值是任意值,上述三图brightbness的取值分别为0.2、1、3。</p>
+									<pre><code data-language="css">-webkit-filter:brightness(0.5);</code></pre>
+								</div>
+							</div>
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong>八、contrast()对比度</strong>
+								</div>
+								<div class="panel-body">
+									<p class="clearfix">
+										<img src="images/finger.png" style="-webkit-filter:contrast(0);width:33%;float:left;" />
+										<img src="images/finger.png" style="-webkit-filter:contrast(1);width:33%;float:left;margin-left:0.5%;" />
+										<img src="images/finger.png" style="-webkit-filter:contrast(3);width:33%;float:left;margin-left:0.5%;" />
+									</p>
+									<p>contrast()的取值是任意值,上述三图contrast的取值分别为0、1、3，是的 ，contrast的值为0的时候就是那样子的。</p>
+									<pre><code data-language="css">-webkit-filter:contrast(0.5);</code></pre>
+								</div>
+							</div>
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong>九、blur()模糊</strong>
+								</div>
+								<div class="panel-body">
+									<p class="clearfix">
+										<img src="images/finger.png" style="-webkit-filter:blur(0px);width:33%;float:left;" />
+										<img src="images/finger.png" style="-webkit-filter:blur(2px);width:33%;float:left;margin-left:0.5%;" />
+										<img src="images/finger.png" style="-webkit-filter:blur(5px);width:33%;float:left;margin-left:0.5%;" />
+									</p>
+									<p>blur()的取值是任意值，必须有单位，上述三图blur的取值分别为0、2、5。</p>
+									<pre><code data-language="css">-webkit-filter:blur(2px);</code></pre>
+								</div>
+							</div>
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<strong>十、drop-shadow()模糊</strong>
+								</div>
+								<div class="panel-body">
+									<p>
+										<img src="images/finger.png" style="-webkit-filter:drop-shadow(0px 15px 5px #ccc);" />
+									</p>
+									<p>
+										<img src="images/finger.png" style="-webkit-filter:drop-shadow(15px 0px 5px #ccc);margin-left:50%;" />
+									</p>
+									<p>
+										<img src="images/finger.png" style="-webkit-filter:drop-shadow(15px 15px 5px #ccc);" />
+									</p>
+									<p>&nbsp;</p>
+									<p>drop-shadow()的取值和box-shadow的取值类似，效果要基本一致，其中的值一样可以有正负。</p>
+									<pre><code data-language="css">-webkit-filter:drop-shadow(15px 0px 5px #ccc);</code></pre>
+								</div>
+							</div>
+							
+							<p>filter的这些属性除了可以单独使用外还可以合并使用，例如：</p>
+							<p>
+								<img src="images/finger.png" style="-webkit-filter:saturate(5) hue-rotate(500deg) grayscale(0.3) sepia(0.7) contrast(1.5) invert(0.2) brightness(.9);" />
+							</p>
+							<pre><code data-language="css">-webkit-filter:saturate(5) hue-rotate(500deg) grayscale(0.3) sepia(0.7) contrast(1.5) invert(0.2) brightness(.9);</code></pre>
+							
+							<p>filter的基础属性大概就是这些内容。</p>
+							
+							<div id="tool">
+								<p>
+									<img id="tool_finger" src="images/finger.png" />
+								</p>
+								<input type="range" min="0" max="10" value="2" class="form-control" >
+								<div class="row">
+								<div class="col-lg-6">
+									<div class="input-group">
+										<span class="input-group-btn">
+ 											<button class="btn btn-default" type="button">grayscale</button>
+										</span>
+										<input type="range" min="0" max="10" value="2" class="form-control" >
+									</div>
+								</div>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>				
+			</section>
+		</section>
+		<script src="js/libs/rainbow-custom.min.js"></script>
+		<script>
+			$('pre').wrap('<div class="highlight"></div>')
+		</script>
+	</body>
+</html>
