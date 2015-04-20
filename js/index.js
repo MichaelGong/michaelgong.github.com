@@ -36,7 +36,7 @@ var proList = {
 		title: 'prolist',
 		prolist: [
 			{
-				link: '/',
+				link: './article-filter.html',
 				title: '-webkit-filter相关属性',
 				imgsrc: 'images/hue-small.jpg',
 				content: '-webkit-filter相关属性',
@@ -122,6 +122,14 @@ var proList = {
 				content: 'css3 gradient线性渐变',
 				desc: 'by @Michael Gong',
 				detail: 'css3 gradient线性渐变'
+			},
+			{
+				link: 'http://www.qianduan.net/position-sticky-introduction/',
+				title: 'position sticky',
+				imgsrc: 'images/gradient.jpg',
+				content: 'css3的基于relative与fixed之间的属性',
+				desc: 'by @Michael Gong',
+				detail: 'position sticky'
 			},
 		]
 	}
