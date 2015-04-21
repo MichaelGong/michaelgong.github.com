@@ -262,6 +262,7 @@
 							
 							<p>filter的基础属性大概就是这些内容。</p>
 							
+							<h2>下面是一个filter调节小工具</h2>
 							<div id="tool">
 								<p>
 									<img id="tool_finger" src="images/finger.png" />
@@ -270,55 +271,55 @@
 									<span class="input-group-btn">
  										<button class="btn btn-default" type="button">grayscale</button>
 									</span>
-									<input type="range" min="0" max="100" value="0" class="form-control" >
+									<input id="grayscale" type="range" min="0" max="100" value="0" class="form-control" >
 								</div>
 								<div class="input-group">
 									<span class="input-group-btn">
  										<button class="btn btn-default" type="button">sepia</button>
 									</span>
-									<input type="range" min="0" max="100" value="0" class="form-control" >
+									<input id="sepia" type="range" min="0" max="100" value="0" class="form-control" >
 								</div>
 								<div class="input-group">
 									<span class="input-group-btn">
  										<button class="btn btn-default" type="button">saturate</button>
 									</span>
-									<input type="range" min="0" max="100" value="0" class="form-control" >
+									<input id="saturate" type="range" min="0" max="100" value="100" class="form-control" >
 								</div>
 								<div class="input-group">
 									<span class="input-group-btn">
  										<button class="btn btn-default" type="button">hue-rotate</button>
 									</span>
-									<input type="range" min="0" max="360" value="0" class="form-control" >
+									<input id="hue-rotate" type="range" min="0" max="360" value="0" class="form-control" >
 								</div>
 								<div class="input-group">
 									<span class="input-group-btn">
  										<button class="btn btn-default" type="button">invert</button>
 									</span>
-									<input type="range" min="0" max="100" value="0" class="form-control" >
+									<input id="invert" type="range" min="0" max="100" value="0" class="form-control" >
 								</div>
 								<div class="input-group">
 									<span class="input-group-btn">
  										<button class="btn btn-default" type="button">opacity</button>
 									</span>
-									<input type="range" min="0" max="100" value="0" class="form-control" >
+									<input id="opacity" type="range" min="0" max="100" value="100" class="form-control" >
 								</div>
 								<div class="input-group">
 									<span class="input-group-btn">
  										<button class="btn btn-default" type="button">brightness</button>
 									</span>
-									<input type="range" min="0" max="100" value="0" class="form-control" >
+									<input id="brightness" type="range" min="0" max="100" value="100" class="form-control" >
 								</div>
 								<div class="input-group">
 									<span class="input-group-btn">
  										<button class="btn btn-default" type="button">contrast</button>
 									</span>
-									<input type="range" min="0" max="100" value="0" class="form-control" >
+									<input id="contrast" type="range" min="0" max="100" value="100" class="form-control" >
 								</div>
 								<div class="input-group">
 									<span class="input-group-btn">
  										<button class="btn btn-default" type="button">blur</button>
 									</span>
-									<input type="range" min="0" max="100" value="0" class="form-control" >
+									<input id="blur" type="range" min="0" max="100" value="0" class="form-control" >
 								</div>
 								
 							</div>
@@ -332,7 +333,43 @@
 		<script src="js/docs.min.js"></script>
 		<script src="js/libs/rainbow-custom.min.js"></script>
 		<script>
-			$('pre').wrap('<div class="highlight"></div>')
+			$(function(){
+				$('pre').wrap('<div class="highlight"></div>');
+				var $grayscale = $('#grayscale'),
+					$sepia = $('#sepia'),
+					$saturate = $('#saturate'),
+					$hue_rotate = $('#hue-rotate'),
+					$invert = $('#invert'),
+					$opacity = $('#opacity'),
+					$brightness = $('#brightness'),
+					$contrast = $('#contrast'),
+					$blur = $('#blur'),
+					arr = new Array(),
+					valueArr = window.valueArr = new Array();
+				arr[0] = $grayscale;
+				arr[1] = $sepia;
+				arr[2] = $saturate;
+				arr[3] = $hue_rotate;
+				arr[4] = $invert;
+				arr[5] = $opacity;
+				arr[6] = $brightness;
+				arr[7] = $contrast;
+				arr[8] = $blur;
+				
+				valueArr = [0,0,1,0,0,100,100,1,0];
+				
+				$.each(arr,function(key,value){
+					$(value).change(function(){
+						valueArr[key] = $(this).val();
+						filterImg();
+					});
+				})
+				
+				function filterImg(){
+					var $filterImg = $('#tool_finger');
+					$filterImg.css('-webkit-filter','grayscale('+ valueArr[0] / 100.0 + ') sepia('+valueArr[1] / 100.0+') saturate('+valueArr[2]+') hue-rotate('+valueArr[3]+'deg) invert('+valueArr[4]/100+') opacity('+valueArr[5]/100+') brightness('+valueArr[6]/100+') contrast('+valueArr[7]+') blur('+valueArr[8]+'px)');
+				}
+			});
 		</script>
 	</body>
 </html>
