@@ -333,8 +333,8 @@
 		<script src="js/docs.min.js"></script>
 		<script src="js/libs/rainbow-custom.min.js"></script>
 		<script>
+			$('pre').wrap('<div class="highlight"></div>');
 			$(function(){
-				$('pre').wrap('<div class="highlight"></div>');
 				var $grayscale = $('#grayscale'),
 					$sepia = $('#sepia'),
 					$saturate = $('#saturate'),
