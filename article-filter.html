@@ -18,6 +18,50 @@
 			.input-group{
 				margin-bottom: 10px;
 			}
+			.hue-auto{
+				width:100%;
+				height:500px;
+				background: url(images/hue.jpg);
+				background-size: 100% 100%;
+				-webkit-animation: hueauto 5s infinite; 
+						animation: hueauto 5s infinite; 
+			}
+			@-webkit-keyframes hueauto{
+				0%{
+					-webkit-filter: hue-rotate(0deg);
+					-moz-filter: hue-rotate(0deg);
+					filter: hue-rotate(0deg);
+				}
+				100%{
+					-webkit-filter: hue-rotate(360deg);
+					-moz-filter: hue-rotate(360deg);
+					filter: hue-rotate(360deg);
+				}
+			}
+			@-moz-keyframes hueauto{
+				0%{
+					-webkit-filter: hue-rotate(0deg);
+					-moz-filter: hue-rotate(0deg);
+					filter: hue-rotate(0deg);
+				}
+				100%{
+					-webkit-filter: hue-rotate(360deg);
+					-moz-filter: hue-rotate(360deg);
+					filter: hue-rotate(360deg);
+				}
+			}
+			@keyframes hueauto{
+				0%{
+					-webkit-filter: hue-rotate(0deg);
+					-moz-filter: hue-rotate(0deg);
+					filter: hue-rotate(0deg);
+				}
+				100%{
+					-webkit-filter: hue-rotate(360deg);
+					-moz-filter: hue-rotate(360deg);
+					filter: hue-rotate(360deg);
+				}
+			}
 		</style>
 	</head>
 	<body>
@@ -323,6 +367,34 @@
 								</div>
 								
 							</div>
+							
+							<h2>一个小例子</h2>
+							<p>利用了animation改变hue-rotate的角度值，会发生不一样的变化。</p>
+							<p>
+								<div class="hue-auto"></div>
+							</p>
+							<pre>
+								<code data-language="css">.hue-auto{
+	width:100%;
+	height:500px;
+	background: url(images/hue.jpg);
+	background-size: 100% 100%;
+	-webkit-animation: hueauto 5s infinite; 
+	animation: hueauto 5s infinite; 
+}
+@-webkit-keyframes hueauto{
+	0%{
+		-webkit-filter: hue-rotate(0deg);
+		-moz-filter: hue-rotate(0deg);
+		filter: hue-rotate(0deg);
+	}
+	100%{
+		-webkit-filter: hue-rotate(360deg);
+		-moz-filter: hue-rotate(360deg);
+		filter: hue-rotate(360deg);
+	}
+}</code>
+							</pre>
 						</div>
 					</section>
 				</div>				
