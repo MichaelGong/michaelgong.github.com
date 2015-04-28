@@ -131,6 +131,14 @@ var proList = {
 				desc: 'by @Michael Gong',
 				detail: 'position sticky'
 			},
+			{
+				link:'http://www.html-js.com/article/Big-search-team-columns-at-the-front-end-of-the-car',
+				title: 'mobile web曾经的踩过坑',
+				imgsrc: 'images/gradient.jpg',
+				content: 'mobile web曾经的踩过坑',
+				desc: 'by @Michael Gong',
+				detail: 'mobile web曾经的踩过坑'
+			}
 		]
 	}
 }
