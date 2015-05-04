@@ -441,6 +441,13 @@
 					var $filterImg = $('#tool_finger');
 					$filterImg.css('-webkit-filter','grayscale('+ valueArr[0] / 100.0 + ') sepia('+valueArr[1] / 100.0+') saturate('+valueArr[2]+') hue-rotate('+valueArr[3]+'deg) invert('+valueArr[4]/100+') opacity('+valueArr[5]/100+') brightness('+valueArr[6]/100+') contrast('+valueArr[7]+') blur('+valueArr[8]+'px)');
 				}
+				
+//				$('.hue-auto').on('mousemove',function(evt){
+//					var procentjex = Math.round((evt.screenX / $(this).width())*255);
+//		      		var procentjey = ((evt.screenY / $(this).height())/2)+1;
+//		      		$('.hue-auto').css('-webkit-filter', 'hue-rotate('+procentjex+'deg) contrast('+procentjey+')');
+//				});
+				
 			});
 		</script>
 	</body>

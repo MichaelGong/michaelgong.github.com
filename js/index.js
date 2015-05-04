@@ -19,12 +19,6 @@ require([urlConfig],function(){
 //		Rainbow.color()
 		var victor = new Victor('victor', 'output');
 		victor(["#35ac03", "#3f4303"]).set();
-		$('#hue-auto').on('mousemove',function(evt){
-			var procentjex = Math.round((evt.screenX / $(this).width())*255);
-      		var procentjey = ((evt.screenY / $(this).height())/2)+1;
-      		$('#hue-mouse').css('-webkit-filter', 'hue-rotate('+procentjex+'deg) contrast('+procentjey+')');
-		});
-		
 	});
 	
 	
@@ -138,7 +132,15 @@ var proList = {
 				content: 'mobile web曾经的踩过坑',
 				desc: 'by @Michael Gong',
 				detail: 'mobile web曾经的踩过坑'
-			}
+			},
+			{
+				link:'./article-weinre.html',
+				title: '移动远程调试weinre的使用',
+				imgsrc: 'images/gradient.jpg',
+				content: '移动远程调试weinre的使用',
+				desc: 'by @Michael Gong',
+				detail: '移动远程调试weinre的使用'
+			},
 		]
 	}
 }
