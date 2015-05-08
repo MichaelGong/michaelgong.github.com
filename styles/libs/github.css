@@ -69,6 +69,12 @@ pre .constant.numeric, pre .keyword.unit, pre .hex-color {
 pre .entity.class {
     color: #458;
 }
+.close{
+	float:none !important;
+	font-size:13px !important;
+	font-weight:normal !important;
+	opacity: 1 !important;
+}
 
 pre .entity.id, pre .entity.function {
     color: #900;
