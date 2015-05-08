@@ -31,12 +31,38 @@
 							<h1 class="page-header">移动远程调试weinre的使用</h1>
 							<p class="lead">移动端调试实在比较麻烦，之前我们采用的是最简单粗暴的方式就是alert弹出各种错误信息，这种方式实在是不方便。现在有很多的移动端的调试方法，下面我们将介绍weinre的方式进行移动端的调试工作。</p>
 							<h3>1、安装nodejs</h3>
-							<p>到nodejs官网下载对应的nodejs进行安装  <a href="https://nodejs.org/">nodejs官网</a></p>
+							<p>到 <a target="_blank" href="https://nodejs.org/">nodejs官网</a> 下载对应的nodejs进行安装  </p>
+							<p>注意需要选择你系统对应的安装包进行下载，安装完成后你可以打开cmd，输入如下代码：
+								<pre><code data-language="html">node -v</code></pre>
+								来检测你是否安装成功，安装成功会输出你的node的版本号，类似于<code>v0.12.2</code>
+							</p>
 							<h3>2、安装weinre</h3>
 							<p>打开cmd,在其中输入如下代码：</p>
 							<pre><code data-language="html">npm install -g weinre</code></pre>
-							<p>此时按Enter键，然后你就需要等着，会有一串代码滑过，安装完成后，输入如下代码:</p>
-							<pre><code data-language="js">weinre --boundHost -all-</code></pre>
+							<p>此时按Enter键，然后你就需要等着，会有一串代码滑过，安装完成后，输入如下代码启动weinre:</p>
+							<pre><code data-language="html">weinre --httpPort 8080 --boundHost -all-</code></pre>
+							<h3>3、如何使用weinre</h3>
+							<p>如果你成功启动的话，此时在你的电脑上访问<code>localhost:8080</code>，会开到如下类似页面：</p>
+							<img src="images/article-weinre/weinre1.jpg" class="w-100" />
+							<p>顺着页面向下看会看到有个 Target Script 的部分，如图</p>
+							<img src="images/article-weinre/targetscript.png" class="w-100" />
+							<p>你可以将上图中的script标签修改后添加到你的页面中，比如我的局域网ip为：192.168.22.2，那我的页面上的script标签应该如下：</p>
+							<pre><code data-language="html">&lt;script src="http://192.168.22.2:8080/target/target-script-min.js#anonymous"&gt;&lt;/script&gt; </code></pre>
+							<p>注意：</p>
+							<p>1、如果是在自己本机上进行测试，那完全没有必要用这个啦！(废话)</p>
+							<p>2、测试手机上的页面很有用，但是要保证你手机和电脑在同一个网段内。</p>
+							<p>3、将这段js放在页面的最后，以防有些放在服务器上的页面需要调试时，影响到其他用户的使用。</p>
+							<p>4、在上述js的最后一个<code>#anonymous</code>，这个是一个标志符（必须有#），例如你同时有2个不同的页面需要测试你就可以更改这个标识符，来访问你需要调试的不同页面。</p>
+							
+							<h3>4、如何进行调试</h3>
+							<img src="images/article-weinre/weinre1.jpg" class="w-100" />
+							<p>点击上图中的箭头所指的链接将会进入到，如下所示的页面：</p>
+							<img src="images/article-weinre/targets.png" class="w-100" />
+							<p>当 Targets 下是none的时候表示你还没有打开任何需要调试的页面，如果你打开了你需要调试的页面，那么这里将显示<code>#anonymous</code>这个标志符对应的需要调试的页面的链接，如下图：</p>
+							<img src="images/article-weinre/targets2.png" class="w-100" />
+							<p>这个页面展示了标志符为<code>#gh</code>的对应的需要调试的页面</p>
+							<p>接下来你就可以像使用chrome一样，调试你们的页面了。</p>
+							<p>不过可惜的是这个方式不支持js断点调试，不过你可以使用它调整页面布局，也可以通过console的功能来输出相应的信息，在也不用alert了。</p>
 						</div>
 					</section>
 				</div>				
