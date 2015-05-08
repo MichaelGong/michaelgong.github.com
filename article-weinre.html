@@ -36,11 +36,13 @@
 								<pre><code data-language="html">node -v</code></pre>
 								来检测你是否安装成功，安装成功会输出你的node的版本号，类似于<code>v0.12.2</code>
 							</p>
+							
 							<h3>2、安装weinre</h3>
 							<p>打开cmd,在其中输入如下代码：</p>
 							<pre><code data-language="html">npm install -g weinre</code></pre>
 							<p>此时按Enter键，然后你就需要等着，会有一串代码滑过，安装完成后，输入如下代码启动weinre:</p>
 							<pre><code data-language="html">weinre --httpPort 8080 --boundHost -all-</code></pre>
+							
 							<h3>3、如何使用weinre</h3>
 							<p>如果你成功启动的话，此时在你的电脑上访问<code>localhost:8080</code>，会开到如下类似页面：</p>
 							<img src="images/article-weinre/weinre1.jpg" class="w-100" />
@@ -62,7 +64,10 @@
 							<img src="images/article-weinre/targets2.png" class="w-100" />
 							<p>这个页面展示了标志符为<code>#gh</code>的对应的需要调试的页面</p>
 							<p>接下来你就可以像使用chrome一样，调试你们的页面了。</p>
-							<p>不过可惜的是这个方式不支持js断点调试，不过你可以使用它调整页面布局，也可以通过console的功能来输出相应的信息，在也不用alert了。</p>
+							<p>不过可惜的是这种方式不支持js断点调试，不过你可以使用它调整页面布局，也可以通过console的功能来输出相应的信息，再也不用alert了。</p>
+							
+							<h3>5、需要注意的</h3>
+							<p>大部分需要注意的内容已经在上述<code>3、如何使用weinre</code>部分进行了说明，这里需要强调一点的是，对于正式上线的项目，由于添加的调试js是局域网中的链接，其他用户是访问不到你的这个js文件的，在调试完毕后一定要将这段代码删除，虽然这段代码除了影响你的页面加载外，不会影响其他逻辑功能，但是页面加载会持续很长时间以免让用户感到反感还是要把它删掉。
 						</div>
 					</section>
 				</div>				
