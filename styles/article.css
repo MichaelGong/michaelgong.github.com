@@ -87,3 +87,6 @@ input[type=range]::-webkit-slider-thumb{
 	background: #ccc;
 	margin-top:-8px;
 }
+.w-100{
+	width:100%;
+}
