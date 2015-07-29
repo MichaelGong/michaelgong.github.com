@@ -1,9 +1,9 @@
 ﻿//进行默认的配置操作 http://cdn.bootcss.com/require.js/2.1.15/require.min.js
 var hostnameIndex = window.location.hostname.split('.')[0];
 var ishost = (hostnameIndex == '192') || (hostnameIndex == '127') || (hostnameIndex == 'localhost');
-var isDebug = ishost  ? true : false;
+var isDebug = ishost?true : false;
 require.config({
-	baseUrl: 'http://' + window.location.host + (isDebug ? '/github/michaelgong.github.com/' : ''),
+	baseUrl: 'http://' + window.location.host + (isDebug ? '/work/git/' : ''),
 	paths: {
 		jquery: ['http://cdn.bootcss.com/jquery/2.1.3/jquery.min'],
 		zepto: ['http://cdn.bootcss.com/zepto/1.1.4/zepto.min'],
