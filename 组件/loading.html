@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title></title>
+    <link type="text/css" rel="stylesheet" href="css/base2.css" />
+    <style type="text/css" id="M_zoom"></style>
+    <script>
+//        var _zoom = 0;
+//        var _zoomDom = document.getElementById('M_zoom');
+//        var changeSize = function(){
+//            var _width = document.documentElement.clientWidth || document.body.clientWidth;
+//            _zoom = _width / 640;
+//            _zoomDom.innerHTML = '.zoom{zoom:'+ _zoom +'}';
+//        };
+//        changeSize();
+//        window.addEventListener('resize',changeSize,!1);
+    </script>
+    <script>
+        fixMeta(640);
+        function fixMeta(metawidth){
+            var viewport = document.querySelector('meta[name = viewport]'),
+                    ua = navigator.userAgent.toLowerCase(),
+                    android = ua.match(/(android);?[\s\/]+([\d.]+)?/),
+                    ipad = ua.match(/(ipad).*os\s([\d_]+)/),
+                    ipod = ua.match(/(ipod)(.*os\s([\d_]+))?/),
+                    iphone = !ipad && ua.match(/(iphone\sos)\s([\d_]+)/),
+                    os = {};
+            if(android) os.android = true, os.version = android[2];
+            if(iphone && !ipod) os.ios = os.iphone = true, os.version = iphone[2].replace(/_/g,'.');
+            if(ipad) os.ios = os.ipad = true, os.version = ipad[2].replace(/_/g, '.');
+            if(ipod) os.ios = os.ipod = true, os.version = ipod[3] ? ipod[3].replace(/_/g, '.') : null;
+
+            var designWidth = metawidth;
+
+            var iw = window.innerWidth || designWidth,
+                    ow = window.outerWidth || iw,
+                    sw = window.screen.width || iw,
+                    saw = window.screen.availWidth || iw,
+                    ih = window.innerHeight || designWidth,
+                    oh = window.outerHeight || ih,
+                    sh = window.screen.height || ih,
+                    sah = window.screen.availHeight || ih,
+                    w = Math.min(iw,ow,sw,saw,ih,oh,sh,sah),
+                    ratio = w/designWidth,
+                    dpr = window.devicePixelRatio,
+                    ratio = Math.min(ratio,dpr);
+            os.ratio = ratio;
+            if(os.android){
+                viewport.setAttribute('content','width=640, minimum-scale = '+ ratio +', maximum-scale = '+ ratio +', target-densitydpi=device-dpi,user-scalable=no');
+            }else if(os.ios && !os.android){
+                viewport.setAttribute('content','target-densitydpi=device-dpi,width=640,user-scalable=no');
+                if(os.ios && parseInt(os.version)<7){
+                    viewport.setAttribute('content','target-densitydpi=device-dpi,width=640,initial-scale='+ ratio +', user-scalable=no');
+                }
+            }
+        }
+    </script>
+    <script src="js/jquery.min.js"></script>
+    <style>
+        .M_loading {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #2D3132;
+            left: 0;
+            top: 0;
+            -webkit-transform-style: preserve-3d;
+            z-index: 1000;
+        }
+        .M_loading_clip{
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 150px;
+            height: 150px;
+            margin: -75px 0 0 -75px;
+            overflow: hidden;
+            -webkit-animation: loading_ani 1.2s linear infinite;
+            -moz-animation: loading_ani 1.2s linear infinite;
+            -o-animation: loading_ani 1.2s linear infinite;
+            animation: loading_ani 1.2s linear infinite;
+        }
+        .M_loading_bar{
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 150px;
+            height: 150px;
+            border-radius: 100px;
+            overflow: hidden;
+            clip: rect(0px,72px,140px,0);
+            background: rgba(0,0,0,0);
+            border: 6px solid #fff;
+            -webkit-mask: -webkit-gradient(linear,0 0,0 100%,from(rgba(255,255,255,1)),to(rgba(255,255,255,0)));
+        }
+        .M_percent{
+            font-size: 28px;
+            width: 200px;
+            height: 60px;
+            line-height: 60px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -100px;
+            margin-top: -30px;
+            text-align: center;
+            color: #fff;
+        }
+
+        @-webkit-keyframes loading_ani {
+            0% {
+                -webkit-transform: rotate(0deg)
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg)
+            }
+        }
+
+        @keyframes loading_ani {
+            0% {
+                -webkit-transform: rotate(0deg)
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg)
+            }
+        }
+        .ball-clip-rotate-multiple {
+            position: relative;
+            width:120px;
+            height:120px;
+        }
+        .ball-clip-rotate-multiple > div {
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+            position: absolute;
+            /*left: -60px;*/
+            /*top: -60px;*/
+            border: 2px solid #fff;
+            border-bottom-color: transparent;
+            border-top-color: transparent;
+            border-radius: 100%;
+            height: 120px;
+            width: 120px;
+            -webkit-animation: rotate 1.2s 0s linear infinite;
+            animation: rotate 1.2s 0s linear infinite;
+        }
+        .ball-clip-rotate-multiple > div:last-child {
+            display: inline-block;
+            top: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            -webkit-animation-duration: 0.8s;
+            animation-duration: 0.8s;
+            border-color: #fff transparent #fff transparent;
+            -webkit-animation-direction: reverse;
+            animation-direction: reverse;
+        }
+        @keyframes rotate {
+            0% {
+                -webkit-transform: rotate(0deg) scale(1);
+                transform: rotate(0deg) scale(1); }
+
+            50% {
+                -webkit-transform: rotate(180deg) scale(0.8);
+                transform: rotate(180deg) scale(0.8); }
+
+            100% {
+                -webkit-transform: rotate(360deg) scale(1);
+                transform: rotate(360deg) scale(1); }
+        }
+        @-webkit-keyframes rotate {
+            0% {
+                -webkit-transform: rotate(0deg) scale(1);
+                transform: rotate(0deg) scale(1); }
+
+            50% {
+                -webkit-transform: rotate(180deg) scale(1);
+                transform: rotate(180deg) scale(1); }
+
+            100% {
+                -webkit-transform: rotate(360deg) scale(1);
+                transform: rotate(360deg) scale(1); }
+        }
+        .mpop{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            background: rgba(0,0,0,0.5);
+            width: 250px;
+            height: 226px;
+            margin-left: -125px;
+            margin-top: -113px;
+            border-radius: 20px;
+        }
+        .M-pop{
+            position: absolute;
+            top:0;
+            background: rgba(255,255,255,0);
+            z-index: 9999999;
+        }
+    </style>
+</head>
+<body class="zoom" style="background: #fff;">
+
+    <article id="mm" style="height:1500px;" >
+        <div id="a" style="height: 200px;background: red;width:100%;">
+
+        </div>
+    </article>
+
+
+    <section id="M-loading" class="M-pop wh-100  hide">
+        <div class="mpop">
+            <div class="box box-center box-v wh-100">
+                <div class="ball-clip-rotate-multiple">
+                    <div></div>
+                    <div></div>
+                </div>
+                <div class="m-t-15 c-fff">正在加载数据...</div>
+            </div>
+        </div>
+    </section>
+    <script src="js/test.js"></script>
+    <script>
+//      MHJ.loading();
+        var imgs = [
+            'images/back.png',
+            'images/cc.png',
+            'images/face1.png',
+            'images/face2.png',
+            'images/home.png',
+            'images/ico_c.png',
+            'images/icon1.png',
+            'images/nav.png'
+        ];
+        MHJ.preloadimg(imgs,function(loaded,imgs){
+            console.log(loaded);
+        });
+    </script>
+</body>
+</html>
