@@ -102,29 +102,19 @@
 }
 @keyframes rotate {
     0% {
-        -webkit-transform: rotate(0deg) scale(1);
-        transform: rotate(0deg) scale(1); }
-
-    50% {
-        -webkit-transform: rotate(180deg) scale(1);
-        transform: rotate(180deg) scale(1); }
-
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg); }
     100% {
-        -webkit-transform: rotate(360deg) scale(1);
-        transform: rotate(360deg) scale(1); }
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg); }
 }
 @-webkit-keyframes rotate {
     0% {
-        -webkit-transform: rotate(0deg) scale(1);
-        transform: rotate(0deg) scale(1); }
-
-    50% {
-        -webkit-transform: rotate(180deg) scale(1);
-        transform: rotate(180deg) scale(1); }
-
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg); }
     100% {
-        -webkit-transform: rotate(360deg) scale(1);
-        transform: rotate(360deg) scale(1); }
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg); }
 }
 .mpop{
     position: absolute;
