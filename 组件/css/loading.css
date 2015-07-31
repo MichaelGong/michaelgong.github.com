@@ -70,8 +70,8 @@
 }
 .ball-clip-rotate-multiple {
     position: relative;
-    width:80px;
-    height:80px;
+    width:60px;
+    height:60px;
 }
 .ball-clip-rotate-multiple > div {
     -webkit-animation-fill-mode: both;
@@ -90,15 +90,18 @@
 }
 .ball-clip-rotate-multiple > div:last-child {
     display: inline-block;
-    top: 20px;
-    left: 20px;
-    width: 40px;
-    height: 40px;
+    top: 15px;
+    left: 15px;
+    width: 30px;
+    height: 30px;
     -webkit-animation-duration: 0.8s;
     animation-duration: 0.8s;
     border-color: #fff transparent #fff transparent;
     -webkit-animation-direction: reverse;
     animation-direction: reverse;
+}
+.loading-font{
+    font-size:13px;
 }
 @keyframes rotate {
     0% {
@@ -121,13 +124,14 @@
     top: 50%;
     left: 50%;
     background: rgba(0,0,0,0.5);
-    width: 156px;
-    margin-left: -78px;
-    margin-top: -113px;
+    width: 130px;
+    height: 130px;
+    margin-left: -65px;
+    margin-top: -80px;
     border-radius: 20px;
     padding:20px;
 }
-.M-pop{
+.M-loading-pop{
     position: absolute;
     top:0;
     background: rgba(255,255,255,0);

@@ -17,7 +17,7 @@
              * android格式:{android: true, version: "4.4.4", tablet: false, phone: true}
              * ios格式：{iphone: true, ios: true, version: "7.0", tablet: false, phone: true}
              */
-            this.os = Zepto.os;
+            this.os = $.os;
             /**
              * 判断是否是android手机
              * @returns {number}
@@ -70,15 +70,18 @@
     //loading
     (function(){
         var _tmp = {};
+        /**
+         * loading组件
+         */
         _tmp.loading = function(){
-            var str = '<section id="M-loading" class="M-pop wh-100 zoom ">' +
+            var str = '<section id="'+M.loadingID+'" class="M-loading-pop wh-100">' +
                 '<div class="mpop">' +
                 '<div class="box box-center box-v wh-100">' +
                 '<div class="ball-clip-rotate-multiple">' +
                 '<div></div>' +
                 '<div></div>' +
                 '</div>' +
-                '<div class="m-t-15 c-fff">正在加载数据...</div>' +
+                '<div class="m-t-15 c-fff loading-font">正在加载数据...</div>' +
                 '</div>' +
                 '</div>' +
                 '</section>';
@@ -86,6 +89,9 @@
             $dom[0] ? $dom.show() : $('body').append(str);
             $dom = null;
         };
+        /**
+         * 隐藏loading
+         */
         _tmp.loadingHide = function(){
             $('#'+ M.loadingID).hide();
         };
@@ -93,9 +99,51 @@
             if(_tmp.hasOwnProperty(k)) M.register(k,_tmp[k]);
         }
     })();
-    //
+    //alert组件
     (function(){
 
+        var Alert = function(title,content){
+            this.id = 0;
+            var alertHtml='<div id="m-popup-'+(this.id++)+'" class="M-pop wh-100">'+
+                '<div class="M-popup center">'+
+                '<div class="M-title">'+title+'</div>'+
+                '<div class="M-content">'+content+'</div>'+
+                '<div class="M-handler box"><span class="M-handler-ok box-f1">确定</span></div>'+
+                '</div>'+
+            '</div>';
+            this.alertDom = $(alertHtml).appendTo('body');
+        };
+        Alert.prototype.show = function(){
+            var eName = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+            var Mpopup = this.alertDom.find('.M-popup').show();
+            Mpopup.css('margin-top',-(Mpopup.height()/2+20)).addClass('animated zoomIn').one(eName,function(){
+                Mpopup.removeClass('animated zoomIn');
+                Mpopup.unbind(eName);
+            });
+        };
+
+        var _tmp = {};
+        /**
+         * alert组件
+         * @param title 标题
+         * @param content 内容
+         * @param cb 点击确定后的回调函数
+         */
+        _tmp.alert = function(title,content,cb){
+            if(!content){ //只传了一个参数,第一个参数当做content处理
+                content = title;
+                title = '提示';
+            }else if(typeof content === 'function'){//传了2个参数，相当于传了content 和 cb
+                content = title;
+                cb = content;
+                title = '提示';
+            }
+            return new Alert(title,content).show();
+        };
+
+        for(var k in _tmp){
+            if(_tmp.hasOwnProperty(k)) M.register(k,_tmp[k]);
+        }
     })();
 
 
