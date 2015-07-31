@@ -101,10 +101,11 @@
     })();
     //alert组件
     (function(){
-
-        var Alert = function(title,content){
-            this.id = 0;
-            var alertHtml='<div id="m-popup-'+(this.id++)+'" class="M-pop wh-100">'+
+        var alertId = 0; //alert id的索引
+        var Alert = function(title,content,cb){
+            this.id = alertId++;
+            this.cb = cb;
+            var alertHtml='<div id="m-popup-'+(this.id)+'" class="M-pop wh-100">'+
                 '<div class="M-popup center">'+
                 '<div class="M-title">'+title+'</div>'+
                 '<div class="M-content">'+content+'</div>'+
@@ -116,10 +117,27 @@
         Alert.prototype.show = function(){
             var eName = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
             var Mpopup = this.alertDom.find('.M-popup').show();
-            Mpopup.css('margin-top',-(Mpopup.height()/2+20)).addClass('animated zoomIn').one(eName,function(){
-                Mpopup.removeClass('animated zoomIn');
+            Mpopup.css('margin-top',-(Mpopup.height()/2+20)).addClass('ani zoomIn').one(eName,function(){
+                Mpopup.removeClass('ani zoomIn');
                 Mpopup.unbind(eName);
             });
+            return this;
+        };
+        Alert.prototype.on = function(cb){
+            var me = this;
+            this.alertDom.find('.M-handler-ok').on(M.touch,function(){
+                if(cb) cb && cb();
+                else me.hide();
+            });
+            return this;
+        };
+        Alert.prototype.hide = function(){
+            var me = this;
+            var eName = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+            this.alertDom.find('.M-popup').addClass('ani zoomOut').one(eName,function(){
+                me.alertDom.remove();
+            });
+            return this;
         };
 
         var _tmp = {};
@@ -138,7 +156,7 @@
                 cb = content;
                 title = '提示';
             }
-            return new Alert(title,content).show();
+            return new Alert(title,content).on().show();
         };
 
         for(var k in _tmp){

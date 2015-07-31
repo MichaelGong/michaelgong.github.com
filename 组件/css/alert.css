@@ -54,6 +54,13 @@ a, button, input {
     -webkit-tap-highlight-color: rgba(255,0,0,0);
 }
 
+.ani {
+    -webkit-animation-duration: .2s;
+    animation-duration: .2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
 
 
 
@@ -67,3 +74,4 @@ a, button, input {
     top:0;
     z-index: 9999;
 }
+
