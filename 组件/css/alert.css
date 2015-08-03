@@ -94,3 +94,36 @@ a, button, input {
     border-radius: 5px;
     word-break: break-all;
 }
+.M-popup.bottom{
+    left:0;
+    right:0;
+    bottom:0;
+}
+.actionsheet {
+    padding: 0 6px;
+}
+.actionsheet .actionsheet-group > button:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.actionsheet button {
+    margin: 0 !important;
+    padding: 0;
+    font-size: 16px;
+    line-height: 40px !important;
+    display: block;
+    width: 100%;
+    background: #e8e8e8;
+    color: #007aff;
+    border-radius: 0;
+    border-bottom: 1px solid #d2d2d6;
+}
+.actionsheet .actionsheet-group > button:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    margin-bottom: 6px !important;
+}
+.actionsheet > button {
+    margin-bottom: 6px !important;
+    border-radius: 4px;
+}

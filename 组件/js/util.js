@@ -102,6 +102,7 @@
     //alert组件
     (function(){
         var alertId = 0;//弹出框的 id的索引
+        var toastTempArr = [];//存放toast实例
         var aniMationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
         /**
          * 真正生成alert的方法
@@ -123,19 +124,25 @@
             this.alertDom = $(alertHtml).appendTo('body');
         };
         Alert.prototype.show = function(){
-            var eName = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
             var Mpopup = this.alertDom.find('.M-popup').show();
             Mpopup.css('margin-top',-(Mpopup.height()/2+20)).addClass('ani zoomIn').one(aniMationEnd,function(){
                 Mpopup.removeClass('ani zoomIn');
-                Mpopup.unbind(eName);
+                Mpopup.unbind(aniMationEnd);
             });
             return this;
         };
         Alert.prototype.on = function(cb){
+            console.log(cb);
             var me = this;
             this.alertDom.find('.M-handler-ok').on(M.touch,function(){
-                if(cb) cb && cb();
+                if(cb) cb && cb.call(me);
                 else me.hide();
+            });
+            this.alertDom.on(M.touch,function(e){
+                var target = $(e.target);
+                if(target.closest('.M-popup').length==0){
+                    me.hide();
+                }
             });
             return this;
         };
@@ -174,19 +181,25 @@
             var Mpopup = this.confirmDom.find('.M-popup').show();
             Mpopup.css('margin-top',-(Mpopup.height()/2+20)).addClass('ani zoomIn').one(aniMationEnd,function(){
                 Mpopup.removeClass('ani zoomIn');
-                Mpopup.unbind(eName);
+                Mpopup.unbind(aniMationEnd);
             });
             return this;
         };
         Confirm.prototype.on = function(okCb,cancelCb){
             var me = this;
             this.confirmDom.find('.M-handler-ok').on(M.touch,function(){
-                if(okCb) okCb && okCb();
+                if(okCb) okCb && okCb.call(me);
                 else me.hide();
             });
             this.confirmDom.find('.M-handler-cancel').on(M.touch,function(){
-                if(cancelCb) cancelCb && cancelCb();
+                if(cancelCb) cancelCb && cancelCb.call(me);
                 else me.hide();
+            });
+            this.confirmDom.on(M.touch,function(e){
+                var target = $(e.target);
+                if(target.closest('.M-popup').length==0){
+                    me.hide();
+                }
             });
             return this;
         };
@@ -207,7 +220,6 @@
             var toastHtml = '<div id="m-popup-'+this.id+'" class="M-toast"><span>'+this.options.text+'</span></div>'
             this.toastDom = $(toastHtml).appendTo('body');
         };
-        var toastTempArr = [];
         Toast.prototype.show = function(){
             var me = this;
             this.toastDom.addClass('ani zoomIn').show().one(aniMationEnd,function(){
@@ -244,8 +256,8 @@
                 content = title;
                 title = '提示';
             }else if(typeof content === 'function'){//传了2个参数，相当于传了content 和 cb
-                content = title;
                 cb = content;
+                content = title;
                 title = '提示';
             }
             return new Alert(title,content).on(cb).show();
