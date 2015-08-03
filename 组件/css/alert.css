@@ -25,7 +25,7 @@
     text-align: center;
     padding: 15px;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 17px;
     text-align: center;
 }
 .M-content {
@@ -48,7 +48,7 @@
     border-left: none;
     border-bottom: none;
     color: #007aff;
-    font-size: 17px;
+    font-size: 16px;
 }
 a, button, input {
     -webkit-tap-highlight-color: rgba(255,0,0,0);
@@ -61,9 +61,6 @@ a, button, input {
     animation-fill-mode: both;
 }
 
-
-
-
 .M-pop{
     background: rgba(0,0,0,0.4);
     width: 100%;
@@ -75,3 +72,25 @@ a, button, input {
     z-index: 9999;
 }
 
+.M-toast{
+    display: none;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 70%;
+    z-index: 500;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+}
+.M-toast>span{
+    display: inline-block;
+    padding: 10px 25px;
+    background:rgba(0,0,0,.7);
+    max-width: 90%;
+    margin: 0 auto;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    word-break: break-all;
+}
