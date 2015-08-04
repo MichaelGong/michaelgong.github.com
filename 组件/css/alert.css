@@ -20,6 +20,11 @@
     background-color: #e8e8e8;
     -webkit-transform: translateY(0%) !important;
 }
+.M-popup.bottom{
+    left:0;
+    right:0;
+    bottom:0;
+}
 
 .M-title {
     text-align: center;
@@ -93,11 +98,6 @@ a, button, input {
     text-align: center;
     border-radius: 5px;
     word-break: break-all;
-}
-.M-popup.bottom{
-    left:0;
-    right:0;
-    bottom:0;
 }
 .actionsheet {
     padding: 0 6px;

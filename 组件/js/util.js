@@ -210,14 +210,18 @@
             });
             return this;
         };
-
+        /**
+         * 生成toast实例的对象
+         * @param options toast对应的参数
+         * @constructor
+         */
         var Toast = function(options){
             this.id = alertId++;
             this.options = options;
             if(!options.duration){
                 this.options.duration = 2000;
             }
-            var toastHtml = '<div id="m-popup-'+this.id+'" class="M-toast"><span>'+this.options.text+'</span></div>'
+            var toastHtml = '<div id="m-popup-'+this.id+'" class="M-toast"><span>'+this.options.text+'</span></div>';
             this.toastDom = $(toastHtml).appendTo('body');
         };
         Toast.prototype.show = function(){
@@ -239,6 +243,52 @@
             var me = this;
             this.toastDom.addClass('ani zoomOut').one(aniMationEnd,function(){
                 me.toastDom.remove();
+            });
+            return this;
+        };
+
+        var ActionSheet = function(options){
+            this.id = alertId++;
+            this.options = options;
+            var asHtml ='<div id="m-popup-'+this.id+'" class="M-pop"><div class="M-popup bottom" style="background: transparent;"><div class="actionsheet"><div class="actionsheet-group">';
+            for(var i=0;i<this.options.items.length;i++){
+                asHtml += '<button class="actionsheet-item">'+options.items[i].text+'</button>';
+            }
+            asHtml += '</div><button class="actionsheet-cancel">取消</button></div</div></div>';
+            this.actionSheetDom = $(asHtml).appendTo('body');
+        };
+
+        ActionSheet.prototype.show = function(){
+            var me = this;
+            this.actionSheetDom.find('.M-popup').addClass('ani slideInUp').show().one(aniMationEnd,function(){
+                me.actionSheetDom.find('.M-popup').removeClass('ani slideInUp');
+                me.actionSheetDom.find('.M-popup').unbind(aniMationEnd);
+            });
+            return this;
+        };
+        ActionSheet.prototype.on = function(){
+            var me = this;
+            this.actionSheetDom.find('.actionsheet-item').each(function(i,elem){
+                $(elem).on(M.touch,function(){
+                    if(me.options.items[i].handler) me.options.items[i].handler && me.options.items[i].handler.call(me);
+                });
+            });
+            this.actionSheetDom.find('.actionsheet-cancel').on(M.touch,function(){
+                if(me.options.cancelCb) me.options.cancelCb && me.options.cancelCb.call(me);
+                else me.hide();
+            });
+            this.actionSheetDom.on(M.touch,function(e){
+                var target = $(e.target);
+                if(target.closest('.M-popup').length==0){
+                    me.hide();
+                }
+            });
+            return this;
+        };
+        ActionSheet.prototype.hide = function(){
+            var me = this;
+            this.actionSheetDom.find('.M-popup').addClass('ani slideOutDown').one(aniMationEnd,function(){
+                me.actionSheetDom.remove();
             });
             return this;
         };
@@ -296,6 +346,18 @@
             if(tmp) tmp.hide();
             else console.warn('你所想关闭的toast不存在！');
             return tmp;
+        };
+        /**
+         * 生成actionsheet
+         * @param arr actionsheet对应的数组 格式如下：[{text:'a',handler:function(){}},{text:'a',handler:function(){}}]
+         * @param cancleCb 取消按钮的回调函数
+         * @returns {*}
+         */
+        _tmp.actionSheet = function(arr,cancelCb){
+            var options = {};
+            options.items = arr;
+            options.cancelCb = cancelCb;
+            return new ActionSheet(options).on().show();
         };
 
         for(var k in _tmp){
