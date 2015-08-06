@@ -364,8 +364,106 @@
             if(_tmp.hasOwnProperty(k)) M.register(k,_tmp[k]);
         }
     })();
+    //scroll组件
+    (function(){
+        var scroll = function(selector,options){
+            var opt = {};
+            if(!options){
+                options = {};
+                options.direction = 'y';
+            }
+            switch(options.direction){
+                case 'x':
+                    opt = {
+                        scrollbars : false,
+                        scrollX : true,
+                        scrollY : false,
+                        bindToWrapper : true
+                    };
+                    break;
+                case 'both':
+                    opt = {
+                        scrollbars : false,
+                        scrollX : true,
+                        scrollY : true,
+                        bindToWrapper : false
+                    };
+                    break;
+                case 'y':
+                    opt = {
+                        scrollbars : 'custom',
+                        scrollX : false,
+                        scrollY : true,
+                        bindToWrapper : false
+                    };
+            }
+            var scroll = new IScroll(selector,{
+                mouseWheel: true,
+                scrollbars : 'custom',
+                fadeScrollbars : true,
+                click: true,
+                tap:true,
+                bounce:true,
+                probeType: 2,
+                interactiveScrollbars:true,
+                shrinkScrollbars:'scale',
+                keyBindings:true,
+                momentum:true,
+                bindToWrapper:opt.bindToWrapper,
+                scrollX:opt.scrollX,
+                scrollY:opt.scrollY,
+                bindToWrapper:opt.bindToWrapper
+            });
+            scroll.on('scrollEnd' , function(){
+                if(this.y==0){
+                    this._execEvent('scrollTop');//自定义事件滑动到顶部
+                }else if(this.y==this.maxScrollY){
+                    this._execEvent('scrollBottom');//自定义事件滑动到底部
+                }
+            });
+            return scroll;
+        };
+        var _tmp ={},
+            scrollId = [];
+        _tmp.scroll = function(selector,options){
+            var me = this;
+            me.scrollId = scrollId;
+            if(selector){
+                var scrollID = scroll(selector,options);
+                scrollId.push(scrollID);
+                $(selector).data('scrollid',scrollId.length-1);
+                me.scrollId = scrollId;
+                scrollID.on('destroy', function(){
+                    scrollId[parseInt($(this.wrapper).data('scrollid'))]=null;
+                    $(this.wrapper).data('scrollid',null);
+                    me.scrollId = scrollId;
+                });
+                return scrollID;
+            }else{
+                var $scroll = $('[data-scroll]');
+                for(var i=0;i<$scroll.length;i++){
+                    (function(k){
+                        var scrollID = scroll($scroll[k],options);
+                        scrollId.push(scrollID);
+                        $($scroll[k]).data('scrollid',scrollId.length-1);
+                        me.scrollId = scrollId;
+                        scrollID.on('destroy', function(){
+                            scrollId[parseInt($(this.wrapper).data('scrollid'))]=null;
+                            $(this.wrapper).data('scrollid',null);
+                            me.scrollId = scrollId;
+                        });
+                    })(i);
+                }
+            }
+        };
+        for(var k in _tmp){
+            if(_tmp.hasOwnProperty(k)) M.register(k,_tmp[k]);
+        }
+    })();
 
-
+    $(function(){
+        M.scroll();
+    });
     if(typeof window !== 'undefined'){
         window.M = M;
     }
