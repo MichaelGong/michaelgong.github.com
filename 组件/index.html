@@ -50,7 +50,7 @@
                 </div>
             </div>
         </div>
-        <div id="main" data-scroll="true" style="overflow: hidden;height: 400px;position: relative;" >
+        <div id="main" data-scroll="y" style="overflow: hidden;height: 400px;position: relative;" >
         <ul>
             <li><a href="javascript:myScroll.scrollToElement(document.querySelector('#scroller li:nth-child(10)'))">Scroll to element 10</a></li>
             <li>Pretty row 2</li>
@@ -104,7 +104,7 @@
             <li>Pretty row 50</li>
         </ul>
         </div>
-        <div id="main2" data-scroll="true" style="overflow: hidden;height: 400px;position: relative;" >
+        <div id="main2" data-scroll="y" style="overflow: hidden;height: 400px;position: relative;" >
             <ul>
                 <li><a href="javascript:myScroll.scrollToElement(document.querySelector('#scroller li:nth-child(10)'))">Scroll to element 10</a></li>
                 <li>Pretty row 2</li>
@@ -158,8 +158,13 @@
                 <li>Pretty row 50</li>
             </ul>
         </div>
-        <div id="main3"  style="overflow: hidden;height: 400px;position: relative;" >
-            <ul>
+        <style>
+            #main3 li{
+                display: inline-block;
+            }
+        </style>
+        <div id="main3" data-scroll="x" style="overflow: hidden;position: relative;" >
+            <ul style="width: 800px;">
                 <li><a href="javascript:myScroll.scrollToElement(document.querySelector('#scroller li:nth-child(10)'))">Scroll to element 10</a></li>
                 <li>Pretty row 2</li>
                 <li>Pretty row 3</li>

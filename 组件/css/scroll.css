@@ -17,3 +17,6 @@
     border-radius: 6px;
     opacity: .8;
 }
+[data-scroll] {
+    overflow: hidden;
+}

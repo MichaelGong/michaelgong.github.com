@@ -349,7 +349,7 @@
         };
         /**
          * 生成actionsheet
-         * @param arr actionsheet对应的数组 格式如下：[{text:'a',handler:function(){}},{text:'a',handler:function(){}}]
+         * @param arr actionsheet对应的数组
          * @param cancleCb 取消按钮的回调函数
          * @returns {*}
          */
@@ -366,6 +366,12 @@
     })();
     //scroll组件
     (function(){
+        /**
+         * 返回scroll实例
+         * @param selector 用于滚动的iscroll的选择器（可以为原生dom或者选择器，但不可为jQuery或zepto对象）
+         * @param options 当前只包含一个属性direction用来定义滚动方向,'x'表示横向滑动，'y'表示纵向滑动
+         * @returns {*|r|IScroll}
+         */
         var scroll = function(selector,options){
             var opt = {};
             if(!options){
@@ -424,7 +430,13 @@
             return scroll;
         };
         var _tmp ={},
-            scrollId = [];
+            scrollId = []; //存放scroll实例的数组
+        /**
+         * 返回scroll实例 默认会查找dom
+         * @param selector
+         * @param options
+         * @returns {*|r|IScroll}
+         */
         _tmp.scroll = function(selector,options){
             var me = this;
             me.scrollId = scrollId;
@@ -443,6 +455,8 @@
                 var $scroll = $('[data-scroll]');
                 for(var i=0;i<$scroll.length;i++){
                     (function(k){
+                        if(!options) options = {};
+                        options.direction = $scroll.eq(k).data('scroll');
                         var scrollID = scroll($scroll[k],options);
                         scrollId.push(scrollID);
                         $($scroll[k]).data('scrollid',scrollId.length-1);
@@ -460,6 +474,9 @@
             if(_tmp.hasOwnProperty(k)) M.register(k,_tmp[k]);
         }
     })();
+
+
+
 
     $(function(){
         M.scroll();
