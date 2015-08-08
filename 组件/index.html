@@ -225,24 +225,14 @@
     <script src="js/iscroll-probe.js"></script>
     <script src="js/util.js"></script>
     <script>
-//        var $scroll = $('[data-scroll]');
-//        for(var i=0;i<$scroll.length;i++){
-//            (function(k){
-//                new IScroll($scroll[k],{
-//                    mouseWheel: true,
-//                    scrollbars : 'custom',
-//                    fadeScrollbars : true,
-//                    click: true,
-//                    bounce:true,
-//                    probeType: 2,
-//                    interactiveScrollbars:true,//滚动条可以拖动
-//                    shrinkScrollbars:'clip',// 当滚动边界之外的滚动条是由少量的收缩。'clip' or 'scale'.
-//                    keyBindings:true,//允许使用按键控制
-//                    momentum:true// 允许有惯性滑动
-//                });
-//            })(i)
-//        }
-//        document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+        var imgs = [
+            'images/back.png',
+            'images/cc.png',
+            'images/face1.png'
+        ];
+        M.imgpreload(imgs,function(count,imgs){
+            console.log('图片加载完成'+count+':'+imgs);
+        });
     </script>
 </body>
 </html>
