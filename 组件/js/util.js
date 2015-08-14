@@ -585,8 +585,22 @@
     //post请求
     (function(){
         var _tmp = {};
-        var ngapi = function(options,cb){
+        _tmp.ajax = function(options,ispost){
+            options.dataType = (M.APIBASE.indexOf(window.location.host)<0)? 'jsonp' : (options.dataType ? options.dataType : 'json');
+            if(ispost){
+                options.dataType = 'json';
+                options.type = 'POST';
+            }
+            options.url = options.url ? options.url : M.APIBASE;
+            options.data = (options.type == 'GET') ? options.data : ((options.data) || '');
+            options.timeout = 10000;
+            options.type = options.type ? options.type : 'POST';
 
+            if(options.dataType == 'jsonp'){
+                options.jsonp = 'callback';
+                options.type = 'GET'
+            }
+            $.ajax(options);
         };
 
         for(var k in _tmp){
