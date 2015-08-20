@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title></title>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/lrz.mobile.min.js"></script>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+    </style>
+</head>
+<body>
+    <input type="file" capture="camera" id="input"  />
+    <canvas id="canvas2" width="300" height="400" style="border:1px solid #333;margin:10px;"></canvas>
+    <script>
+        /**
+         * @param {String}  errorMessage   错误信息
+         * @param {String}  scriptURI      出错的文件
+         * @param {Long}    lineNumber     出错代码的行号
+         * @param {Long}    columnNumber   出错代码的列号
+         * @param {Object}  errorObj       错误的详细信息，Anything
+         */
+//        window.onerror = function(errorMessage, scriptURI, lineNumber,columnNumber,errorObj){
+//            var txt = '错误信息：'+ errorMessage+'\n';
+//            txt += '出错文件：' + scriptURI+'\n';
+//            txt += '出错行号：' + lineNumber+'\n';
+//            txt += '出错列号：' + columnNumber+'\n';
+//            txt += '错误详情：' + errorObj;
+//            console.log(txt);
+//            return true
+//        };
+
+        var CanvasMove = function(img,canvas,width,height){
+
+        };
+
+        CanvasMove.prototype.init = function(img,canvas,width,height){
+            var me = this;
+            this.imgWidth = 0;
+            this.imgHeight = 0;
+            this.startX = 0;
+            this.startY = 0;
+            this.x = 0;
+            this.y = 0;
+            this.oldx = 0;
+            this.oldy = 0;
+            this.deg = 0;
+            this.canvas = canvas ? canvas : document.createElement('canvas');
+            this.canvas.width = this.canvas.width || width;
+            this.canvas.height = this.canvas.height || height;
+            this.img = new Image();
+            this.img.src = img;
+            this.img.onload = function(){
+                me.imgWidth = me.img.width;
+                me.imgHeight = me.img.height;
+                me.context = me.canvas.getContext('2d');
+                me.context.save();
+                me.context.translate(me.canvas.width/2,me.canvas.height/2);
+                me.context.rotate(Math.PI/180*me.deg);
+                me.context.translate(-me.canvas.width/2,-me.canvas.height/2);
+                me.context.drawImage(me.img,me.canvas.width/2-me.imgWidth/2,me.canvas.height/2-me.imgHeight/2);
+                me.context.restore();
+                me.startX = me.canvas.width/2-me.imgWidth/2;
+                me.startY = me.canvas.height/2-me.imgHeight/2;
+                me.bindMove();
+                console.log(me.context);
+            };
+            this.img.onerror = function(){
+                console.log('图片加载错误');
+            };
+            return this;
+        };
+        CanvasMove.prototype.bindMove = function(){
+            this.canvas.addEventListener('touchstart',this.touchStart.bind(this),false);
+            this.canvas.addEventListener('touchmove',this.touchMove.bind(this),false);
+            this.canvas.addEventListener('touchend',this.touchEnd.bind(this),false);
+        };
+        CanvasMove.prototype.touchStart = function(ev){
+            var touch = ev.targetTouches[0];
+            this.oldx = touch.pageX;
+            this.oldy = touch.pageY;
+        };
+        CanvasMove.prototype.touchMove = function(ev){
+            this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
+            var touch = ev.targetTouches[0];
+            this.x = touch.pageX  - this.oldx;
+            this.y = touch.pageY  - this.oldy;
+
+            this.context.save();
+            this.context.translate(this.canvas.width/2,this.canvas.height/2);
+            this.context.rotate(Math.PI/180*this.deg);
+            this.context.translate(-this.canvas.width/2,-this.canvas.height/2);
+
+            this.context.drawImage(this.img, this.x*Math.cos(-Math.PI/180*this.deg) - this.y*Math.sin(-Math.PI/180*this.deg)+this.startX,this.x*Math.sin(-Math.PI/180*this.deg)+ this.y*Math.cos(-Math.PI/180*this.deg)+this.startY);
+            this.context.restore();
+        };
+        CanvasMove.prototype.touchEnd = function(ev){
+            this.startX += this.x*Math.cos(-Math.PI/180*this.deg) - this.y*Math.sin(-Math.PI/180*this.deg);
+            this.startY += this.x*Math.sin(-Math.PI/180*this.deg) + this.y*Math.cos(-Math.PI/180*this.deg);
+        };
+        CanvasMove.prototype.rotate = function(deg){
+            var me = this;
+            me.deg = deg;
+            this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
+            me.context.save();
+            me.context.translate(me.canvas.width/2,me.canvas.height/2);
+            me.context.rotate(Math.PI/180*me.deg);
+            me.context.translate(-me.canvas.width/2,-me.canvas.height/2);
+            me.context.drawImage(me.img,me.canvas.width/2-me.imgWidth/2,me.canvas.height/2-me.imgHeight/2);
+            me.context.restore();
+        };
+        CanvasMove.prototype.base64 = function(type,quality){
+            this.type = type ? type : 'jpeg';
+            this.quality = quality ? quality : '0.7';
+            return this.canvas.toDataURL('image/'+type,quality);
+        };
+        var canvasmove = new CanvasMove();
+        canvasmove.init('images/ax.png',document.getElementById('canvas2'));
+
+//        var canvas2 = document.getElementById('canvas2'),
+//            context = canvas2.getContext('2d'),
+//            width = 0,
+//            height = 0,
+//            startX = 0,
+//            startY = 0,
+//            x = 0,
+//            y = 0,
+//            dx = 0,
+//            dy = 0,
+//            oldx = 0,
+//            oldy = 0,
+//            deg = 40;
+//        var img = new Image();
+//        img.src = 'images/ax.png';
+//        img.onload = function(){
+//            width = img.width;
+//            height = img.height;
+//            console.log('width:'+width+'  height:'+height);
+//            context.save();
+//            context.translate(canvas2.width/2,canvas2.height/2);
+//            context.rotate(Math.PI/180*deg);
+//            context.translate(-canvas2.width/2, -canvas2.height/2);
+//            context.drawImage(img,canvas2.width/2-width/2, canvas2.height/2-height/2);
+//            startX = canvas2.width/2 - width/2;
+//            startY = canvas2.height/2 - height/2;
+//            context.restore();
+//        };
+//
+//        canvas2.addEventListener('touchstart',touchStart,false);
+//        canvas2.addEventListener('touchmove',touchMove,false);
+//        canvas2.addEventListener('touchend',touchEnd,false);
+//        function touchStart(ev){
+//            var touch = ev.targetTouches[0];
+//            oldx = touch.pageX;
+//            oldy = touch.pageY;
+//        }
+//        function touchMove(ev){
+//            console.log(ev);
+//            context.clearRect(0,0,canvas2.width,canvas2.height);
+//            var touch = ev.targetTouches[0];
+//
+//            x = touch.pageX  - oldx;
+//            y = touch.pageY  - oldy;
+////            console.log('x:'+x+'  y:'+y);
+//
+//            context.save();
+//            context.translate(canvas2.width/2,canvas2.height/2);
+//            context.rotate(Math.PI/180*deg);
+//            context.translate(-canvas2.width/2,-canvas2.height/2);
+//
+//            context.drawImage(img, x*Math.cos(-Math.PI/180*deg) - y*Math.sin(-Math.PI/180*deg)+startX,x*Math.sin(-Math.PI/180*deg)+ y*Math.cos(-Math.PI/180*deg)+startY, width,height);
+//            context.restore();
+//
+//        }
+//        function touchEnd(ev){
+//            var touch = ev.targetTouches[0];
+//            startX += x*Math.cos(-Math.PI/180*deg) - y*Math.sin(-Math.PI/180*deg);
+//            startY += x*Math.sin(-Math.PI/180*deg) + y*Math.cos(-Math.PI/180*deg);
+//        }
+
+
+        $('#input').on('change',function(){
+            lrz(this.files[0],{
+                width: 200,
+                quality: 1,
+                before: function() {
+
+                },
+                done: function (results) {
+                    console.log(JSON.stringify(results));
+                    console.log(results.origin);
+                    console.log(results.canvas);
+                    $('body').append(results.canvas);
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
