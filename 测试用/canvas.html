@@ -59,6 +59,10 @@
                 me.imgHeight = me.img.height;
                 me.context = me.canvas.getContext('2d');
                 me.context.save();
+                me.context.fillStyle = 'rgb(255,255,255)';
+                me.context.fillRect(0,0,me.canvas.width,me.canvas.height);
+                me.context.restore();
+                me.context.save();
                 me.context.translate(me.canvas.width/2,me.canvas.height/2);
                 me.context.rotate(Math.PI/180*me.deg);
                 me.context.translate(-me.canvas.width/2,-me.canvas.height/2);
@@ -66,6 +70,8 @@
                 me.context.restore();
                 me.startX = me.canvas.width/2-me.imgWidth/2;
                 me.startY = me.canvas.height/2-me.imgHeight/2;
+                me.zx = me.startX;
+                me.zy = me.startY;
                 me.bindMove();
                 console.log(me.context);
             };
@@ -101,22 +107,31 @@
         CanvasMove.prototype.touchEnd = function(ev){
             this.startX += this.x*Math.cos(-Math.PI/180*this.deg) - this.y*Math.sin(-Math.PI/180*this.deg);
             this.startY += this.x*Math.sin(-Math.PI/180*this.deg) + this.y*Math.cos(-Math.PI/180*this.deg);
+            this.zx = this.startX;
+            this.zy = this.startY;
         };
         CanvasMove.prototype.rotate = function(deg){
             var me = this;
             me.deg = deg;
             this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
             me.context.save();
-            me.context.translate(me.canvas.width/2,me.canvas.height/2);
+            me.context.translate(this.zx+this.img.width/2,this.zy+this.img.height/2);
             me.context.rotate(Math.PI/180*me.deg);
-            me.context.translate(-me.canvas.width/2,-me.canvas.height/2);
-            me.context.drawImage(me.img,me.canvas.width/2-me.imgWidth/2,me.canvas.height/2-me.imgHeight/2);
+            me.context.translate(-(this.zx+this.img.width/2),-(this.zy+this.img.height/2));
+            me.context.drawImage(me.img,this.zx,this.zy);
             me.context.restore();
         };
         CanvasMove.prototype.base64 = function(type,quality){
+            me.context.save();
+            me.context.fillStyle = 'rgb(255,255,255)';
+            me.context.fillRect(0,0,me.canvas.width,me.canvas.height);
+            me.context.restore();
+
+            this.context.drawImage(this.img, this.x*Math.cos(-Math.PI/180*this.deg) - this.y*Math.sin(-Math.PI/180*this.deg)+this.startX,this.x*Math.sin(-Math.PI/180*this.deg)+ this.y*Math.cos(-Math.PI/180*this.deg)+this.startY);
+
             this.type = type ? type : 'jpeg';
             this.quality = quality ? quality : '0.7';
-            return this.canvas.toDataURL('image/'+type,quality);
+            return this.canvas.toDataURL('image/'+this.type,this.quality);
         };
         var canvasmove = new CanvasMove();
         canvasmove.init('images/ax.png',document.getElementById('canvas2'));
