@@ -91,6 +91,7 @@
             this.oldy = touch.pageY;
         };
         CanvasMove.prototype.touchMove = function(ev){
+            this.tag = 1;
             this.context.clearRect(0,0,this.canvas.width,this.canvas.height);
             var touch = ev.targetTouches[0];
             this.x = touch.pageX  - this.oldx;
@@ -105,10 +106,13 @@
             this.context.restore();
         };
         CanvasMove.prototype.touchEnd = function(ev){
-            this.startX += this.x*Math.cos(-Math.PI/180*this.deg) - this.y*Math.sin(-Math.PI/180*this.deg);
-            this.startY += this.x*Math.sin(-Math.PI/180*this.deg) + this.y*Math.cos(-Math.PI/180*this.deg);
-            this.zx = this.startX;
-            this.zy = this.startY;
+            if(this.tag){
+                this.startX += this.x*Math.cos(-Math.PI/180*this.deg) - this.y*Math.sin(-Math.PI/180*this.deg);
+                this.startY += this.x*Math.sin(-Math.PI/180*this.deg) + this.y*Math.cos(-Math.PI/180*this.deg);
+                this.zx = this.startX;
+                this.zy = this.startY;
+                console.log(this.zx+'---'+this.zy);
+            }
         };
         CanvasMove.prototype.rotate = function(deg){
             var me = this;
@@ -122,10 +126,10 @@
             me.context.restore();
         };
         CanvasMove.prototype.base64 = function(type,quality){
-            me.context.save();
-            me.context.fillStyle = 'rgb(255,255,255)';
-            me.context.fillRect(0,0,me.canvas.width,me.canvas.height);
-            me.context.restore();
+//            me.context.save();
+//            me.context.fillStyle = 'rgb(255,255,255)';
+//            me.context.fillRect(0,0,me.canvas.width,me.canvas.height);
+//            me.context.restore();
 
             this.context.drawImage(this.img, this.x*Math.cos(-Math.PI/180*this.deg) - this.y*Math.sin(-Math.PI/180*this.deg)+this.startX,this.x*Math.sin(-Math.PI/180*this.deg)+ this.y*Math.cos(-Math.PI/180*this.deg)+this.startY);
 
