@@ -1,0 +1,709 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing:border-box;
+    -o-box-sizing:border-box;
+    -ms-box-sizing:border-box;
+}
+*:before,*:after{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing:border-box;
+    -o-box-sizing:border-box;
+    -ms-box-sizing:border-box;
+}
+ul,li{
+    list-style-type:none;
+}
+a{
+    text-decoration:none;
+}
+img{
+    border:none;
+    vertical-align: middle;
+}
+audio{
+    display: none;
+    width:0;
+    height:0;
+    visibility: hidden;
+}
+html{
+    width:100%;
+    height:100%;
+    font-size:16px;
+    /*-webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;*/
+}
+body{
+    position: relative;
+    max-width:640px;
+    width:100%;
+    min-height: 100%;
+    margin:0 auto;
+    background-color: #ffffff;
+    font-family: "microsoft yahei", arial, 'Lato', Calibri, Arial, sans-serif;
+    -webkit-text-size-adjust: none;
+}
+.font-yahei{
+    font-family: "microsoft yahei", arial, 'Lato', Calibri, Arial, sans-serif;
+}
+button{
+    outline:none;
+    border:none;
+}
+/*输入框默认样式*/
+input{
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-transition: background-color;
+    background-color: transparent;
+    outline: none;
+    border:none;
+}
+/*input type='checkbox'样式*/
+input[type='checkbox']{
+    appearance: checkbox;
+    -webkit-appearance: checkbox;
+    -moz-appearance: checkbox;
+    -o-appearance: checkbox;
+    -ms-appearance: checkbox;
+}
+/*input type='checkbox'样式*/
+input[type='radio']{
+    appearance: radio;
+    -webkit-appearance: radio;
+    -moz-appearance: radio;
+    -o-appearance: radio;
+    -ms-appearance: radio;
+}
+/*box盒模型*/
+.box{
+    display: box;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -o-box;
+    display: -ms-flexbox;
+}
+/*元素比例1*/
+.box-f1{
+    box-flex: 1 !important;
+    -webkit-box-flex: 1 !important;
+    -moz-box-flex: 1 !important;
+    -o-box-flex: 1 !important;
+    -ms-box-flex: 1 !important;
+    overflow: hidden !important;
+    width:10% !important;
+}
+/*元素比例2*/
+.box-f2{
+    box-flex: 2 !important;
+    -webkit-box-flex: 2 !important;
+    -moz-box-flex: 2 !important;
+    -o-box-flex: 2 !important;
+    -ms-box-flex: 2 !important;
+    overflow: hidden !important;
+    width:20% !important;
+}
+/*元素比例3*/
+.box-f3{
+    box-flex: 3 !important;
+    -webkit-box-flex: 3 !important;
+    -moz-box-flex: 3 !important;
+    -o-box-flex: 3 !important;
+    -ms-box-flex: 3 !important;
+    overflow: hidden !important;
+    width:30% !important;
+}
+/*元素比例4*/
+.box-f4{
+    box-flex: 4 !important;
+    -webkit-box-flex: 4 !important;
+    -moz-box-flex: 4 !important;
+    -o-box-flex: 4 !important;
+    -ms-box-flex: 4 !important;
+    overflow: hidden !important;
+    width:40% !important;
+}
+/*父容器中子元素垂直排列*/
+.box-v{
+    box-orient: vertical;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -o-box-orient: vertical;
+    -ms-box-orient: vertical;
+}
+/*父容器中子元素水平排列*/
+.box-h{
+    box-orient: horizontal;
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    -o-box-orient: horizontal;
+    -ms-box-orient: horizontal;
+}
+/*父容器中子元素正常排列*/
+.box-direct-normal{
+    box-direction: normal;
+    -webkit-box-direction: normal;
+    -moz-box-direction: normal;
+    -o-box-direction: normal;
+    -ms-box-direction: normal;
+}
+/*父容器中子元素倒叙排列*/
+.box-direct-reverse{
+    box-direction: reverse;
+    -webkit-box-direction: reverse;
+    -moz-box-direction: reverse;
+    -o-box-direction: reverse;
+    -ms-box-direction: reverse;
+}
+
+/*父容器中子元素垂直居上*/
+.box-v-t{
+    box-align: start;
+    -webkit-box-align: start;
+    -moz-box-align: start;
+    -o-box-align: start;
+    -ms-flex-align: start;
+}
+.box-v.box-v-t{
+    box-pack: start;
+    -webkit-box-pack: start;
+    -moz-box-pack: start;
+    -o-box-pack: start;
+    -ms-flex-pack: start;
+}
+/*父容器中子元素垂直居下*/
+.box-v-b{
+    box-align: end;
+    -webkit-box-align: end;
+    -moz-box-align: end;
+    -o-flex-align: end;
+}
+.box-v.box-v-b{
+    box-pack: end;
+    -webkit-box-pack: end;
+    -moz-box-pack: end;
+    -o-box-pack: end;
+    -ms-flex-pack: end;
+}
+/*父容器中子元素垂直居中*/
+.box-v-c{
+    box-align: center;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -o-box-align: center;
+    -ms-flex-align: center;
+}
+.box-v.box-v-c{
+    box-pack: center;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -o-box-pack: center;
+    -ms-flex-pack: center;
+}
+/*子元素拉伸到与父容器等高或者等宽,此值为box-align的默认值*/
+.box-v-stretch{
+    box-align: stretch;
+    -webkit-box-align: stretch;
+    -moz-box-align: stretch;
+    -o-box-align: stretch;
+    -ms-flex-align: stretch;
+}
+
+/*父容器中子元素水平居左*/
+.box-h-l{
+    box-pack: start;
+    -webkit-box-pack: start;
+    -moz-box-pack: start;
+    -o-box-pack: start;
+    -ms-flex-pack: start;
+}
+.box-v.box-h-l{
+    box-align: start;
+    -webkit-box-align: start;
+    -moz-box-align: start;
+    -o-box-align: start;
+    -ms-flex-align: start;
+}
+/*父容器中子元素水平居右*/
+.box-h-r{
+    box-pack: end;
+    -webkit-box-pack: end;
+    -moz-box-pack: end;
+    -o-box-pack: end;
+    -ms-flex-pack: end;
+}
+.box-v.box-h-r{
+    box-align: end;
+    -webkit-box-align: end;
+    -moz-box-align: end;
+    -o-box-align: end;
+    -ms-flex-align: end;
+}
+/*父容器中子元素水平居中*/
+.box-h-c{
+    box-pack: center;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -o-box-pack: center;
+    -ms-flex-pack: center;
+}
+.box-v.box-h-c{
+    box-align: center;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -o-box-align: center;
+    -ms-flex-align: center;
+}
+/*父容器中子元素在每个子元素之间分割多余的空间*/
+.box-h-justify{
+    box-pack: justify;
+    -webkit-box-pack: justify;
+    -moz-box-pack: justify;
+    -o-box-pack: justify;
+    -ms-box-pack: justify;
+}
+
+/*垂直水平居中*/
+.box-center{
+    box-align: center;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    -o-box-align: center;
+    -ms-flex-align: center;
+    box-pack: center;
+    -webkit-box-pack: center;
+    -moz-box-pack: center;
+    -o-box-pack: center;
+    -ms-flex-pack: center;
+}
+.hide{
+    display: none;
+}
+.show{
+    display: block;
+}
+/*浮动相关 start*/
+.f-l{
+    float:left;
+}
+.f-r{
+    float:right;
+}
+.clear{
+    clear:both;
+}
+.clearfix:after{
+    content:' ';
+    height: 0;
+    visibility: hidden;
+    display: block;
+    clear:both;
+}
+/*浮动相关 end*/
+/*position  start*/
+.fixed{
+    position: fixed;
+}
+.abs{
+    position: absolute;
+}
+.rel{
+    position: relative;
+}
+.pos-left{
+    left: 0;
+}
+.pos-right{
+    right: 0;
+}
+.pos-top{
+    top: 0;
+}
+.pos-bottom{
+    bottom: 0;
+}
+/*position end*/
+
+.d-b{
+    display: block;
+}
+.d-i-b{
+    display: inline-block;
+}
+.d-i{
+    display: inline;
+}
+
+.w-100{
+    width: 100%;
+}
+.h-100{
+    height: 100%;
+}
+.wh-100{
+    width: 100%;
+    height: 100%;
+}
+.t-c{
+    text-align: center;
+}
+.t-l{
+    text-align: left;
+}
+.t-r{
+    text-align: right;
+}
+.v-m{
+    vertical-align: middle;
+}
+/*由于之前的命名会和某些插件冲突，所有改成m-pop*/
+.m-pop{
+    background: rgba(0,0,0,0.8);
+    width: 100%;
+    height: 100%;
+    max-width: 640px;
+
+    position: fixed;
+    top:0;
+    z-index: 9999;
+}
+.m-pop-container{
+    width:90%;
+    background: #fff;
+    box-shadow: 0 0 6px 3px rgba(0,0,0,0.3);
+    border:1px solid #dcdcdc;
+    border-radius: 5px;
+    position: relative;
+}
+.m-pop-title{
+    height: 40px;
+    line-height: 39px;
+    border-bottom:1px solid #dcdcdc;
+    background:-webkit-linear-gradient(top,#fff,#f3f3f3);
+    padding-left:10px;
+    padding-right:50px;
+    color:#666;
+    position: relative;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    font-size:1.1rem;
+}
+.m-pop-act{
+    position: relative;
+    /*padding-left:60px;*/
+}
+.hidden{
+    overflow: hidden;white-space: nowrap;
+}
+.hidden-e{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow:ellipsis;
+}
+.hidden-b{
+    overflow: hidden;
+    word-break: break-all;
+}
+
+.M_loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #2D3132;
+    left: 0;
+    top: 0;
+    -webkit-transform-style: preserve-3d;
+    z-index: 1000;
+}
+.M_loading_clip{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 150px;
+    height: 150px;
+    margin: -75px 0 0 -75px;
+    overflow: hidden;
+    -webkit-animation: loading_ani 1.2s linear infinite;
+    -moz-animation: loading_ani 1.2s linear infinite;
+    -o-animation: loading_ani 1.2s linear infinite;
+    animation: loading_ani 1.2s linear infinite;
+}
+.M_loading_bar{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
+    overflow: hidden;
+    clip: rect(0px,72px,140px,0);
+    background: rgba(0,0,0,0);
+    border: 6px solid #fff;
+    -webkit-mask: -webkit-gradient(linear,0 0,0 100%,from(rgba(255,255,255,1)),to(rgba(255,255,255,0)));
+}
+.M_percent{
+    font-size: 28px;
+    width: 200px;
+    height: 60px;
+    line-height: 60px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -100px;
+    margin-top: -30px;
+    text-align: center;
+    color: #fff;
+}
+
+@-webkit-keyframes loading_ani {
+    0% {
+        -webkit-transform: rotate(0deg)
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg)
+    }
+}
+
+@keyframes loading_ani {
+    0% {
+        -webkit-transform: rotate(0deg)
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg)
+    }
+}
+.ball-clip-rotate-multiple {
+    position: relative;
+    width:60px;
+    height:60px;
+}
+.ball-clip-rotate-multiple > div {
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    position: absolute;
+    /*left: -60px;*/
+    /*top: -60px;*/
+    border: 2px solid #fff;
+    border-bottom-color: transparent;
+    border-top-color: transparent;
+    border-radius: 100%;
+    height:100%;
+    width: 100%;
+    -webkit-animation: rotate 1.2s 0s linear infinite;
+    animation: rotate 1.2s 0s linear infinite;
+}
+.ball-clip-rotate-multiple > div:last-child {
+    display: inline-block;
+    top: 15px;
+    left: 15px;
+    width: 30px;
+    height: 30px;
+    -webkit-animation-duration: 0.8s;
+    animation-duration: 0.8s;
+    border-color: #fff transparent #fff transparent;
+    -webkit-animation-direction: reverse;
+    animation-direction: reverse;
+}
+.loading-font{
+    font-size:13px;
+    color:#fff;
+    margin-top: 15px;
+}
+@keyframes rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg); }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg); }
+}
+@-webkit-keyframes rotate {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg); }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg); }
+}
+.mpop{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: rgba(0,0,0,0.5);
+    width: 130px;
+    height: 130px;
+    margin-left: -65px;
+    margin-top: -80px;
+    border-radius: 10px;
+    padding:20px;
+}
+.M-loading-pop{
+    position: fixed;
+    top:0;
+    background: rgba(255,255,255,.5);
+    z-index: 9999999;
+}
+
+.iScrollVerticalScrollbar {
+    position: absolute;
+    z-index: 9999;
+    width: 2px;
+    bottom: 2px;
+    top: 2px;
+    right: 2px;
+    overflow: hidden;
+}
+.iScrollVerticalScrollbar .iScrollIndicator {
+    width: 100%;
+    background: #999;
+}
+.iScrollIndicator {
+    position: absolute;
+    background: #999;
+    border-radius: 6px;
+    opacity: .8;
+}
+[data-scroll] {
+    overflow: hidden;
+}
+.M-popup.center {
+    top: 50%;
+    left: 5%;
+    right: 5%;
+    width: 270px;
+    border-radius: 7px;
+    margin: 0 auto;
+    -webkit-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.6);
+}
+.center {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+}
+.M-popup {
+    display: none;
+    position: absolute;
+    z-index: 90;
+    min-height: 50px;
+    background-color: #e8e8e8;
+    -webkit-transform: translateY(0%) !important;
+}
+.M-popup.bottom{
+    left:0;
+    right:0;
+    bottom:0;
+}
+
+.M-title {
+    text-align: center;
+    padding: 15px;
+    font-weight: 500;
+    font-size: 17px;
+    text-align: center;
+}
+.M-content {
+    text-align: center;
+    padding: 0 10px 10px 10px;
+    line-height: 1.2em;
+    font-size: 14px;
+}
+.M-handler {
+    text-align: center;
+}
+.M-handler > span:last-child {
+    border-right: 0 none;
+}
+.M-handler > span {
+    padding: 12px;
+    display: block;
+    color: #222;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-left: none;
+    border-bottom: none;
+    color: #007aff;
+    font-size: 16px;
+}
+a, button, input {
+    -webkit-tap-highlight-color: rgba(255,0,0,0);
+}
+
+.ani {
+    -webkit-animation-duration: .2s;
+    animation-duration: .2s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.M-pop{
+    background: rgba(0,0,0,0.4);
+    width: 100%;
+    height: 100%;
+    max-width: 640px;
+
+    position: fixed;
+    top:0;
+    z-index: 9999;
+}
+
+.M-toast{
+    display: none;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 70%;
+    z-index: 500;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+}
+.M-toast>span{
+    display: inline-block;
+    padding: 10px 25px;
+    background:rgba(0,0,0,.7);
+    max-width: 90%;
+    margin: 0 auto;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    word-break: break-all;
+}
+.actionsheet {
+    padding: 0 6px;
+}
+.actionsheet .actionsheet-group > button:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.actionsheet button {
+    margin: 0 !important;
+    padding: 0;
+    font-size: 16px;
+    line-height: 40px !important;
+    display: block;
+    width: 100%;
+    background: #e8e8e8;
+    color: #007aff;
+    border-radius: 0;
+    border-bottom: 1px solid #d2d2d6;
+}
+.actionsheet .actionsheet-group > button:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    margin-bottom: 6px !important;
+}
+.actionsheet > button {
+    margin-bottom: 6px !important;
+    border-radius: 4px;
+}

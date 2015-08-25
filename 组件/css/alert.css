@@ -80,7 +80,7 @@ a, button, input {
 .M-toast{
     display: none;
     width: 100%;
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 70%;
     z-index: 500;

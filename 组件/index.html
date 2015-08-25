@@ -4,10 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title></title>
-    <link type="text/css" rel="stylesheet" href="css/base2.css" />
-    <link type="text/css" rel="stylesheet" href="css/loading.css" />
-    <link type="text/css" rel="stylesheet" href="css/alert.css" />
-    <link type="text/css" rel="stylesheet" href="css/scroll.css" />
+    <link type="text/css" rel="stylesheet" href="css/common.css" />
     <link type="text/css" rel="stylesheet" href="css/animate.css" />
     <!--<script src="js/test.js"></script>-->
     <style>
@@ -221,18 +218,21 @@
 </article>
 
     <script src="js/zepto.min.js"></script>
-    <script src="js/template-native.js"></script>
+    <!--<script src="js/template-native.js"></script>-->
     <script src="js/iscroll-probe.js"></script>
     <script src="js/util.js"></script>
     <script>
+        $('body').on('tap',function(){
+            alert(1);
+        });
         var imgs = [
             'images/back.png',
             'images/cc.png',
             'images/face1.png'
         ];
-        M.imgpreload(imgs,function(count,imgs){
-            console.log('图片加载完成'+count+':'+imgs);
-        });
+//        M.imgpreload(imgs,function(count,imgs){
+//            console.log('图片加载完成'+count+':'+imgs);
+//        });
     </script>
 </body>
 </html>

@@ -10,7 +10,7 @@
         var _M = function(){
             this.version = '0.1';
             this.v = this.version;
-            this.touch = ('ontouchstart' in window)?'tap':'click';
+            this.touch = ('ontouchstart' in window)?'touchend':'click';
             this.loadingID = 'M-loading';
             this.APIBASE = 'http://lppz.letwx.com/api/jsapi';
             /**
@@ -89,6 +89,9 @@
             var $dom = $('#'+ M.loadingID);
             $dom[0] ? $dom.show() : $('body').append(str);
             $dom = null;
+            $('#'+M.loadingID).on('touchstart',function(e){
+                e.preventDefault();
+            });
         };
         /**
          * 隐藏loading
@@ -133,17 +136,18 @@
             return this;
         };
         Alert.prototype.on = function(cb){
-            console.log(cb);
             var me = this;
-            this.alertDom.find('.M-handler-ok').on(M.touch,function(){
+            this.alertDom.find('.M-handler-ok').on(M.touch,function(e){
                 if(cb) cb && cb.call(me);
                 else me.hide();
+                e.preventDefault();
             });
             this.alertDom.on(M.touch,function(e){
                 var target = $(e.target);
                 if(target.closest('.M-popup').length==0){
                     me.hide();
                 }
+                e.preventDefault();
             });
             return this;
         };
@@ -188,19 +192,22 @@
         };
         Confirm.prototype.on = function(okCb,cancelCb){
             var me = this;
-            this.confirmDom.find('.M-handler-ok').on(M.touch,function(){
+            this.confirmDom.find('.M-handler-ok').on(M.touch,function(e){
                 if(okCb) okCb && okCb.call(me);
                 else me.hide();
+                e.preventDefault();
             });
-            this.confirmDom.find('.M-handler-cancel').on(M.touch,function(){
+            this.confirmDom.find('.M-handler-cancel').on(M.touch,function(e){
                 if(cancelCb) cancelCb && cancelCb.call(me);
                 else me.hide();
+                e.preventDefault();
             });
             this.confirmDom.on(M.touch,function(e){
                 var target = $(e.target);
                 if(target.closest('.M-popup').length==0){
                     me.hide();
                 }
+                e.preventDefault();
             });
             return this;
         };
@@ -270,19 +277,22 @@
         ActionSheet.prototype.on = function(){
             var me = this;
             this.actionSheetDom.find('.actionsheet-item').each(function(i,elem){
-                $(elem).on(M.touch,function(){
+                $(elem).on(M.touch,function(e){
                     if(me.options.items[i].handler) me.options.items[i].handler && me.options.items[i].handler.call(me);
+                    e.preventDefault();
                 });
             });
-            this.actionSheetDom.find('.actionsheet-cancel').on(M.touch,function(){
+            this.actionSheetDom.find('.actionsheet-cancel').on(M.touch,function(e){
                 if(me.options.cancelCb) me.options.cancelCb && me.options.cancelCb.call(me);
                 else me.hide();
+                e.preventDefault();
             });
             this.actionSheetDom.on(M.touch,function(e){
                 var target = $(e.target);
                 if(target.closest('.M-popup').length==0){
                     me.hide();
                 }
+                e.preventDefault();
             });
             return this;
         };
@@ -350,7 +360,7 @@
         };
         /**
          * 生成actionsheet
-         * @param arr actionsheet对应的数组
+         * @param arr actionsheet对应的数组 {text:'',handler:function}
          * @param cancleCb 取消按钮的回调函数
          * @returns {*}
          */
