@@ -14,11 +14,71 @@
             this.loadingID = 'M-loading';
             this.APIBASE = 'http://lppz.letwx.com/api/jsapi';
             /**
-             * 利用了zepto的os方法获取当前系统和版本
+             * 获取当前系统和版本
              * android格式:{android: true, version: "4.4.4", tablet: false, phone: true}
              * ios格式：{iphone: true, ios: true, version: "7.0", tablet: false, phone: true}
              */
-            this.os = $.os;
+            this.detect = function(ua, platform){
+                var os = {}, browser = this.browser = {},
+                    webkit = ua.match(/Web[kK]it[\/]{0,1}([\d.]+)/),
+                    android = ua.match(/(Android);?[\s\/]+([\d.]+)?/),
+                    osx = !!ua.match(/\(Macintosh\; Intel /),
+                    ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+                    ipod = ua.match(/(iPod)(.*OS\s([\d_]+))?/),
+                    iphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+                    webos = ua.match(/(webOS|hpwOS)[\s\/]([\d.]+)/),
+                    win = /Win\d{2}|Windows/.test(platform),
+                    wp = ua.match(/Windows Phone ([\d.]+)/),
+                    touchpad = webos && ua.match(/TouchPad/),
+                    kindle = ua.match(/Kindle\/([\d.]+)/),
+                    silk = ua.match(/Silk\/([\d._]+)/),
+                    blackberry = ua.match(/(BlackBerry).*Version\/([\d.]+)/),
+                    bb10 = ua.match(/(BB10).*Version\/([\d.]+)/),
+                    rimtabletos = ua.match(/(RIM\sTablet\sOS)\s([\d.]+)/),
+                    playbook = ua.match(/PlayBook/),
+                    chrome = ua.match(/Chrome\/([\d.]+)/) || ua.match(/CriOS\/([\d.]+)/),
+                    firefox = ua.match(/Firefox\/([\d.]+)/),
+                    firefoxos = ua.match(/\((?:Mobile|Tablet); rv:([\d.]+)\).*Firefox\/[\d.]+/),
+                    ie = ua.match(/MSIE\s([\d.]+)/) || ua.match(/Trident\/[\d](?=[^\?]+).*rv:([0-9.].)/),
+                    webview = !chrome && ua.match(/(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/),
+                    safari = webview || ua.match(/Version\/([\d.]+)([^S](Safari)|[^M]*(Mobile)[^S]*(Safari))/)
+
+                if (browser.webkit = !!webkit) browser.version = webkit[1]
+
+                if (android) os.android = true, os.version = android[2]
+                if (iphone && !ipod) os.ios = os.iphone = true, os.version = iphone[2].replace(/_/g, '.')
+                if (ipad) os.ios = os.ipad = true, os.version = ipad[2].replace(/_/g, '.')
+                if (ipod) os.ios = os.ipod = true, os.version = ipod[3] ? ipod[3].replace(/_/g, '.') : null
+                if (wp) os.wp = true, os.version = wp[1]
+                if (webos) os.webos = true, os.version = webos[2]
+                if (touchpad) os.touchpad = true
+                if (blackberry) os.blackberry = true, os.version = blackberry[2]
+                if (bb10) os.bb10 = true, os.version = bb10[2]
+                if (rimtabletos) os.rimtabletos = true, os.version = rimtabletos[2]
+                if (playbook) browser.playbook = true
+                if (kindle) os.kindle = true, os.version = kindle[1]
+                if (silk) browser.silk = true, browser.version = silk[1]
+                if (!silk && os.android && ua.match(/Kindle Fire/)) browser.silk = true
+                if (chrome) browser.chrome = true, browser.version = chrome[1]
+                if (firefox) browser.firefox = true, browser.version = firefox[1]
+                if (firefoxos) os.firefoxos = true, os.version = firefoxos[1]
+                if (ie) browser.ie = true, browser.version = ie[1]
+                if (safari && (osx || os.ios || win)) {
+                    browser.safari = true
+                    if (!os.ios) browser.version = safari[1]
+                }
+                if (webview) browser.webview = true
+
+                os.tablet = !!(ipad || playbook || (android && !ua.match(/Mobile/)) ||
+                (firefox && ua.match(/Tablet/)) || (ie && !ua.match(/Phone/) && ua.match(/Touch/)))
+                os.phone  = !!(!os.tablet && !os.ipod && (android || iphone || webos || blackberry || bb10 ||
+                (chrome && ua.match(/Android/)) || (chrome && ua.match(/CriOS\/([\d.]+)/)) ||
+                (firefox && ua.match(/Mobile/)) || (ie && ua.match(/Touch/))));
+
+                return os;
+            };
+
+            this.os = this.detect(navigator.userAgent, navigator.platform);
             /**
              * 判断是否是android手机
              * @returns {number}
@@ -610,7 +670,69 @@
                 options.jsonp = 'callback';
                 options.type = 'GET'
             }
+            var cb = options.success;
+            options.success = function(data, textStatus, xhr){
+                try{
+                    cb && cb(data);
+                }catch(e){
+                    M.showToast('AJAX处理错误：'+e);
+                }
+            };
             $.ajax(options);
+        };
+
+        for(var k in _tmp){
+            if(_tmp.hasOwnProperty(k)) M.register(k,_tmp[k]);
+        }
+    })();
+
+    //一些基础的工具
+    (function(){
+        var _tmp = {};
+        _tmp.getUrlParam = function(url){
+            var str = url;
+            var jinghao = 0; //存放'#'的位置
+            var jinghaoyu = null; //存放'#'后面第一个'&'的位置
+            if (!str) str = window.location.href;
+            while(str.indexOf('#') > -1){ //以防url中出现多个'#'
+                jinghao = str.indexOf('#',jinghao + 1);
+                var jinghaostr = str.substr(jinghao);
+                if(jinghaostr.indexOf('&') > -1){
+                    jinghaoyu = jinghaostr.indexOf('&');
+                }else{
+                    jinghaoyu = jinghaostr.length;
+                }
+                str = str.replace(str.substr(jinghao,jinghaoyu),'');
+            }
+            var obj = new Object();
+            if (str.indexOf('?') > -1) {
+                var string = str.substr(str.indexOf('?') + 1);
+                var strs = string.split('&');
+                for (var i = 0; i < strs.length; i++) {
+                    var tempArr = strs[i].split('=');
+                    obj[tempArr[0]] = tempArr[1];
+                }
+            }
+            return obj;
+        };
+        _tmp.setCookie = function(name, value, expire_days) {
+            var exdate = new Date();
+            exdate.setDate(exdate.getDate() + expire_days);
+            document.cookie = name + '=' + escape(value) + ((expire_days == null) ? '' : ';expires=' + exdate.toGMTString());
+        };
+        _tmp.getCookie = function(name) {
+            var arr, reg = new RegExp('(^| )' + name + '=([^;]*)(;|$)');
+            if (arr = document.cookie.match(reg))
+                return (arr[2]);
+            else
+                return null;
+        };
+        _tmp.delCookie = function(name) {
+            var exp = new Date();
+            exp.setTime(exp.getTime() - 1);
+            var cval = this.getCookie(name);
+            if (cval != null)
+                document.cookie = name + '=' + cval + ';expires=' + exp.toGMTString();
         };
 
         for(var k in _tmp){
@@ -625,3 +747,24 @@
         window.M = M;
     }
 })();
+
+(function() {
+    var lastTime = 0;
+    var vendors = ['ms', 'moz', 'webkit', 'o'];
+    for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] || window[vendors[x] + 'CancelRequestAnimationFrame'];
+    }
+    if (!window.requestAnimationFrame) window.requestAnimationFrame = function(callback, element) {
+        var currTime = new Date().getTime();
+        var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+        var id = window.setTimeout(function() {
+            callback(currTime + timeToCall);
+        }, timeToCall);
+        lastTime = currTime + timeToCall;
+        return id;
+    };
+    if (!window.cancelAnimationFrame) window.cancelAnimationFrame = function(id) {
+        clearTimeout(id);
+    };
+}());
