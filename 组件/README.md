@@ -19,22 +19,23 @@ ajax请求的基础地址
     ios格式：{iphone: true, ios: true, version: "7.0", tablet: false, phone: true}
 ```
 ## M.isAndroid()
-    判断当前系统是否是Android
+判断当前系统是否是Android
 ## M.isIphone()
-    判断当前系统是否是iphone
+判断当前系统是否是iphone
 ## M.isIos()
-    判断当前系统是否是ios
+判断当前系统是否是ios
 ## M.checkOS()
-    返回当前系统名字的字符串
+返回当前系统名字的字符串
 ## M.random(min,max)
-    返回min到max之间的随机数，包括min和max
+返回min到max之间的随机数，包括min和max
 ## M.register(key,obj)
     将插件注册到M对象下
 ## M.alert(title,content,cb)
-    此方法模拟js中的alert的功能，样式与ios中alert的样式类似
-    * title 标题，可不传，默认为‘提示’
-    * content 内容
-    * cb 点击确定后的回调函数，不传时，点击确定弹出框消失
+此方法模拟js中的alert的功能，样式与ios中alert的样式类似
+
+* title 标题，可不传，默认为‘提示’
+* content 内容
+* cb 点击确定后的回调函数，不传时，点击确定弹出框消失
 > 此方法参数数量可选：<br>
 1个参数：默认当做content处理
 2个参数：第一个参数为content，第二个参数为cb
