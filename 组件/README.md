@@ -13,10 +13,11 @@
 ajax请求的基础地址
 ## M.os
 判断当前系统是什么系统以及系统版本等等
-    ```html
+
+```html
     android格式:{android: true, version: "4.4.4", tablet: false, phone: true}
     ios格式：{iphone: true, ios: true, version: "7.0", tablet: false, phone: true}
-    ```
+```
 ## M.isAndroid()
     判断当前系统是否是Android
 ## M.isIphone()
