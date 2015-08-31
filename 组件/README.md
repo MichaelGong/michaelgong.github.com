@@ -54,5 +54,7 @@
 ## M.hideToast()
     关闭toast
 ## M.actionSheet(arr,cancelCb)
-    此方法模拟ios中的actionsheet ![actionSheet长这样](http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=actionsheet&step_word=&pn=31&spn=0&di=7503544760&pi=&rn=1&tn=baiduimagedetail&is=0%2C0&istype=0&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=undefined&cs=2673508320%2C804144218&os=317200336%2C438899745&adpicid=0&ln=1290&fr=&fmq=1441008973299_R&ic=undefined&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=11&objurl=http%3A%2F%2Fupload-images.jianshu.io%2Fupload_images%2F73313-8197973ec42f1f92.png%3FimageMogr2%2Fauto-orient%2Fstrip%7CimageView2%2F2&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3Bp7tv55s_z%26e3Bv54AzdH3Fw6ptvsjfAzdH3FVFR0njE&gsm=0)
+    此方法模拟ios中的actionsheet
+
+![actionSheet长这样](http://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=actionsheet&step_word=&pn=31&spn=0&di=7503544760&pi=&rn=1&tn=baiduimagedetail&is=0%2C0&istype=0&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=undefined&cs=2673508320%2C804144218&os=317200336%2C438899745&adpicid=0&ln=1290&fr=&fmq=1441008973299_R&ic=undefined&s=undefined&se=&sme=&tab=0&width=&height=&face=undefined&ist=&jit=&cg=&bdtype=11&objurl=http%3A%2F%2Fupload-images.jianshu.io%2Fupload_images%2F73313-8197973ec42f1f92.png%3FimageMogr2%2Fauto-orient%2Fstrip%7CimageView2%2F2&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3Bp7tv55s_z%26e3Bv54AzdH3Fw6ptvsjfAzdH3FVFR0njE&gsm=0)
     * arr
