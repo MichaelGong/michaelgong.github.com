@@ -6,13 +6,13 @@
 
 # 文档API
 ## M.version / M.v
-    文件版本：0.1
+文件版本：0.1
 ## M.touch
-    自动判断当前状态是否支持touch事件，如果支持赋值为`touchend`,如果不支持赋值为`click`
+自动判断当前状态是否支持touch事件，如果支持赋值为`touchend`,如果不支持赋值为`click`
 ## M.APIBASE
-    ajax请求的基础地址
+ajax请求的基础地址
 ## M.os
-    判断当前系统是什么系统以及系统版本等等
+判断当前系统是什么系统以及系统版本等等
     ```html
     android格式:{android: true, version: "4.4.4", tablet: false, phone: true}
     ios格式：{iphone: true, ios: true, version: "7.0", tablet: false, phone: true}
