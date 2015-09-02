@@ -655,30 +655,66 @@
     //post请求
     (function(){
         var _tmp = {};
-        _tmp.ajax = function(options,ispost){
-            options.dataType = (M.APIBASE.indexOf(window.location.host)<0)? 'jsonp' : (options.dataType ? options.dataType : 'json');
-            if(ispost){
-                options.dataType = 'json';
-                options.type = 'POST';
+        _tmp.ajax = function(action,params,appid,callback,apiopenid,apitoken,debug) {
+            if(!action) {
+                M.showToast("action不能为空");
+                return false;
             }
-            options.url = options.url ? options.url : M.APIBASE;
-            options.data = (options.type == 'GET') ? options.data : ((options.data) || '');
-            options.timeout = 10000;
-            options.type = options.type ? options.type : 'POST';
 
-            if(options.dataType == 'jsonp'){
-                options.jsonp = 'callback';
-                options.type = 'GET'
+            if(!appid) {
+                M.showToast("appid不能为空");
+                return false;
             }
-            var cb = options.success;
-            options.success = function(data, textStatus, xhr){
-                try{
-                    cb && cb(data);
-                }catch(e){
-                    M.showToast('AJAX处理错误：'+e);
+
+            this.httpid = this.httpid || 0;
+            this.httpid ++;
+
+            var postdata = {};
+            postdata.action = action;
+            postdata.params = (typeof params == "string" ? params:(JSON.stringify(params) || ""));
+            postdata.letwxid = appid;
+            postdata.apiopenid = apiopenid || "testopenid";
+            postdata.apitoken = apitoken || "testopenid";
+            if(debug) {
+                postdata.debug = debug;
+            }
+
+            if(M.APIBASE.indexOf(window.location.host) < 0) { //接口地址和当前地址不在一个域，则以跨域的方式调用
+                var cbkey = 'httpcb'+this.httpid;
+                ngapi[cbkey] = function(data) {
+                    callback && callback(data);
+                    delete ngapi[cbkey]; //消除对象
+                    $("#"+cbkey).remove(); //消除无用的script
+                };
+
+                postdata.callback = "ngapi."+cbkey;
+
+                var query = [];
+                for(var p in postdata) {
+                    if(postdata.hasOwnProperty(p)) {
+                        if(typeof postdata[p] == "object") {
+                            query.push(p+"="+encodeURIComponent(JSON.stringify(postdata[p])));
+                        }
+                        else query.push(p+"="+encodeURIComponent(postdata[p]));
+                    }
                 }
-            };
-            $.ajax(options);
+                var url = M.APIBASE+"?"+query.join("&");
+                var script = document.createElement('script');
+                script.src = url;
+                script.id = cbkey;//直接append会导致script无法触发
+                $("head").append(script);
+            }
+            else {
+                $.post(M.APIBASE, postdata, function(json) {
+                    try {
+                        callback && callback(json);
+                    } catch (e) {
+                        //TODO错误处理
+                        M.showToast('AJAX请求处理错误', 'error');
+                    }
+                }, "json");
+            }
+
         };
 
         for(var k in _tmp){
