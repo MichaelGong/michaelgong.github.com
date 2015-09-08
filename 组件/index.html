@@ -215,21 +215,46 @@
             </ul>
         </div>
     </div>
+    <script type="text/html" id="tapTMP">
+        <div>
+            <p>dafgda</p>
+            <div id="tap">哈哈</div>
+        </div>
+    </script>
 </article>
 
     <script src="js/zepto.min.js"></script>
-    <!--<script src="js/template-native.js"></script>-->
-    <script src="js/iscroll-probe.js"></script>
+    <script src="js/template-native.js"></script>
+    <!--<script src="js/iscroll-probe.js"></script>-->
     <script src="js/util.js"></script>
+    <script src="js/tap.js"></script>
     <script>
-        $('body').on('tap',function(){
-            alert(1);
+        $('#main3').on('tap',function(e){
+            console.log(e);
+            $('body').append(template('tapTMP',{}));
+            $('#tap').on('tap',function(e){
+                console.log(e);
+                $('body').append('<div>tap:'+ e.timeStamp+'</div>');
+            });
+            $('#tap').on('touchstart',function(e){
+                console.log(e);
+                $('body').append('<div>touchstart:'+ e.timeStamp+'</div>');
+            });
+            $('#tap').on('click',function(e){
+                console.log(e);
+                $('body').append('<div>click:'+ e.timeStamp+'</div>');
+            });
+            $('#tap').on('touchend',function(e){
+                console.log(e);
+                $('body').append('<div>touchend:'+ e.timeStamp+'</div>');
+            });
         });
         var imgs = [
             'images/back.png',
             'images/cc.png',
             'images/face1.png'
         ];
+
 //        M.imgpreload(imgs,function(count,imgs){
 //            console.log('图片加载完成'+count+':'+imgs);
 //        });
