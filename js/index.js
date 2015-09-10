@@ -38,7 +38,7 @@ var proList = {
 				detail: '-webkit-filter可以改变背景的颜色、灰度等等'
 			},
 			{
-				link: '/',
+				link: './article-devicemotion.html',
 				title: '重力感应',
 				imgsrc: 'images/gravity.jpg',
 				content: '重力感应',
