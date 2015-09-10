@@ -9,7 +9,7 @@
 		<meta content="telephone=no, address=no" name="format-detection">
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-		<link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="styles/article.css"/>
 		<link rel="stylesheet" type="text/css" href="styles/libs/github.css"/>
 		<link rel="shortcut icon" href="images/finger.png" />
@@ -29,14 +29,63 @@
 					<section class="col-md-9" rol="main">
 						<div class="bs-docs-section">
 							<h1 class="page-header">移动设备的重力感应</h1>
-							<p class="lead">通过这个属性可以监听移动设备的重力感应事件</p>
-							<h3>标题3</h3>
-							<p>标题3下面的说明内容</p>
-							<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
-<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"zh-CN"</span><span class="nt">&gt;</span>
-  ...
-<span class="nt">&lt;/html&gt;</span></code></pre></div>
-							<p>标题在文章中可以添加<strong>加粗加黑</strong>字体</p>
+							<p class="lead">通过这个属性可以监听移动设备的重力感应事件、屏幕方向等等，大致上有三个属性我们可以监听：orientationchange(屏幕横竖屏)、devicemotion、deviceorientation，现在回介绍这三个属性的意义和用法。</p>
+							<h3>1、orientationchange</h3>
+							<p>监听屏幕旋转</p>
+							<div class="highlight">
+								<pre><code class="language-html" data-lang="js">if('onorientationchange' in window){
+	window.addEventListener('orientationchange',function(){
+		switch(window.orientation){
+			case 0:
+				alert('正常的手机状态');
+				break;
+			case -90:
+				alert('左旋90度');
+				break;
+			case 90:
+				alert('右旋90度');
+				break;
+			case 180:
+				alert(倒立模式);
+				break;
+		}
+	},false);
+}</code>
+								</pre>
+							</div>
+							<p>对于这个属性，一般的作用是用于判断屏幕现在是否是横屏的，所以一般显示的应用中只需要判断<strong>window.orientation</strong>是不是等于90或者-90就可以知道手机屏幕的方向。但是这个属性在android当你旋转屏幕重新获取高度和宽度的时候，并不能及时返回旋转后的宽高，而是之前的宽高，所以如果涉及到宽高计算的话，请延长300毫秒后再获取。</p>
+
+							<h3>2、devicemotion</h3>
+							<p>加速度信息</p>
+							<div class="highlight">
+								<pre><code class="language-html" data-lang="js">if(window.DeviceMotionEvent){
+	window.addEventListener('devicemotion',function(event){
+        var acceleration = event.accelerationIncludingGravity;
+        var x = acceleration.x;
+        var y = acceleration.y;
+        var z = acceleration.z;
+    },false);
+}</code>
+								</pre>
+							</div>
+							<p>利用这个属性可以实现类似于手机摇一摇的功能，<a target="_blank" href="https://github.com/alexgibson/shake.js">shake.js</a>这个插件就是用这种方式来实现的。</p>
+
+							<h3>3、deviceorientation</h3>
+							<p>设备的旋转角度</p>
+							<div class="highlight">
+								<pre><code class="language-html" data-lang="js">if ("ondeviceorientation" in window) {
+//1、以设备坐标系z轴为轴，旋转alpha度。alpha的作用域为[0, 360)。在桌面上旋转
+//2、以设备坐标系x轴为轴，旋转beta度。beta的作用域为[-180, 180)。
+//3、已设备坐标系y轴为轴，旋转gamma度。gamma的作用域为[-90, 90)。
+    window.addEventListener("deviceorientation", function(event){
+        var alpha = event.alpha;
+        var beta = event.beta;
+        var gamma = event.gamma;              
+    }, false);
+}</code>
+								</pre>
+							</div>
+							<p>这个属性可以让你知道设备旋转的角度，利用这个可以做出一些很有意思的应用。<a target="_blank" href="http://matthew.wagerfield.com/parallax/">视差滚动</a>这个插件就用到了这个，可用手机打开试一下，效果不错。</p>
 						</div>
 					</section>
 				</div>				
@@ -48,4 +97,24 @@
 		<script src="js/docs.min.js"></script>
 		<script src="js/libs/rainbow-custom.min.js"></script>
 	</body>
+	<script type="text/javascript">
+		if('onorientationchange' in window){
+			window.addEventListener('orientationchange',function(){
+				switch(window.orientation){
+					case 0:
+						alert('window.orientation:'+window.orientation+' -- 正常的手机状态');
+						break;
+					case -90:
+						alert('window.orientation:'+window.orientation+' -- 右旋90度');
+						break;
+					case 90:
+						alert('window.orientation:'+window.orientation+' -- 左旋90度');
+						break;
+					case 180:
+						alert('window.orientation:'+window.orientation+' -- 倒立模式');
+						break;
+				}
+			});
+		}
+	</script>
 </html>
