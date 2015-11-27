@@ -23,8 +23,8 @@
 				height:500px;
 				background: url(images/hue.jpg);
 				background-size: 100% 100%;
-				-webkit-animation: hueauto 5s infinite; 
-						animation: hueauto 5s infinite; 
+				-webkit-animation: hueauto 5s infinite;
+						animation: hueauto 5s infinite;
 			}
 			@-webkit-keyframes hueauto{
 				0%{
@@ -83,7 +83,7 @@
 							<div class="highlight">
 								<pre>
 									<code data-language="css">elm{
-	filter:none | &lt;filter-function &gt; [ &lt;filter-function&gt; ]* 
+	filter:none | &lt;filter-function &gt; [ &lt;filter-function&gt; ]*
 }</code>
 								</pre>
 							</div>
@@ -142,7 +142,7 @@
 									</tr>
 								</tbody>
 							</table>
-							
+
 							<h3>Filter效果展示</h3>
 							<h4>下面就看看那filter属性的各种炫酷效果！</h4>
 							<p>首先我们有一张默认的没有经过处理的图片(就是下面的手指图片了)，接下来我们就使用filter的各种属性这这张图片进行处理。
@@ -191,7 +191,7 @@
 									<pre><code data-language="css">-webkit-filter:saturate(1);</code></pre>
 								</div>
 							</div>
-							
+
 							<div class="panel panel-primary">
 								<div class="panel-heading">
 									<strong>四、hue-rotate()色相旋转</strong>
@@ -297,15 +297,15 @@
 									<pre><code data-language="css">-webkit-filter:drop-shadow(15px 0px 5px #ccc);</code></pre>
 								</div>
 							</div>
-							
+
 							<p>filter的这些属性除了可以单独使用外还可以合并使用，例如：</p>
 							<p>
 								<img src="images/finger.png" style="-webkit-filter:saturate(5) hue-rotate(500deg) grayscale(0.3) sepia(0.7) contrast(1.5) invert(0.2) brightness(.9);" />
 							</p>
 							<pre><code data-language="css">-webkit-filter:saturate(5) hue-rotate(500deg) grayscale(0.3) sepia(0.7) contrast(1.5) invert(0.2) brightness(.9);</code></pre>
-							
+
 							<p>filter的基础属性大概就是这些内容。</p>
-							
+
 							<h2>下面是一个filter调节小工具</h2>
 							<div id="tool">
 								<p>
@@ -365,9 +365,9 @@
 									</span>
 									<input id="blur" type="range" min="0" max="100" value="0" class="form-control" >
 								</div>
-								
+
 							</div>
-							
+
 							<h2>一个小例子</h2>
 							<p>利用了animation改变hue-rotate的角度值，会发生不一样的变化。</p>
 							<p>
@@ -379,8 +379,8 @@
 	height:500px;
 	background: url(images/hue.jpg);
 	background-size: 100% 100%;
-	-webkit-animation: hueauto 5s infinite; 
-	animation: hueauto 5s infinite; 
+	-webkit-animation: hueauto 5s infinite;
+	animation: hueauto 5s infinite;
 }
 @-webkit-keyframes hueauto{
 	0%{
@@ -397,7 +397,7 @@
 							</pre>
 						</div>
 					</section>
-				</div>				
+				</div>
 			</section>
 		</section>
 		<script src="http://cdn.bootcss.com/jquery/2.1.3/jquery.min.js"></script>
@@ -427,27 +427,27 @@
 				arr[6] = $brightness;
 				arr[7] = $contrast;
 				arr[8] = $blur;
-				
+
 				valueArr = [0,0,1,0,0,100,100,1,0];
-				
+
 				$.each(arr,function(key,value){
 					$(value).change(function(){
 						valueArr[key] = $(this).val();
 						filterImg();
 					});
 				})
-				
+
 				function filterImg(){
 					var $filterImg = $('#tool_finger');
 					$filterImg.css('-webkit-filter','grayscale('+ valueArr[0] / 100.0 + ') sepia('+valueArr[1] / 100.0+') saturate('+valueArr[2]+') hue-rotate('+valueArr[3]+'deg) invert('+valueArr[4]/100+') opacity('+valueArr[5]/100+') brightness('+valueArr[6]/100+') contrast('+valueArr[7]+') blur('+valueArr[8]+'px)');
 				}
-				
+
 //				$('.hue-auto').on('mousemove',function(evt){
 //					var procentjex = Math.round((evt.screenX / $(this).width())*255);
 //		      		var procentjey = ((evt.screenY / $(this).height())/2)+1;
 //		      		$('.hue-auto').css('-webkit-filter', 'hue-rotate('+procentjex+'deg) contrast('+procentjey+')');
 //				});
-				
+
 			});
 		</script>
 	</body>
