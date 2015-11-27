@@ -9,16 +9,16 @@
 		<meta content="telephone=no, address=no" name="format-detection">
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-		<link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="styles/index.css"/>
 		<link rel="stylesheet" type="text/css" href="styles/libs/csshake.min.css"/>
 		<link rel="shortcut icon" href="images/finger.png" />
-		<script data-main="js/index" src="//cdn.bootcss.com/require.js/2.1.15/require.min.js"></script>
+		<script data-main="js/index" src="http://cdn.bootcss.com/require.js/2.1.15/require.min.js"></script>
 	</head>
 	<body>
-		<!-- 
+		<!--
 			http://www.etherdream.com/WebP/WebP.js
-			http://www.xuanfengge.com/canvas-3d-background.html 
+			http://www.xuanfengge.com/canvas-3d-background.html
 			http://www.xuanfengge.com/jquery-event-binding-methods-bind-live-delegate-and-on-the-difference-between.html
 			http://www.zhangxinxu.com/wordpress/2013/09/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3css3-gradient%E6%96%9C%E5%90%91%E7%BA%BF%E6%80%A7%E6%B8%90%E5%8F%98/
 		-->
@@ -29,7 +29,7 @@
 				</div>
 			</section>
 		</header>-->
-		
+
 		<section id="content">
 			<section id="victor">
 				<div id="output"></div>
@@ -51,7 +51,7 @@
 				<div class="row">
 					<section hidden id="proList" >
 						<div class="col-sm-6 col-md-4 col-lg-3" v-repeat="prolist">
-							<div class="thumbnail shake shake-slow ">
+							<div class="thumbnail  "><!--shake shake-slow-->
 								<a href="{{link}}" title="{{title}}" target="_blank">
 									<img class="" width="300" height="150" v-attr="src:imgsrc" >
 								</a>
@@ -69,6 +69,6 @@
 				</div>
 			</section>
 		</section>
-		
+
 	</body>
 </html>
