@@ -13207,7 +13207,7 @@
 	            this.$http.get('./mark/ApplicationCache.md', function (data) {
 	                console.log(data);
 	                transition.next({ str: data });
-	                // me.str = data;
+	                me.str = data;
 	            });
 	        }
 	    }
