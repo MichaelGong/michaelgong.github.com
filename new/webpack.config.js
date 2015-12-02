@@ -8,9 +8,9 @@ module.exports = {
         filename: '[name].build.js'
     },
     plugins: [
-        //new webpack.ProvidePlugin({
-        //  Vue: "Vue",
-        //})
+        new webpack.ProvidePlugin({
+            jquery: "jquery",
+        })
     ],
     module: {
         loaders: [
@@ -35,14 +35,29 @@ module.exports = {
                 test: /\.(png|jpeg|jpg|gif)$/,
                 loader: 'url-loader?limit=2&name=images/[hash].[ext]',
             },
-
-            //{test: require.resolve('jquery'), loader: 'expose?jQuery'},
+            {
+                test: require.resolve("./libs/marked.min.js"),
+                loader: "exports?marked"
+            },
+            {
+                test: require.resolve("./libs/prettify.min.js"),
+                loader: "exports?prettyPrint"
+            },
+            {
+                test: require.resolve("./libs/underscore.min.js"),
+                loader: "exports?_"
+            },
+            {
+                test: require.resolve("./libs/editormd.min.js"),
+                loader: "exports?editormd"
+            },
+            {test: require.resolve('./libs/jquery.min.js'), loader: 'exports?jquery'},
             //{test: require.resolve('jquery-slimscroll'), loader: 'imports?jQuery'},
 
         ]
     }
 }
-
+//http://stackoverflow.com/questions/30522896/how-to-shim-tinymce-in-webpack
 if (process.env.NODE_ENV === 'production') {
     module.exports.plugins = [
         new webpack.DefinePlugin({
