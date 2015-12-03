@@ -36,11 +36,13 @@
     </section>
 </template>
 <script type="text/javascript">
-require('../libs/jquery.min.js');
-require('../libs/marked.min.js');
-require('../libs/prettify.min.js');
-require('../libs/underscore.min.js');
-require('../libs/editormd.min.js');
+// require('../libs/jquery.min.js');
+// require('../libs/marked.min.js');
+// require('../libs/prettify.min.js');
+// require('../libs/underscore.min.js');
+var editormd = window.editormd = require('editormd');
+var marked = window.marked = require('marked');
+var prettifyPrint = window.prettifyPrint = require('prettifyPrint');
 require('../css/article.css');
 export default{
     data(){
@@ -55,13 +57,15 @@ export default{
     route:{
         activate(transition){
             var me = this;
-            console.log('activate');
+            console.log(editormd);
+            var editorMD = new editormd();
             this.$http.get('./mark/ApplicationCache.md',function(data){
                 console.log(data);
                 transition.next({str: data});
 
-                editormd.markdownToHTML("md", {
+                editorMD.markdownToHTML("md", {
                        markdown        : data ,//+ "\r\n" + $("#append-test").text(),
+                       path            : '../libs/',
                        //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
                        htmlDecode      : "style,script,iframe",  // you can filter tags decode
                        //toc             : false,
@@ -75,7 +79,7 @@ export default{
                     //    flowChart       : true,  // 默认不解析
                     //    sequenceDiagram : true,  // 默认不解析
                    });
-                me.str = data;
+                // me.str = data;
             });
         }
     }
