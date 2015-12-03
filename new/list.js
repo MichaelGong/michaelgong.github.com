@@ -20,7 +20,7 @@ var proList = {
 				detail: '重力感应的相关信息'
 			},
 			{
-				link: 'article',
+				link: 'ApplicationCache',
 				title: 'Application Cache',
 				imgsrc: 'images/appcache.jpg',
 				content: 'Application Cache',

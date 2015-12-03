@@ -21761,10 +21761,10 @@
 	    route: {
 	        activate: function activate(transition) {
 	            var me = this;
-	            console.log(editormd);
+	            console.log(transition.to.params);
 	            var editorMD = new editormd();
 	            this.$http.get('./mark/ApplicationCache.md', function (data) {
-	                console.log(data);
+	                // console.log(data);
 	                transition.next({ str: data });
 	
 	                editorMD.markdownToHTML("md", {
