@@ -6,7 +6,8 @@
 var Vue = require('vue');
 var VueRouter = require('vue-router');
 var configRouter = require('./router-config.js');
-var RouterView = require('./router.vue');
+// var RouterView = require('./router.vue');
+var RouterView = Vue.extend({});
 var RouterResource = require('vue-resource');
 Vue.config.debug = true;
 window.configRouter = configRouter;

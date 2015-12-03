@@ -52,7 +52,8 @@
 	var Vue = __webpack_require__(4);
 	var VueRouter = __webpack_require__(7);
 	var configRouter = __webpack_require__(8);
-	var RouterView = __webpack_require__(24);
+	// var RouterView = require('./router.vue');
+	var RouterView = Vue.extend({});
 	var RouterResource = __webpack_require__(28);
 	Vue.config.debug = true;
 	window.configRouter = configRouter;
@@ -21247,6 +21248,10 @@
 	     configRouter:function(router){
 	
 	        router.map({
+	            '/':{				//首页
+	                name:'home',
+	                component:__webpack_require__(24)
+	            },
 	            '/index':{
 	                name:'index',
 	                component:__webpack_require__(9)
