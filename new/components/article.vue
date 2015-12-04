@@ -6,81 +6,85 @@
     background: #fff;
     width:100%;
 }
+.content{
+    padding-top: 50px;
+}
 </style>
 <template>
-    <section class="article">
+    <div v-show="isHTML">
+        <iframe id="iframepage" :src="html" width="100%" marginheight="0" marginwidth="0" frameborder="0" scrolling="no"  v-on:load="iFrameHeight()"  ></iframe>
+    </div>
+    <section class="article" v-show="isMD">
         <header class="navbar navbar-inverse navbar-fixed-top">
             <section class="container">
         		<div class="navbar-header">
-        			<a href="#" class="navbar-brand">Michael Gong's Blog</a>
+        			<a href="javascript:window.history.go(-1);" class="navbar-brand">Michael Gong's Blog</a>
         		</div>
         	</section>
         </header>
-        <section id="content">
+        <section id="content" class="content">
 			<section class="container">
 				<div class="row">
 					<section class="col-md-9" rol="main">
-                        <div class="bs-docs-section">
-                        	<h1 class="page-header">概览标题1</h1>
-                        	<p class="lead">这是标题下面的说明内容</p>
-                        	<h3>标题3</h3>
-                        	<p>标题3下面的说明内容</p>
-                        	<div id="md">
-                                {{str}}
-                        	</div>
+                        <div id="md" class="bs-docs-section" ></div>
                     </section>
                 </div>
             </section>
         </section>
-
     </section>
 </template>
 <script type="text/javascript">
-// require('../libs/jquery.min.js');
-// require('../libs/marked.min.js');
-// require('../libs/prettify.min.js');
-// require('../libs/underscore.min.js');
 var editormd = window.editormd = require('editormd');
 var marked = window.marked = require('marked');
 var prettifyPrint = window.prettifyPrint = require('prettifyPrint');
+var $ = require('jquery');
 require('../css/article.css');
 export default{
     data(){
         return {
-            text:'123',
-            str:''
+            title:'',
+            isMD:false,
+            isHTML:false,
+            html:'',
         }
     },
     ready(){
-
+        var me = this;
+        $(window).resize(function(){
+            me.iFrameHeight();
+        });
+    },
+    methods:{
+        iFrameHeight:function(){
+            var ifm= document.getElementById("iframepage");
+            var subWeb = document.frames ? document.frames["iframepage"].document : ifm.contentDocument;
+            if(ifm != null && subWeb != null) {
+                ifm.height = subWeb.body.scrollHeight;
+                ifm.width = $(window).width();
+            }
+        },
+        createIFrame:function(name){
+            this.isHTML = true;
+            this.html='../'+name;
+        },
+        createMD:function(name){
+            this.$http.get('./mark/'+name+'.md',function(data){
+                this.isMD = true;
+                var editorMD = new editormd();
+                editorMD.markdownToHTML("md", {
+                    markdown        : data ,
+                    path            : '../libs/',
+                    htmlDecode      : "style,script,iframe",
+                });
+            });
+        }
     },
     route:{
         activate(transition){
             var me = this;
-            console.log(transition.to.params);
-            var editorMD = new editormd();
-            this.$http.get('./mark/ApplicationCache.md',function(data){
-                // console.log(data);
-                transition.next({str: data});
-
-                editorMD.markdownToHTML("md", {
-                       markdown        : data ,//+ "\r\n" + $("#append-test").text(),
-                       path            : '../libs/',
-                       //htmlDecode      : true,       // 开启 HTML 标签解析，为了安全性，默认不开启
-                       htmlDecode      : "style,script,iframe",  // you can filter tags decode
-                       //toc             : false,
-                       tocm            : false,    // Using [TOCM]
-                       //gfm             : false,
-                       //tocDropdown     : true,
-                       // markdownSourceCode : true, // 是否保留 Markdown 源码，即是否删除保存源码的 Textarea 标签
-                       emoji           : false,
-                       taskList        : false,
-                    //    tex             : true,  // 默认不解析
-                    //    flowChart       : true,  // 默认不解析
-                    //    sequenceDiagram : true,  // 默认不解析
-                   });
-                // me.str = data;
-            });
+            var name = transition.to.params.name;
+            transition.next();
+            name.indexOf('.html')>-1 ? this.createIFrame(name) : this.createMD(name);
         }
     }
 }

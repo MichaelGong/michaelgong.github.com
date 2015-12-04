@@ -25,7 +25,7 @@ Application Cache是HTML5的新特性，允许浏览器在本地存储页面所�
 第一步中已经说过了，这个文件是按照相对路径来的，所以要把它创建在它所在的html的同一目录下。
 
 一个标准的清单文件大致是这样的：
-```js
+```javascript
 CACHE MANIFEST
 # version 1.0.0
 CACHE:
@@ -48,11 +48,11 @@ FALLBACK:
 value对应的内容，可以使用通配符，但是路径都是相对路径
 
 Application Cache还有一些API，首先你要获取到Application对象
-```js
-var appCacahe = window.applicationCache
+```javascript
+var appCacahe = window.applicationCache;
 ```
 然后Application Cache提供了很多监听事件，比如：
-```js
+```javascript
 appCacahe.addEventListener('updateready',function(){
     if(appCacahe.status == appCacahe.UPDATEREADY){
         appCacahe.swapCache();

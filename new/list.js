@@ -4,7 +4,7 @@ var proList = {
 		title: 'prolist',
 		prolist: [
 			{
-				link: 'filter',
+				link: 'article-filter.html',
 				title: '-webkit-filter相关属性',
 				imgsrc: 'images/hue-small.jpg',
 				content: '-webkit-filter相关属性',
@@ -12,7 +12,7 @@ var proList = {
 				detail: '-webkit-filter可以改变背景的颜色、灰度等等'
 			},
 			{
-				link: 'devicemotion',
+				link: 'article-devicemotion.html',
 				title: '重力感应',
 				imgsrc: 'images/gravity.jpg',
 				content: '重力感应',
@@ -28,7 +28,7 @@ var proList = {
 				detail: 'Application Cache'
 			},
 			{
-				link: 'article',
+				link: 'requestAnimationFrame',
 				title: 'requestAnimationFrame',
 				imgsrc: 'images/aniframe.jpg',
 				content: 'requestAnimationFrame',
@@ -108,7 +108,7 @@ var proList = {
 				detail: 'mobile web曾经的踩过坑'
 			},
 			{
-				link:'weinre',
+				link:'article-weinre.html',
 				title: '移动远程调试weinre的使用',
 				imgsrc: 'images/gradient.jpg',
 				content: '移动远程调试weinre的使用',

@@ -15,8 +15,10 @@ Vue.use(VueRouter);
 Vue.use(RouterResource);
 
 var router = new VueRouter({
-    //history:true, //这个属性为true表示开启html5的history方法监听路由，此方式需要服务器配合才能完成
-    saveScrollPosition:true
+    hashbang: true,
+    history: false,
+    saveScrollPosition: true,
+    transitionOnLoad: true
 });
 
 configRouter.configRouter(router);

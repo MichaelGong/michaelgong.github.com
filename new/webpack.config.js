@@ -11,7 +11,9 @@ module.exports = {
         new webpack.ProvidePlugin({
             jquery: "jquery",
             jQuery: 'jquery'
-        })
+        }),
+        //提公用js到common.js文件中
+        new webpack.optimize.CommonsChunkPlugin('common.js'),
     ],
     module: {
         loaders: [
