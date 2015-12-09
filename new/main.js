@@ -18,7 +18,6 @@ var router = new VueRouter({
 
 configRouter.configRouter(router);
 
-
 var Router = Vue.extend(RouterView);
 router.start(Router,'#main');
 
