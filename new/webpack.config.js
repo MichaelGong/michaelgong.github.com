@@ -8,10 +8,10 @@ module.exports = {
         filename: '[name].build.js'
     },
     plugins: [
-        new webpack.ProvidePlugin({
-            jquery: "jquery",
-            jQuery: 'jquery'
-        }),
+        // new webpack.ProvidePlugin({
+        //     jquery: "jquery",
+        //     jQuery: 'jquery'
+        // }),
         //提公用js到common.js文件中
         new webpack.optimize.CommonsChunkPlugin('common.js'),
     ],
@@ -62,11 +62,11 @@ module.exports = {
     resolve: {
         alias: {
             // require('tinymce') will do require('tinymce/tinymce')
-            marked: '../libs/marked.min.js',
+            // marked: '../libs/marked.min.js',
             // prettyPrint: '../libs/prettify.min.js',
-            prettifyPrint: '../libs/prettify.min.js',
+            // prettifyPrint: '../libs/prettify.min.js',
             // _: '../libs/underscore.min.js',
-            editormd: '../libs/editormd.min.js',
+            // editormd: '../libs/editormd.min.js',
         },
     },
 

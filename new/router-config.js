@@ -17,18 +17,6 @@ module.exports = {
                 name:'article',
                 component:require('./components/article.vue')
             },
-            // '/article/:filter':{
-            //     name:'filter',
-            //     component:require('./components/article.vue')
-            // },
-            // '/article/:devicemotion':{
-            //     name:'devicemotion',
-            //     component:require('./components/article.vue')
-            // },
-            // '/article/:weinre':{
-            //     name:'weinre',
-            //     component:require('./components/article.vue')
-            // }
         });
     }
 

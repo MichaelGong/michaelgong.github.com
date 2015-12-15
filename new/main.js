@@ -1,8 +1,3 @@
-// import Vue from 'vue'
-// import VueRouter from 'vue-router'
-// import {configRouter} from './router-config'
-// import RouterView from './router.vue'
-// import RouterResource from 'vue-resource'
 var Vue = require('vue');
 var VueRouter = require('vue-router');
 var configRouter = require('./router-config.js');

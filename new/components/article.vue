@@ -8,6 +8,80 @@
 }
 .content{
     padding-top: 50px;
+    font-family: "Courier New",Consolas,Menlo,Monaco,monospace;
+}
+/*
+Monokai style - ported by Luigi Maselli - http://grigio.org
+*/
+.hljs,pre {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #272822; color: #ddd;
+  font-size:16px;
+  font-family: 'courier new';
+}
+code{
+    font-family: 'courier new';
+}
+.hljs-tag,
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-strong,
+.hljs-name {
+  color: #f92672;
+}
+
+.hljs-code {
+  color: #66d9ef;
+}
+
+.hljs-class .hljs-title {
+  color: white;
+}
+
+.hljs-attribute,
+.hljs-symbol,
+.hljs-regexp,
+.hljs-link {
+  color: #bf79db;
+}
+
+.hljs-string,
+.hljs-bullet,
+.hljs-subst,
+.hljs-title,
+.hljs-section,
+.hljs-emphasis,
+.hljs-type,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-selector-attr,
+.hljs-selector-pseudo,
+.hljs-addition,
+.hljs-variable,
+.hljs-template-tag,
+.hljs-template-variable {
+  color: #a6e22e;
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-deletion,
+.hljs-meta {
+  color: #75715e;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-doctag,
+.hljs-title,
+.hljs-section,
+.hljs-type,
+.hljs-selector-id {
+  font-weight: bold;
 }
 </style>
 <template>
@@ -34,10 +108,22 @@
     </section>
 </template>
 <script type="text/javascript">
-var editormd = window.editormd = require('editormd');
-var marked = window.marked = require('marked');
-var prettifyPrint = window.prettifyPrint = require('prettifyPrint');
-var $ = require('jquery');
+var marked = require('marked');
+marked.setOptions({
+    renderer: new marked.Renderer(),
+    gfm: true,
+    tables: true,
+    breaks: false,
+    pedantic: false,
+    sanitize: true,
+    smartLists: true,
+    smartypants: false,
+    highlight: function (code) {
+        return require('highlight.js').highlightAuto(code).value;
+    }
+});
+
+
 require('../css/article.css');
 export default{
     data(){
@@ -50,9 +136,10 @@ export default{
     },
     ready(){
         var me = this;
-        $(window).resize(function(){
+        window.onresize = function(){
+            console.log('resize');
             me.iFrameHeight();
-        });
+        };
     },
     methods:{
         iFrameHeight:function(){
@@ -60,7 +147,7 @@ export default{
             var subWeb = document.frames ? document.frames["iframepage"].document : ifm.contentDocument;
             if(ifm != null && subWeb != null) {
                 ifm.height = subWeb.body.scrollHeight;
-                ifm.width = $(window).width();
+                ifm.width = document.body.offsetWidth;
             }
         },
         createIFrame:function(name){
@@ -70,12 +157,7 @@ export default{
         createMD:function(name){
             this.$http.get('./mark/'+name+'.md',function(data){
                 this.isMD = true;
-                var editorMD = new editormd();
-                editorMD.markdownToHTML("md", {
-                    markdown        : data ,
-                    path            : '../libs/',
-                    htmlDecode      : "style,script,iframe",
-                });
+                document.getElementById('md').innerHTML = marked(data);
             });
         }
     },
