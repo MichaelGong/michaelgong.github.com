@@ -22,7 +22,6 @@ webpackJsonp([0,1],[
 	
 	configRouter.configRouter(router);
 	
-	
 	var Router = Vue.extend(RouterView);
 	router.start(Router,'#main');
 	
