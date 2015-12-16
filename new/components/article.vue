@@ -1,51 +1,58 @@
 <style>
-.article{
+.article {
     position: absolute;
-    left:0;
-    top:0;
+    left: 0;
+    top: 0;
     background: #fff;
-    width:100%;
+    width: 100%;
 }
-.content{
+
+.content {
     padding-top: 50px;
-    font-family: "Courier New",Consolas,Menlo,Monaco,monospace;
+    font-family: "Courier New", Consolas, Menlo, Monaco, monospace;
 }
+
+
 /*
 Monokai style - ported by Luigi Maselli - http://grigio.org
 */
+
 .hljs,pre {
-  display: block;
-  overflow-x: auto;
-  padding: 0.5em;
-  background: #272822; color: #ddd;
-  font-size:16px;
-  font-family: 'courier new';
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    background: #272822;
+    color: #ddd;
+    font-size: 16px;
+    font-family: 'courier new', Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;
 }
-code{
-    font-family: 'courier new';
+
+code,code * {
+    font-family: 'courier new', Consolas, 'Liberation Mono', Menlo, Courier, monospace !important;
 }
+
 .hljs-tag,
 .hljs-keyword,
 .hljs-selector-tag,
 .hljs-literal,
 .hljs-strong,
 .hljs-name {
-  color: #f92672;
+    color: #f92672;
 }
 
 .hljs-code {
-  color: #66d9ef;
+    color: #66d9ef;
 }
 
 .hljs-class .hljs-title {
-  color: white;
+    color: white;
 }
 
 .hljs-attribute,
 .hljs-symbol,
 .hljs-regexp,
 .hljs-link {
-  color: #bf79db;
+    color: #bf79db;
 }
 
 .hljs-string,
@@ -63,14 +70,14 @@ code{
 .hljs-variable,
 .hljs-template-tag,
 .hljs-template-variable {
-  color: #a6e22e;
+    color: #a6e22e;
 }
 
 .hljs-comment,
 .hljs-quote,
 .hljs-deletion,
 .hljs-meta {
-  color: #75715e;
+    color: #75715e;
 }
 
 .hljs-keyword,
@@ -81,8 +88,9 @@ code{
 .hljs-section,
 .hljs-type,
 .hljs-selector-id {
-  font-weight: bold;
+    font-weight: bold;
 }
+
 </style>
 <template>
     <div v-show="isHTML">
@@ -108,66 +116,69 @@ code{
     </section>
 </template>
 <script type="text/javascript">
-var marked = require('marked');
-marked.setOptions({
-    renderer: new marked.Renderer(),
-    gfm: true,
-    tables: true,
-    breaks: false,
-    pedantic: false,
-    sanitize: true,
-    smartLists: true,
-    smartypants: false,
-    highlight: function (code) {
-        return require('highlight.js').highlightAuto(code).value;
-    }
-});
-
-
 require('../css/article.css');
-export default{
-    data(){
+module.exports = {
+    data:function() {
         return {
-            title:'',
-            isMD:false,
-            isHTML:false,
-            html:'',
+            title: '', isMD: false, isHTML: false, html: '',
         }
     },
-    ready(){
-        var me = this;
-        window.onresize = function(){
+    ready() {
+        var me=this;
+        window.onresize=function() {
             console.log('resize');
             me.iFrameHeight();
         };
     },
-    methods:{
-        iFrameHeight:function(){
-            var ifm= document.getElementById("iframepage");
-            var subWeb = document.frames ? document.frames["iframepage"].document : ifm.contentDocument;
-            if(ifm != null && subWeb != null) {
-                ifm.height = subWeb.body.scrollHeight;
-                ifm.width = document.body.offsetWidth;
+    methods: {
+        iFrameHeight:function() {
+            var ifm=document.getElementById("iframepage");
+            var subWeb=document.frames ? document.frames["iframepage"].document: ifm.contentDocument;
+            if(ifm !=null && subWeb !=null) {
+                ifm.height=subWeb.body.scrollHeight;
+                ifm.width=document.body.offsetWidth;
             }
         },
-        createIFrame:function(name){
-            this.isHTML = true;
+        createIFrame:function(name) {
+            this.isHTML=true;
             this.html='../'+name;
         },
-        createMD:function(name){
-            this.$http.get('./mark/'+name+'.md',function(data){
-                this.isMD = true;
-                document.getElementById('md').innerHTML = marked(data);
+        createMD:function(name) {
+            var me = this;
+            require.ensure(['marked','highlight.js'],function(require){
+                var marked = require('marked');
+                var renderer = new marked.Renderer();
+                marked.setOptions({
+                    gfm: true, 
+                    tables: true, 
+                    breaks: false, 
+                    pedantic: false, 
+                    sanitize: true, 
+                    smartLists: true, 
+                    smartypants: false, 
+                    linksInNewTab: true,
+                    highlight: function (code) {
+                        return require('highlight.js').highlightAuto(code).value;
+                    }
+                });
+                renderer.link = function( href, title, text ) {
+                    return '<a target="_blank" href="'+ href +'" title="' + title + '">' + text + '</a>';
+                }
+                me.$http.get('./mark/'+name+'.md', function(data) {
+                    me.isMD=true;
+                    document.getElementById('md').innerHTML=marked(data,{renderer:renderer});
+                });
             });
         }
     },
-    route:{
-        activate(transition){
-            var me = this;
-            var name = transition.to.params.name;
+    route: {
+        activate(transition) {
+            var me=this;
+            var name=transition.to.params.name;
             transition.next();
-            name.indexOf('.html')>-1 ? this.createIFrame(name) : this.createMD(name);
+            name.indexOf('.html')>-1 ? this.createIFrame(name): this.createMD(name);
         }
     }
 }
+
 </script>
