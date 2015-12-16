@@ -12,7 +12,6 @@
     font-family: "Courier New", Consolas, Menlo, Monaco, monospace;
 }
 
-
 /*
 Monokai style - ported by Luigi Maselli - http://grigio.org
 */
@@ -93,6 +92,7 @@ code,code * {
 
 </style>
 <template>
+    <cp-loading :show="show"></cp-loading>
     <div v-show="isHTML">
         <iframe id="iframepage" :src="html" width="100%" marginheight="0" marginwidth="0" frameborder="0" scrolling="no"  v-on:load="iFrameHeight()"  ></iframe>
     </div>
@@ -120,7 +120,11 @@ require('../css/article.css');
 module.exports = {
     data:function() {
         return {
-            title: '', isMD: false, isHTML: false, html: '',
+            title: '', 
+            isMD: false, 
+            isHTML: false, 
+            html: '',
+            show:true,
         }
     },
     ready() {
@@ -142,6 +146,7 @@ module.exports = {
         createIFrame:function(name) {
             this.isHTML=true;
             this.html='../'+name;
+            this.show = false;
         },
         createMD:function(name) {
             var me = this;
@@ -167,6 +172,7 @@ module.exports = {
                 me.$http.get('./mark/'+name+'.md', function(data) {
                     me.isMD=true;
                     document.getElementById('md').innerHTML=marked(data,{renderer:renderer});
+                    me.show = false;
                 });
             });
         }
@@ -178,6 +184,9 @@ module.exports = {
             transition.next();
             name.indexOf('.html')>-1 ? this.createIFrame(name): this.createMD(name);
         }
+    },
+    components:{
+        'cpLoading':require('./loading.vue')
     }
 }
 

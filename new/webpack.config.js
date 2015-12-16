@@ -7,7 +7,7 @@ module.exports = {
         path: './dist',
         publicPath: './dist/',
         filename: '[name].build.js',
-        chunkFilename: "[hash].chunk.js"
+        chunkFilename: "one.chunk.js"
     },
     plugins: [
         // new webpack.ProvidePlugin({
