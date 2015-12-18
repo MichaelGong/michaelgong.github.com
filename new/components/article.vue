@@ -6,7 +6,6 @@
     background: #fff;
     width: 100%;
 }
-
 .content {
     padding-top: 50px;
     font-family: "Courier New", Consolas, Menlo, Monaco, monospace;
@@ -92,11 +91,11 @@ code,code * {
 
 </style>
 <template>
-    <cp-loading :show="show"></cp-loading>
-    <div v-show="isHTML">
+    <cp-loading :show="show" ></cp-loading>
+    <div v-show="isHTML" transition="zoomIn" transition-mode="in-out">
         <iframe id="iframepage" :src="html" width="100%" marginheight="0" marginwidth="0" frameborder="0" scrolling="no"  v-on:load="iFrameHeight()"  ></iframe>
     </div>
-    <section class="article" v-show="isMD">
+    <section class="article" v-show="isMD" transition="zoomIn" transition-mode="in-out">
         <header class="navbar navbar-inverse navbar-fixed-top">
             <section class="container">
         		<div class="navbar-header">
@@ -127,13 +126,6 @@ module.exports = {
             show:true,
         }
     },
-    ready() {
-        var me=this;
-        window.onresize=function() {
-            console.log('resize');
-            me.iFrameHeight();
-        };
-    },
     methods: {
         iFrameHeight:function() {
             var ifm=document.getElementById("iframepage");
@@ -147,6 +139,11 @@ module.exports = {
             this.isHTML=true;
             this.html='../'+name;
             this.show = false;
+            var me=this;
+            window.onresize=function() {
+                console.log('resize');
+                me.iFrameHeight();
+            };
         },
         createMD:function(name) {
             var me = this;

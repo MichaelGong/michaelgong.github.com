@@ -6,7 +6,7 @@
             <section class="container text-center">
                 <img src="images/finger.png" class="finger bounceInDown ani-delay-2"/>
                 <div class="myname zoomInDown ani-delay-10">Michael Gong</div>
-                <p class="mydesc fadeInDown ani-delay-20">热爱前端，喜欢css，乐于钻研，<br>对新兴事物比较感兴趣，喜欢捣鼓HTML5新技术</p>
+                <p class="mydesc fadeInDown ani-delay-20">热爱前端，喜欢css，乐于钻研，<br>对新兴事物感兴趣，喜欢捣鼓HTML5新技术</p>
             </section>
         </section>
         <section class="container projects">
@@ -40,7 +40,8 @@
 
                                 <div class="caption">
                                     <h3>
-                                        <a title="{{item.title}}" >{{item.content}}<br>
+                                        <a v-link="{name:'article',params:{name:item.link}}" title="{{item.title}}" >  
+                                            {{item.content}}<br>
                                             <small>{{item.desc}}</small>
                                         </a>
                                     </h3>
@@ -54,20 +55,14 @@
             </div>
         </section>
     </section>
-    <router-view transition="bounce" transition-mode="in-out"></router-view>
 </div>
 </template>
 <script type="text/javascript">
-var data = null;
-export default{
-    data(){
+module.exports = {
+    data:function(){
         return {
             list:proList.data.prolist
         }
-    },
-    created(){
-
-    },
-    
+    }
 }
 </script>

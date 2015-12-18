@@ -36,12 +36,12 @@ var proList = {
 				detail: 'requestAnimationFrame简介'
 			},
 			{
-				link: 'article',
-				title: '滑动到页面顶部或者底部',
+				link: 'goToTop',
+				title: '滑动到页面顶部',
 				imgsrc: 'images/gotop.jpg',
-				content: '滑动到页面顶部或者底部',
+				content: '滑动到页面顶部',
 				desc: 'by @Michael Gong',
-				detail: '滑动到页面顶部或者底部'
+				detail: '滑动到页面顶部'
 			},
 			{
 				link: 'article',
