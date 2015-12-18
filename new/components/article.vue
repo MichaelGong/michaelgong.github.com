@@ -114,7 +114,7 @@ code,code * {
         </section>
     </section>
 </template>
-<script type="text/javascript">
+<script>
 require('../css/article.css');
 module.exports = {
     data:function() {
