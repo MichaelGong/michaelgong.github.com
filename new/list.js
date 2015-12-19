@@ -44,7 +44,7 @@ var proList = {
 				detail: '滑动到页面顶部'
 			},
 			{
-				link: 'touch.md',
+				link: 'touch',
 				title: 'touch事件',
 				imgsrc: 'images/touch.jpg',
 				content: 'touch事件',
