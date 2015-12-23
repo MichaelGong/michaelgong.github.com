@@ -9,66 +9,19 @@
 		<meta content="telephone=no, address=no" name="format-detection">
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-		<link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="styles/index.css"/>
-		<link rel="stylesheet" type="text/css" href="styles/libs/csshake.min.css"/>
-		<link rel="shortcut icon" href="images/finger.png" />
-		<script data-main="js/index" src="http://cdn.bootcss.com/require.js/2.1.15/require.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="./css/index.css"/>
+		<link rel="shortcut icon" href="./images/finger.png" />
+        <style>
+        [v-show] { display: none; }
+        </style>
 	</head>
 	<body>
-		<!--
-			http://www.etherdream.com/WebP/WebP.js
-			http://www.xuanfengge.com/canvas-3d-background.html
-			http://www.xuanfengge.com/jquery-event-binding-methods-bind-live-delegate-and-on-the-difference-between.html
-			http://www.zhangxinxu.com/wordpress/2013/09/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3css3-gradient%E6%96%9C%E5%90%91%E7%BA%BF%E6%80%A7%E6%B8%90%E5%8F%98/
-		-->
-		<!--<header class="navbar navbar-inverse navbar-fixed-top">
-			<section class="container">
-				<div class="navbar-header">
-					<a href="#" class="navbar-brand">Michael Gong's Blog</a>
-				</div>
-			</section>
-		</header>-->
-
-		<section id="content">
-			<section id="victor">
-				<div id="output"></div>
-				<section class="container text-center">
-					<img src="images/finger.png" class="finger bounceInDown ani-delay-2"/>
-					<div class="myname zoomInDown ani-delay-10">Michael Gong</div>
-					<p class="mydesc fadeInDown ani-delay-20">热爱前端，喜欢css，乐于钻研，<br>对新兴事物比较感兴趣，喜欢捣鼓HTML5新技术</p>
-				</section>
-			</section>
-			<!--<section id="hue-mouse">
-				<div id="hue-auto">
-				</div>
-			</section>-->
-			<section class="container projects">
-				<div class="projects-header page-header">
-					<h2>Html5知识总结</h2>
-					<p>这些都是对html5中比较有意思的知识点的总结</p>
-				</div>
-				<div class="row">
-					<section hidden id="proList" >
-						<div class="col-sm-6 col-md-4 col-lg-3" v-repeat="prolist">
-							<div class="thumbnail  "><!--shake shake-slow-->
-								<a href="{{link}}" title="{{title}}" target="_blank">
-									<img class="" width="300" height="150" v-attr="src:imgsrc" >
-								</a>
-								<div class="caption">
-									<h3>
-										<a href="{{link}}" title="{{title}}" target="_blank">{{content}}<br>
-											<small>{{desc}}</small>
-										</a>
-									</h3>
-									<p>{{detail}}</p>
-								</div>
-							</div>
-						</div>
-					</section>
-				</div>
-			</section>
-		</section>
-
-	</body>
+        <section id="main" class="wh-100">
+			<router-view ></router-view>
+        </section>
+		<script src='./list.js'></script>
+		<script src="./dist/common.js" charset="utf-8"></script>
+        <script src="dist/main.build.js"></script>
+    </body>
 </html>

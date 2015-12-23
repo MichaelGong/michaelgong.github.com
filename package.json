@@ -27,6 +27,7 @@
     "vue-loader": "^7.0.3",
     "vue-resource": "^0.1.17",
     "vue-router": "^0.7.6",
-    "webpack": "^1.12.6"
+    "webpack": "^1.12.6",
+    "highlightjs": "^8.7.0"
   }
 }

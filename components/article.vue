@@ -136,8 +136,8 @@ module.exports = {
             }
         },
         createIFrame:function(name) {
-            this.isHTML=true;
-            this.html='../'+name;
+            this.isHTML=true; 
+            this.html='./article/'+name;
             this.show = false;
             var me=this;
             window.onresize=function() {
@@ -147,7 +147,7 @@ module.exports = {
         },
         createMD:function(name) {
             var me = this;
-            require.ensure(['marked','highlight.js'],function(require){
+            require.ensure(['marked','highlightjs'],function(require){
                 var marked = require('marked');
                 var renderer = new marked.Renderer();
                 marked.setOptions({

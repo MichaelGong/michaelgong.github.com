@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>-webkit-filter属性</title>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
-		<meta content="no-cache" http-equiv="pragma">
-		<meta content="telephone=no, address=no" name="format-detection">
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-		<link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="styles/article.css"/>
-		<link rel="stylesheet" type="text/css" href="styles/libs/github.css"/>
-		<link rel="shortcut icon" href="images/finger.png" />
-		<!--<script data-main="js/article" src="//cdn.bootcss.com/require.js/2.1.15/require.min.js"></script>-->
+
 		<style>
 			.input-group{
 				margin-bottom: 10px;
@@ -63,15 +48,6 @@
 				}
 			}
 		</style>
-	</head>
-	<body>
-		<header class="navbar navbar-inverse navbar-fixed-top">
-			<section class="container">
-				<div class="navbar-header">
-					<a href="#" class="navbar-brand">Michael Gong's Blog</a>
-				</div>
-			</section>
-		</header>
 		<section id="content">
 			<section class="container">
 				<div class="row">
@@ -405,42 +381,44 @@
 		<script src="js/docs.min.js"></script>
 		<script src="js/libs/rainbow-custom.min.js"></script>
 		<script>
-			$('pre').wrap('<div class="highlight"></div>');
 			$(function(){
-				var $grayscale = $('#grayscale'),
-					$sepia = $('#sepia'),
-					$saturate = $('#saturate'),
-					$hue_rotate = $('#hue-rotate'),
-					$invert = $('#invert'),
-					$opacity = $('#opacity'),
-					$brightness = $('#brightness'),
-					$contrast = $('#contrast'),
-					$blur = $('#blur'),
-					arr = new Array(),
-					valueArr = window.valueArr = new Array();
-				arr[0] = $grayscale;
-				arr[1] = $sepia;
-				arr[2] = $saturate;
-				arr[3] = $hue_rotate;
-				arr[4] = $invert;
-				arr[5] = $opacity;
-				arr[6] = $brightness;
-				arr[7] = $contrast;
-				arr[8] = $blur;
+				$('pre').wrap('<div class="highlight"></div>');
+				$(function(){
+					var $grayscale = $('#grayscale'),
+						$sepia = $('#sepia'),
+						$saturate = $('#saturate'),
+						$hue_rotate = $('#hue-rotate'),
+						$invert = $('#invert'),
+						$opacity = $('#opacity'),
+						$brightness = $('#brightness'),
+						$contrast = $('#contrast'),
+						$blur = $('#blur'),
+						arr = new Array(),
+						valueArr = window.valueArr = new Array();
+					arr[0] = $grayscale;
+					arr[1] = $sepia;
+					arr[2] = $saturate;
+					arr[3] = $hue_rotate;
+					arr[4] = $invert;
+					arr[5] = $opacity;
+					arr[6] = $brightness;
+					arr[7] = $contrast;
+					arr[8] = $blur;
 
-				valueArr = [0,0,1,0,0,100,100,1,0];
+					valueArr = [0,0,1,0,0,100,100,1,0];
 
-				$.each(arr,function(key,value){
-					$(value).change(function(){
-						valueArr[key] = $(this).val();
-						filterImg();
-					});
-				})
+					$.each(arr,function(key,value){
+						$(value).change(function(){
+							valueArr[key] = $(this).val();
+							filterImg();
+						});
+					})
 
-				function filterImg(){
-					var $filterImg = $('#tool_finger');
-					$filterImg.css('-webkit-filter','grayscale('+ valueArr[0] / 100.0 + ') sepia('+valueArr[1] / 100.0+') saturate('+valueArr[2]+') hue-rotate('+valueArr[3]+'deg) invert('+valueArr[4]/100+') opacity('+valueArr[5]/100+') brightness('+valueArr[6]/100+') contrast('+valueArr[7]+') blur('+valueArr[8]+'px)');
-				}
+					function filterImg(){
+						var $filterImg = $('#tool_finger');
+						$filterImg.css('-webkit-filter','grayscale('+ valueArr[0] / 100.0 + ') sepia('+valueArr[1] / 100.0+') saturate('+valueArr[2]+') hue-rotate('+valueArr[3]+'deg) invert('+valueArr[4]/100+') opacity('+valueArr[5]/100+') brightness('+valueArr[6]/100+') contrast('+valueArr[7]+') blur('+valueArr[8]+'px)');
+					}
+			});
 
 //				$('.hue-auto').on('mousemove',function(evt){
 //					var procentjex = Math.round((evt.screenX / $(this).width())*255);
@@ -450,5 +428,3 @@
 
 			});
 		</script>
-	</body>
-</html>
