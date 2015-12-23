@@ -1,7 +1,176 @@
 /**
  * Created by GH on 2015/7/29.
  */
-(function(){
+var APIBASE = 'http://lppz.letwx.com/api/jsapi';
+//tap事件
+(function( window ) {
+    var Tap = {};
+
+    var utils = {};
+
+    utils.attachEvent = function(element, eventName, callback) {
+        if ('addEventListener' in window) {
+            return element.addEventListener(eventName, callback, false);
+        }
+    };
+
+    utils.fireFakeEvent = function(e, eventName) {
+        if (document.createEvent) {
+            return e.target.dispatchEvent(utils.createEvent(eventName));
+        }
+    };
+
+    utils.createEvent = function(name) {
+        if (document.createEvent) {
+            var evnt = window.document.createEvent('HTMLEvents');
+
+            evnt.initEvent(name, true, true);
+            evnt.eventName = name;
+
+            return evnt;
+        }
+    };
+
+    utils.getRealEvent = function(e) {
+        if (e.originalEvent && e.originalEvent.touches && e.originalEvent.touches.length) {
+            return e.originalEvent.touches[0];
+        } else if (e.touches && e.touches.length) {
+            return e.touches[0];
+        }
+
+        return e;
+    };
+
+    var eventMatrix = [{
+        // Touchable devices
+        test: ('propertyIsEnumerable' in window || 'hasOwnProperty' in document) && (window.propertyIsEnumerable('ontouchstart') || document.hasOwnProperty('ontouchstart')),
+        events: {
+            start: 'touchstart',
+            move: 'touchmove',
+            end: 'touchend'
+        }
+    }, {
+        // IE10
+        test: window.navigator.msPointerEnabled,
+        events: {
+            start: 'MSPointerDown',
+            move: 'MSPointerMove',
+            end: 'MSPointerUp'
+        }
+    }, {
+        // Modern device agnostic web
+        test: window.navigator.pointerEnabled,
+        events: {
+            start: 'pointerdown',
+            move: 'pointermove',
+            end: 'pointerup'
+        }
+    }];
+
+    Tap.options = {
+        eventName: 'tap',
+        fingerMaxOffset: 11
+    };
+
+    var attachDeviceEvent, init, handlers, deviceEvents,
+        coords = {};
+
+    attachDeviceEvent = function(eventName) {
+        return utils.attachEvent(document.documentElement, deviceEvents[eventName], handlers[eventName]);
+    };
+
+    handlers = {
+        start: function(e) {
+            e = utils.getRealEvent(e);
+
+            coords.start = [e.pageX, e.pageY];
+            coords.offset = [0, 0];
+        },
+
+        move: function(e) {
+            if (!coords.start && !coords.move) {
+                return false;
+            }
+
+            e = utils.getRealEvent(e);
+
+            coords.move = [e.pageX, e.pageY];
+            coords.offset = [
+                Math.abs(coords.move[0] - coords.start[0]),
+                Math.abs(coords.move[1] - coords.start[1])
+            ];
+        },
+
+        end: function(e) {
+            e = utils.getRealEvent(e);
+
+            if (coords.offset[0] < Tap.options.fingerMaxOffset && coords.offset[1] < Tap.options.fingerMaxOffset && !utils.fireFakeEvent(e, Tap.options.eventName)) {
+                // Windows Phone 8.0 trigger `click` after `pointerup` firing
+                // #16 https://github.com/pukhalski/tap/issues/16
+                if (window.navigator.msPointerEnabled || window.navigator.pointerEnabled) {
+                    var preventDefault = function(clickEvent) {
+                        clickEvent.preventDefault();
+                        e.target.removeEventListener('click', preventDefault);
+                    };
+
+                    e.target.addEventListener('click', preventDefault, false);
+                }
+
+                e.preventDefault();
+            }
+
+            coords = {};
+        },
+
+        click: function(e) {
+            if (!utils.fireFakeEvent(e, Tap.options.eventName)) {
+                return e.preventDefault();
+            }
+        },
+
+        emulatedTap: function( e ) {
+            if ( coords.offset ) {
+                utils.fireFakeEvent( e, Tap.options.eventName );
+            }
+
+            return e.preventDefault();
+        }
+    };
+
+    init = function() {
+        var i = 0;
+
+        for (; i < eventMatrix.length; i++) {
+            if (eventMatrix[i].test) {
+                deviceEvents = eventMatrix[i].events;
+
+                attachDeviceEvent('start');
+                attachDeviceEvent('move');
+                attachDeviceEvent('end');
+                utils.attachEvent(document.documentElement, 'click', handlers['emulatedTap']);
+
+                return false;
+            }
+        }
+
+        return utils.attachEvent(document.documentElement, 'click', handlers.click);
+    };
+
+    utils.attachEvent(window, 'load', init);
+
+    if (typeof define === 'function' && define.amd) {
+        define(function() {
+            init();
+
+            return Tap;
+        });
+    } else {
+        window.Tap = Tap;
+    }
+
+})( window );
+//M对象
+(function(window){
     /**
      * 全局M对象，声明了版本
      * @constructor
@@ -10,9 +179,9 @@
         var _M = function(){
             this.version = '0.1';
             this.v = this.version;
-            this.touch = ('ontouchstart' in window)?'touchend':'click';
+            this.touch = ('ontouchstart' in window)?'tap':'click';
             this.loadingID = 'M-loading';
-            this.APIBASE = 'http://lppz.letwx.com/api/jsapi';
+            this.APIBASE = APIBASE;
             /**
              * 获取当前系统和版本
              * android格式:{android: true, version: "4.4.4", tablet: false, phone: true}
@@ -120,6 +289,15 @@
             this.random = function(min,max){
                 return Math.floor(min + Math.random() * (max - min + 1));
             };
+            /**
+             * 修改页面title
+             * @param title 字符串
+             */
+            this.title = function(title){
+                if(Object.prototype.toString.call(title) === "[object String]"){
+                    document.title = title;
+                }
+            }
         };
 
         _M.prototype.register = function(key,obj){
@@ -570,7 +748,7 @@
 
             if(M.APIBASE.indexOf(window.location.host) < 0) { //接口地址和当前地址不在一个域，则以跨域的方式调用
                 var cbkey = 'httpcb'+this.httpid;
-				var ngapi = window.ngapi = ngapi || {};
+                var ngapi = window.ngapi = ngapi || {};
                 ngapi[cbkey] = function(data) {
                     callback && callback(data);
                     delete ngapi[cbkey]; //消除对象
@@ -600,7 +778,7 @@
                         callback && callback(json);
                     } catch (e) {
                         //TODO错误处理
-                        M.showToast('AJAX请求处理错误', 'error');
+                        M.showToast('AJAX请求处理错误');
                     }
                 }, "json");
             }
@@ -615,20 +793,8 @@
         var _tmp = {};
         _tmp.getUrlParam = function(url){
             var str = url;
-            var jinghao = 0; //存放'#'的位置
-            var jinghaoyu = null; //存放'#'后面第一个'&'的位置
-            if (!str) str = window.location.href;
-            str = str.replace('#rd','');
-            while(str.indexOf('#') > -1){ //以防url中出现多个'#'
-                jinghao = str.indexOf('#',jinghao + 1);
-                var jinghaostr = str.substr(jinghao);
-                if(jinghaostr.indexOf('&') > -1){
-                    jinghaoyu = jinghaostr.indexOf('&');
-                }else{
-                    jinghaoyu = jinghaostr.length;
-                }
-                str = str.replace(str.substr(jinghao,jinghaoyu),'');
-            }
+            if (!str) str = window.location.search;
+            str = str.replace('#rd',''); //去除微信链接后面的#rd
             var obj = new Object();
             if (str.indexOf('?') > -1) {
                 var string = str.substr(str.indexOf('?') + 1);
@@ -659,7 +825,18 @@
             if (cval != null)
                 document.cookie = name + '=' + cval + ';expires=' + exp.toGMTString();
         };
-
+        //将对象转化成数据
+        _tmp.toArray = function(obj){
+            try{
+                return Array.prototype.slice.call(obj);
+            }catch(e){
+                var arr = [];
+                for(var i in obj){
+                    arr.push(obj[i]);
+                }
+                return arr;
+            }
+        }
         for(var k in _tmp){
             if(_tmp.hasOwnProperty(k)) M.register(k,_tmp[k]);
         }
@@ -667,9 +844,9 @@
     if(typeof window !== 'undefined'){
         window.M = M;
     }
-})();
-
-(function() {
+})(window);
+//requestAnimationFrame
+(function(window) {
     var lastTime = 0;
     var vendors = ['ms', 'moz', 'webkit', 'o'];
     for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
@@ -688,4 +865,6 @@
     if (!window.cancelAnimationFrame) window.cancelAnimationFrame = function(id) {
         clearTimeout(id);
     };
-}());
+}(window));
+
+
