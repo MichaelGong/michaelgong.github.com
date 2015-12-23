@@ -866,5 +866,3 @@ var APIBASE = 'http://lppz.letwx.com/api/jsapi';
         clearTimeout(id);
     };
 }(window));
-
-
