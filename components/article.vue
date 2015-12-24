@@ -147,7 +147,7 @@ module.exports = {
         },
         createMD:function(name) {
             var me = this;
-            require.ensure(['marked','highlightjs'],function(require){
+            require.ensure(['marked','highlight.js'],function(require){
                 var marked = require('marked');
                 var renderer = new marked.Renderer();
                 marked.setOptions({
