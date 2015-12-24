@@ -3,10 +3,10 @@ Michael Gong's Blog
 Michael Gong
 
 # ApplicationCache简介
-[ApplicationCache简介](./article/ApplicationCache.md)
+[ApplicationCache简介](./mark/ApplicationCache.md)
 
-[RequestAnimationFrame简介](./article/requestAnimationFrame.md)
+[RequestAnimationFrame简介](./mark/requestAnimationFrame.md)
 
-[goToTop](./article/goToTop.md)
+[goToTop](./mark/goToTop.md)
 
-[touch](./article/touch.md)
+[touch](./mark/touch.md)
