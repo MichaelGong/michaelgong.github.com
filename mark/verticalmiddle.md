@@ -117,4 +117,4 @@ css
 
 
 ### 其他
-测试连接[verticalmiddle.html](./mark/verticalmiddle.html)
+测试连接[verticalmiddle.html](http://michaelgong.github.io/mark/verticalmiddle.html)
