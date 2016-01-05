@@ -115,6 +115,14 @@ var proList = {
 				desc: 'by @Michael Gong',
 				detail: '移动远程调试weinre的使用'
 			},
+			{
+				link:'verticalmiddle',
+				title: 'css垂直居中',
+				imgsrc: 'images/cssvertical.png',
+				content: 'css垂直居中',
+				desc: 'by @Michael Gong',
+				detail: 'css垂直居中'
+			}
 		]
 	}
 }
