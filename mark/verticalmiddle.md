@@ -6,7 +6,7 @@
 .middle{
 	height:40px;
 	line-height:40px;
-	over-flow:hidden;
+	overflow:hidden;
 }
 ```
 这样内容就可以居中了，只不过超出的部分是看不到的
@@ -30,7 +30,7 @@
 ```
 此方法低版本ie可能会出现问题，display属性可以设置成`inline-block`
 
-### 4、position:absolute+margin
+### 4、position:absolute+margin 垂直水平居中
 ```css
 .parent{
 	width:300px;
@@ -39,7 +39,7 @@
 }
 .middle{
 	width:200px;
-	height:300px
+	height:300px;
 	position:absolute;
 	top:50%;
 	left:50%;
@@ -48,7 +48,7 @@
 }
 ```
 
-### 5、position:absolute
+### 5、position:absolute 垂直水平居中
 ```css
 .parent{
 	width:300px;
@@ -57,15 +57,16 @@
 }
 .middle{
 	width:200px;
-	height:300px
+	height:300px;
 	position:absolute;
 	top:0;
 	bottom:0;
 	left:0;
 	right:0;
+	margin: auto;
 }
 ```
-此方法和上面的方法差在：不使用`margin`，并且top/left/right/bottom全为0
+此方法和上面的方法差在：使用`margin: auto;`，并且top/left/right/bottom全为0
 
 ### 6、利用float
 代码如下：
@@ -104,17 +105,16 @@ css
 	display:-webkit-box;
 	display:flex;
 	display:-webkit-flex;
-	flex-flow:column nowrap;
-	-webkit-flex-flow:column nowrap;
+	flex-flow:row nowrap;
+	-webkit-flex-flow:row nowrap;
 	align-items:center;
 	-webkit-align-items:center;
-	box-orient:vertical;
 	box-align:enter;
-	-webkit-box-orient:vertical;
-	-webkit-box-align:enter;
+	-webkit-box-align:center;
 }
-.child{
-	
-}	
 ```
 只需要在父元素上添加即可，不过这个设置方式有很大的兼容性问题，主要应用在移动端居多。
+
+
+### 其他
+测试连接[verticalmiddle.html](./verticalmiddle.html)

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>垂直居中</title>
+	<style type="text/css">
+	.parent{
+		width:500px;
+		height:500px;
+		background-color: red;
+		position:relative;
+	}
+	.child{
+		width:200px;
+		height:200px;
+		background-color: green;
+	}
+	.middle1{
+		height:40px;
+		line-height:40px;
+		overflow:hidden;
+	}	
+	.middle2{
+		width:200px;
+		padding-top:40px;
+		padding-bottom:40px;
+		background-color: green;
+	}
+	.middle3{
+		display:table-cell;
+		vertical-align: middle;
+	}
+	.middle4{
+		width:200px;
+		height:200px;
+		position:absolute;
+		top:50%;
+		left:50%;
+		margin-top:-100px;
+		margin-left:-100px;
+	}
+	.middle5{
+		width:200px;
+		height:300px;
+		position:absolute;
+		top:0;
+		bottom:0;
+		left:0;
+		right:0;
+		margin: auto;
+	}
+	#parent {
+		height: 250px;
+	}
+	#floater {
+	    float: left;
+	    height: 50%;
+	    width: 100%;
+	    margin-bottom: -50px;
+	}
+	#child {
+	    clear: both;
+	    height: 100px;
+	}
+	.parent7{
+		display:box;
+		display:-webkit-box;
+		display:flex;
+		display:-webkit-flex;
+		flex-flow:row nowrap;
+		-webkit-flex-flow:row nowrap;
+		align-items:center;
+		-webkit-align-items:center;
+		box-align:enter;
+		-webkit-box-align:center;
+	}
+	</style>
+</head>
+<body>
+	<h1>1、单行内容居中，高度不变</h1>
+	<div class="child middle1">单行内容居中，高度不变</div>
+
+	<h1>2、多行内容，高度可变</h1>
+	<div class="middle2">多行内容，高度可变多行内容，高度可变多行内容，高度可变多行内容，高度可变多行内容，高度可变</div>
+
+	<h1>3、display:table-cell</h1>
+	<div class="middle3 child">display:table-celldisplay:table-celldisplay:table-cell</div>
+
+	<h1>4、position:absolute+margin</h1>
+	<div class="parent">
+		<div class="middle4 child">
+		  position:absolute+margin;
+		  这个其实是垂直水平都居中
+		</div>
+	</div>
+	
+	<h1>5、position:absolute</h1>
+	<div class="parent">
+		<div class="middle5 child"></div>
+	</div>
+
+	<h1>6、利用float</h1>
+	<div id="parent" class="parent">
+	    <div id="floater"></div>
+	    <div id="child" class="child">Content here</div>
+	</div>
+
+	<h1>7、利用css3实现垂直居中</h1>
+	<div class="parent parent7">
+		<div class="child"></div>
+	</div>
+</body>
+</html>
