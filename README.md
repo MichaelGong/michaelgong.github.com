@@ -12,3 +12,7 @@ Michael Gong
 [touch](./mark/touch.md)
 
 [css垂直居中](./mark/verticalmiddle.md)
+
+[二维码、一维码生成插件](./mark/qrcode.md)
+
+[垂直居中](./mark/verticalmiddle.md)
