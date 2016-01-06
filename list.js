@@ -68,7 +68,7 @@ var proList = {
 				detail: '二维码生成插件的使用'
 			},
 			{
-				link: 'article',
+				link: 'font-face',
 				title: 'font-face',
 				imgsrc: 'images/fontface.jpg',
 				content: 'font-face',

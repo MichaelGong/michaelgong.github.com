@@ -16,3 +16,5 @@ Michael Gong
 [二维码、一维码生成插件](./mark/qrcode.md)
 
 [垂直居中](./mark/verticalmiddle.md)
+
+[font-face](./mark/font-face.md)
