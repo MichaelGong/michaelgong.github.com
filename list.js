@@ -52,7 +52,7 @@ var proList = {
 				detail: 'touch事件'
 			},
 			{
-				link: 'article',
+				link: 'https://github.com/alexgibson/shake.js',
 				title: '手机摇一摇',
 				imgsrc: 'images/yao.jpg',
 				content: '手机摇一摇',
@@ -94,7 +94,7 @@ var proList = {
 			{
 				link: 'http://www.qianduan.net/position-sticky-introduction/',
 				title: 'position sticky',
-				imgsrc: 'images/gradient.jpg',
+				imgsrc: 'images/sticky.jpg',
 				content: 'css3的基于relative与fixed之间的属性',
 				desc: 'by @Michael Gong',
 				detail: 'position sticky'
@@ -102,7 +102,7 @@ var proList = {
 			{
 				link:'http://www.html-js.com/article/Big-search-team-columns-at-the-front-end-of-the-car',
 				title: 'mobile web曾经的踩过坑',
-				imgsrc: 'images/gradient.jpg',
+				imgsrc: 'images/keng.jpg',
 				content: 'mobile web曾经的踩过坑',
 				desc: 'by @Michael Gong',
 				detail: 'mobile web曾经的踩过坑'
@@ -110,7 +110,7 @@ var proList = {
 			{
 				link:'article-weinre.html',
 				title: '移动远程调试weinre的使用',
-				imgsrc: 'images/gradient.jpg',
+				imgsrc: 'images/weinre.jpg',
 				content: '移动远程调试weinre的使用',
 				desc: 'by @Michael Gong',
 				detail: '移动远程调试weinre的使用'
