@@ -88,6 +88,11 @@ code,code * {
 .hljs-selector-id {
     font-weight: bold;
 }
+blockquote{
+    font-size: 14px;
+    border-left: 5px solid #ccc;
+    background: #eee;
+}
 
 </style>
 <template>
