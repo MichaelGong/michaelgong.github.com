@@ -60,7 +60,7 @@ var proList = {
 				detail: '利用重力感应实现手机摇一摇'
 			},
 			{
-				link: 'article',
+				link: 'qrcode',
 				title: '二维码生成插件的使用',
 				imgsrc: 'images/qrcode.jpg',
 				content: '二维码生成插件的使用',
