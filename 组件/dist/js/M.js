@@ -293,7 +293,6 @@
 			return this;
 		}
 
-
 	}
 	_M.OLDDISPLAY = 'Molddisplay';
 	_M.ready = function(fn){
@@ -337,6 +336,112 @@
 		var d = w.getComputedStyle(elem,null).getPropertyValue('display');
 		document.body.removeChild(parentElem);
 		return d;
+	}
+	_M.ajax = function(url,type,data,success,error,dataType){
+		ajax({
+			url:url,
+			type:type,
+			data:data,
+			success:success,
+			error:error,
+			dataType:dataType || 'default'
+		});
+	}
+	_M.get = function(url,success,error){
+		ajax({
+			url:url,
+			type:'GET',
+			success:success,
+			error:error,
+			dataType:'json'
+		});
+	}
+	_M.post = function(url,data,success,error){
+		ajax({
+			url:url,
+			type:'POST',
+			data:data,
+			success:success,
+			error:error,
+			dataType:'json'
+		});
+	}
+	function ajax(option){
+		var defaultOption = {
+			url:'',
+			type:'GET',
+			data:null,
+			async:true,
+			success:null,
+			complete:null,
+			error:null,
+			dataType:'application/x-www-form-urlencoded',
+			beforeSend:null,
+		},
+		option = option,
+		xhrs = [
+			function(){return new XMLHttpRequest();},
+			function(){return new ActiveXObject('Microsoft.XMLHTTP');},
+			function(){return new ActiveXObject('MSXML2.XMLHTTP');}
+		],xhr,contentType;
+		for(var i in defaultOption){
+			if(!option[i]){
+				option[i] = defaultOption[i];
+			}
+		}
+		if(xhr) xhr = xhr;
+		else{
+			for(var i=0;i<xhrs.length;i++){
+				try{
+					xhr = xhrs[i]();
+					break;
+				}catch(e){}
+			}
+		}
+		switch(option.dataType){
+			case 'text':
+				contentType = 'text/plain';
+				break;
+			case 'json':
+				contentType = 'application/json';
+				break;
+			case 'XML':
+				contentType = 'application/xml';
+				break;
+			default:
+				contentType = 'application/x-www-form-urlencoded';
+		}
+
+		xhr.open(option.type,option.url,option.async);
+
+		xhr.onreadystatechange = function(){
+			/** 
+	         * readyState 返回当前请求的状态，只读。定义如下：<br /> 
+	         * 0 (未初始化) 对象已建立，但是尚未初始化（尚未调用open方法）<br /> 
+	         * 1 (初始化) 对象已建立，尚未调用send方法<br /> 
+	         * 2 (发送数据) send方法已调用，但是当前的状态及http头未知<br /> 
+	         * 3 (数据传送中)已接收部分数据，因为响应及http头不全， 
+	         * 这时通过responseBody和responseText获取部分数据会出现错误<br /> 
+	         * 4 (完成) 数据接收完毕,此时可以通过通过responseBody和responseText获取完整的回应数据<br /> 
+	         */  
+	        switch(xhr.readyState){
+	        	case 1:
+	        		option.beforeSend && option.beforeSend();
+	        		break;
+	        	case 4:
+	        		if((xhr.status>=200&&xhr.status<300)|| xhr.status==304){ //成功
+	        			option.success && option.success(JSON.parse(xhr.responseText));
+	        		}else{ //失败
+	        			console.error(xhr.status,xhr.responseText,xhr);
+	        			option.error && option.error(xhr,xhr.status,xhr.responseText);
+	        		}
+	        		break;
+	        }
+		}
+		if(option.type.toLowerCase() == 'post')
+			xhr.setRequestHeader('Content-Type',contentType+';charset=utf-8');
+		console.log(option);
+		xhr.send(option.data ? option.data:null);
 	}
 	_M.prototype.init.prototype = _M.prototype;
 	var $M = typeof Zepto !== 'undefined' ? Zepto : (typeof jQuery!= 'undefined' ? jQuery : _M);
