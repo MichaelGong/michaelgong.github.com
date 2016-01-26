@@ -243,7 +243,9 @@
 		},
 		remove:function(){
 			for(var i=0;i<this.length;i++){
-				this[i].parentNode.removeChild(this[i]);
+				var parent = this[i].parentNode;
+				if(parent && parent.nodeType !== 11)
+					parent.removeChild(this[i]);
 			}
 			return this;
 		},
@@ -338,8 +340,16 @@
 		return d;
 	}
 	_M.ajax = function(url,type,data,success,error,dataType){
+		var dataTemp = '',i;
+		if(type.toLowerCase() == 'post' && data){
+			for(i in data){
+				dataTemp += i + '=' + encodeURIComponent(data[i]) + '&';
+			}
+			dataTemp = dataTemp.substring(0,dataTemp.length-1);
+		}
+		data = data ? dataTemp : null;
 		ajax({
-			url:url,
+			url:encodeURI(url),
 			type:type,
 			data:data,
 			success:success,
@@ -349,7 +359,7 @@
 	}
 	_M.get = function(url,success,error){
 		ajax({
-			url:url,
+			url:encodeURI(url),
 			type:'GET',
 			success:success,
 			error:error,
@@ -357,16 +367,22 @@
 		});
 	}
 	_M.post = function(url,data,success,error){
+		var dataTemp = '',i;
+		for(i in data){
+			dataTemp += i + '=' + encodeURIComponent(data[i]) + '&';
+		}
+		dataTemp = dataTemp.substring(0,dataTemp.length-1);
 		ajax({
-			url:url,
+			url:encodeURI(url),
 			type:'POST',
-			data:data,
+			data:dataTemp,
 			success:success,
 			error:error,
-			dataType:'json'
+			dataType:'default'
 		});
 	}
 	function ajax(option){
+
 		var defaultOption = {
 			url:'',
 			type:'GET',
@@ -388,6 +404,10 @@
 			if(!option[i]){
 				option[i] = defaultOption[i];
 			}
+		}
+		if(option.url.indexOf(window.location.host)<0){ //跨域
+			jsonp(option.url,option.data,option.success);
+			return;
 		}
 		if(xhr) xhr = xhr;
 		else{
@@ -439,9 +459,62 @@
 	        }
 		}
 		if(option.type.toLowerCase() == 'post')
-			xhr.setRequestHeader('Content-Type',contentType+';charset=utf-8');
-		console.log(option);
+			xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded;charset=utf-8');
+
 		xhr.send(option.data ? option.data:null);
+	}
+	function jsonp(url,data,func){
+		var me = this;
+		//时间戳
+		this.timestamp = function(){
+			return (new Date()).getTime();
+		}
+		//获取随机长度的由数字构成的随机字符串
+		this.randStr = function(){
+			return Math.random().toString().substr(2);
+		}
+		this.removeElem = function(elem) {
+	        var parent = elem.parentNode;
+	        if(parent && parent.nodeType !== 11) {
+	            parent.removeChild(elem);
+	        }
+	    }
+		this.getJSON = function(url,data,func){
+			var dataTemp = '',match,id,timestamp,script;
+			if(typeof data == 'string'){
+				dataTemp = data;
+			}else{
+				console.log(2);
+				for(var i in data){
+					dataTemp += i + '=' + encodeURIComponent(data[i]) + '&';
+				}
+				dataTemp = dataTemp.substring(0,dataTemp.length-1)
+			}
+			timestamp = me.timestamp();
+			url = url + (url.indexOf('?')<0 ?'?':'&') + dataTemp + '&tag_time='+timestamp;
+			id = 'jsonp_' + timestamp + '_' + me.randStr();
+			url += url + '&callback='+id;
+
+        	script = document.createElement('script');
+        	script.type = 'text/javascript';
+        	script.src = url;
+        	script.id = id;
+        	// 在head里面插入script元素
+	        var head = document.getElementsByTagName("head");
+	        if(head && head[0]) {
+	            head[0].appendChild(script);
+	        }
+        	window[id] = function(data){
+				window[id] = undefined;
+				func(data);
+				// 获取这个script的元素
+            	var elem = document.getElementById(id);
+            	// 删除head里面插入的script，这三步都是为了不影响污染整个DOM啊
+            	me.removeElem(elem);
+        	}
+		}
+
+		this.getJSON(url,data,func);
 	}
 	_M.prototype.init.prototype = _M.prototype;
 	var $M = typeof Zepto !== 'undefined' ? Zepto : (typeof jQuery!= 'undefined' ? jQuery : _M);
