@@ -551,9 +551,10 @@ input[type='radio']{
 }
 .M-loading-pop{
     position: fixed;
+    left:0;
     top:0;
     background: rgba(255,255,255,.5);
-    z-index: 9999999;
+    z-index: 9999;
 }
 
 .iScrollVerticalScrollbar {
