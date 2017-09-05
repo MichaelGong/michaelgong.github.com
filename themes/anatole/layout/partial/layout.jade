@@ -1,0 +1,25 @@
+doctype
+html(lang="zh-CN")
+  head
+    include head
+
+  body
+    include sidebar
+    .main
+      include nav
+
+      block content
+
+    script(src= url_for('js/jquery.js'))
+    script(src= url_for('js/jquery-migrate-1.2.1.min.js'))
+    script(src= url_for('js/jquery.appear.js'))
+
+    script.
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?7b168a4f1a257e5aaf73660ae4ffad1c";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+
