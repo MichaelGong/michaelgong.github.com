@@ -697,3 +697,6 @@ a.btn {
     display: grid;
   }
 }
+.comment-container {
+  margin: 30px;
+}
