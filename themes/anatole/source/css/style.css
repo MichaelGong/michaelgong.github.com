@@ -115,18 +115,21 @@ a:hover, a:active {
 .content {
   height: auto;
   float: right;
-  width: 70%;
+  width: auto;
   margin-top: 60px;
+  padding-left: 420px;
 }
 
 .page-top {
-  width: 70%;
+  width: auto;
   position: fixed;
+  left: 0;
   right: 0;
   z-index: 3;
   background-color: #fff;
   height: 60px;
   border-bottom: 1px solid #f2f2f2;
+  padding-left: 420px;
 }
 .page-top .nav {
   list-style: none;
@@ -174,7 +177,7 @@ a:hover, a:active {
 }
 
 .sidebar {
-  width: 30%;
+  width: 420px;
   -webkit-background-size: cover;
   background-size: cover;
   background-color: #fff;
@@ -235,6 +238,9 @@ a:hover, a:active {
 .post {
   background-color: #FFF;
   margin: 30px;
+}
+.post .post-title {
+  display: none;
 }
 .post .post-title h1 {
   text-transform: uppercase;
@@ -687,6 +693,7 @@ a.btn {
     width: 100%;
     z-index: 2;
     position: absolute;
+    padding-left:0;
   }
 
   .footer {
@@ -699,4 +706,11 @@ a.btn {
 }
 .comment-container {
   margin: 30px;
+}
+.toc {
+  border: none !important;
+  padding: 0 !important;
+}
+.toc >ul {
+  padding-left: 15px;
 }

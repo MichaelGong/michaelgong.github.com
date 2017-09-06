@@ -6,6 +6,8 @@ mixin make_post(item, is_detail)
 					a= item.title
 				else
 					a(href= url_for(item.path))= item.title
+		
+
 		if is_detail
 			.post-content!= item.content
 		else
