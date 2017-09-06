@@ -114,10 +114,11 @@ a:hover, a:active {
 /*animation ends*/
 .content {
   height: auto;
-  float: right;
+  /* float: right; */
   width: auto;
   margin-top: 60px;
   padding-left: 420px;
+  padding-top: 1px;
 }
 
 .page-top {
@@ -125,6 +126,7 @@ a:hover, a:active {
   position: fixed;
   left: 0;
   right: 0;
+  top: 0;
   z-index: 3;
   background-color: #fff;
   height: 60px;
@@ -240,7 +242,7 @@ a:hover, a:active {
   margin: 30px;
 }
 .post .post-title {
-  display: none;
+  /* display: none; */
 }
 .post .post-title h1 {
   text-transform: uppercase;
