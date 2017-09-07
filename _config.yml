@@ -98,6 +98,26 @@ toc:
     symbol: '#'
     style: header-anchor
 
+qiniu:
+  offline: false
+  sync: true
+  bucket: hexo
+  secret_file: qn.json
+  access_key: AccessKey
+  secret_key: SecretKey
+  dirPrefix: ''
+  urlPrefix: http://ovtdovq9q.bkt.clouddn.com
+  up_host: http://upload.qiniu.com
+  local_dir: ''
+  update_exist: true
+  image: 
+    folder: ''
+    extend: 
+  js:
+    folder: js
+  css:
+    folder: css
+
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:

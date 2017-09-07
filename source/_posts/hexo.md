@@ -3,6 +3,7 @@ title: 利用Hexo配置个人博客
 date: 2017-09-05 23:28:46
 tags: [hexo]
 keywords: hexo
+summary: Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。
 ---
 <!-- toc -->
 
@@ -72,3 +73,64 @@ Hexo安装完成之后，就可以创建自己的网站了。
 
 ## 六、利用github生成自己的网站
 
+[github](github.com) 是一个可以免费托管代码的平台，有很多开源项目都会把代码放在github上，供大家参考学习。
+
+### 1. 注册github
+如果已经注册，直接跳过
+官网：[github.com](github.com)
+![注册](http://ovtdovq9q.bkt.clouddn.com/github/login.jpg?imageMogr2/thumbnail/350x)
+填写必要的信息，注册完成直接登录。
+
+### 2. 创建代码库
+点击右上角头像左侧的加号创建一个仓库
+![创建仓库](http://ovtdovq9q.bkt.clouddn.com/github/newre.jpg?imageMogr2/thumbnail/350x)
+
+填写仓库名称：比如我的github名字是MichaelGong，那我的仓库名字就是：`michaelgong.github.io`，
+如果你的名字是haha的话，就写`haha.github.io`
+![仓库](http://ovtdovq9q.bkt.clouddn.com/github/createre.jpg?imageMogr2/thumbnail/550x)
+
+### 3. 设置代码库
+代码仓库创建完毕后，就会进入到如下页面，你可以点击`We recommend every repository include a README,LICENSE and .gitignore` 中的 `README` 添加一个readme先，如下图：
+![仓库](http://ovtdovq9q.bkt.clouddn.com/github/setting.jpg?imageMogr2/thumbnail/751x)
+然后可以点击`setting`，进入到新页面，向下滑，找到`GitHub Pages`的位置，这时大概是这样的：
+![仓库](http://ovtdovq9q.bkt.clouddn.com/github/ghpages.jpg?imageMogr2/thumbnail/750x)
+
+### 4. 配置SSH keys
+在命令行中输入
+<div class="tip">ssh-keygen -t rsa -C "邮箱地址，如：xxx@163.com"</div>后面可以一路enter下去，就可以创建成功了。
+
+创建成功后，需要拿到你的公钥，window用户在`C:\Documents and Settings\Administrator.ssh\id_rsa.pub`，MAC用户在`~/.ssh/id_rsa.pub`，
+登陆github系统。点击右上角的 Account Settings—>SSH Public keys —> add another public keys
+把你本地生成的密钥复制到里面（key文本框中）， 点击 add key 就ok了
+
+设置git身份信息
+```bash
+$ git config --global user.name "你的用户名"
+$ git config --global user.email "你的邮箱"
+```
+
+### 5. 部署到github
+首先在blog跟目录下执行 `npm install hexo-deployer-git --save` ，安装部署到git仓库的插件，供以后使用。
+修改blog目录下的`_config.yml`中的 `deploy`属性：
+{% blockquote %}
+deploy: 
+&nbsp;&nbsp;type: git
+&nbsp;&nbsp;# michaelgong改为你的github用户名
+&nbsp;&nbsp;repository: https://github.com/michaelgong/michaelgong.github.io.git
+&nbsp;&nbsp;branch: master
+{% endblockquote %} 这个时候可以执行命令`hexo g -d` 将代码部署到github上了，然后就可以通过访问http://michaelgong.github.io  来查看自己的文章。
+
+## 七、配置自己的域名到github
+首先你要有个域名，我的是[阿里云](https://wanwang.aliyun.com/)上购买的，如果你想在其他网站购买域名都可以的，只要就可以购买就可以的。
+进入网站，输入自己想要的域名，一般来讲.com后缀的域名相应的会贵一些，你可以选择.me、.net、.top之类的域名进行购买，如果你不差钱，请直接无视我。
+购买完了之后，可以在阿里云的控制台[https://netcn.console.aliyun.com/core/domain/list](https://netcn.console.aliyun.com/core/domain/list) 查看自己的域名，如下图：
+
+![阿里云域名](http://ovtdovq9q.bkt.clouddn.com/githubdomain.jpg)
+{% qnimg github/domain.jpg %}
+点击解析，进入到新页面，点击添加解析，添加如下三条解析设置，
+![dns](http://ovtdovq9q.bkt.clouddn.com/github/dns.jpg)
+
+然后在blog文件夹下的source文件夹下创建`CNAME`的文件，注意这个文件没有后缀名，并在里面输入自己的域名，例如：`happybug.top`,
+将代码部署到github就可以直接域名访问了（有可能DNS解析需要一些时间，一般十分钟）。
+## 参考：
+[零基础免费搭建个人博客-hexo+github](http://hifor.net/2015/07/01/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2-hexo-github/)
