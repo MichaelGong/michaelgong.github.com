@@ -530,3 +530,6 @@ code[class*="language-"], pre[class*="language-"] {
 pre.line-numbers {
   padding-left: 3.0em !important;
 }
+h2>span:target,h3>span:target, h4>span:target {
+  padding-top: 60px;
+}
