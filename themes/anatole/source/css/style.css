@@ -668,7 +668,7 @@ a.btn {
 @media screen and (max-width: 960px) {
   .sidebar {
     width: 100%;
-    position: absolute;
+    position: relative;
     border-right: none;
     z-index: 1;
   }
@@ -684,6 +684,7 @@ a.btn {
 
   .page-top {
     width: 100%;
+    padding-left: 0;
   }
 
   .post-title h3 {
@@ -691,10 +692,10 @@ a.btn {
   }
 
   .content {
-    margin-top: 320px;
+    margin-top: 10px;
     width: 100%;
     z-index: 2;
-    position: absolute;
+    position: relative;
     padding-left:0;
   }
 
@@ -725,4 +726,16 @@ a.btn {
 }
 .post-page .post-title h3 a {
   text-decoration: none !important;
+}
+.content.categories .listing-item{
+  display: inline-block;
+  padding: 6px 8px;
+  border: 1px solid #999;
+  border-radius: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  line-height: 1;
+}
+.content.categories .listing-item:hover {
+  border-color: #4786D6;
 }

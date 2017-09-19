@@ -23,9 +23,9 @@ mixin make_post(item, is_detail)
 					a(href= url_for(item.path + "#comments"))= __('Comments')
 				if item.tags
 					i.fa.fa-tag
-					- item.categories.sort('posts').each(function(item) {
-							a.tag(href=config.root + item.path, title= item.name)= item.name + " "
-					- });
+					//- - item.categories.sort('posts').each(function(item) {
+					//- 		a.tag(href=config.root + item.path, title= item.name)= item.name + " "
+					//- - });
 					- item.tags.sort('posts').each(function(item) {
 							a.tag(href=config.root + item.path, title= item.name)= item.name + " "
 					- });
@@ -68,4 +68,20 @@ mixin postList()
 					a(href= url_for(item.path), title= item.title)= item.title
 					div.post-time
 						span.date= date(item.date, 'MM-DD')
+		- })
+
+
+mixin make_category()
+	.archive
+		- var year = 0;
+		- var change = false;
+		- var firstYear = true;
+		- site.categories.each(function (item) {
+			- var itemYear = date(item.date, 'YYYY') - 0;
+			- change = year !== itemYear;
+			- year = change ? itemYear : year;
+			.listing-item
+				.listing-post
+					a(href= url_for(item.path), title= item.name)= item.name
+					
 		- })

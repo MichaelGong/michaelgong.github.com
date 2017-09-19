@@ -1,0 +1,16 @@
+extends partial/layout
+
+block site_title
+    != "分类 · " + config.title
+
+block description
+    - var desc = '分类：' + page.category + ' - ' + config.title;
+    meta(name="description", content=desc)
+
+block content
+  .autopagerize_page_element: .content.categories
+    .archive.animated.fadeInDown
+      ul.list-with-title
+        include mixins
+        +make_category()
+        +make_pager(__('prev'), __('next'))

@@ -2,6 +2,7 @@
 title: 跨域请求之JSONP
 date: 2017-09-12 21:35:05
 tags: [jsonp, 前端, 跨域]
+categories: [前端, jsonp]
 keywords: jsonp, 前端, 跨域
 ---
 
