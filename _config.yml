@@ -119,9 +119,16 @@ qiniu:
   css:
     folder: css
 
+post_wordcount:
+  item_text: true
+  wordcount: true
+  min2read: true
+
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: git@github.com:MichaelGong/michaelgong.github.com.git #github仓库地址
+  repo: 
+    github: git@github.com:MichaelGong/michaelgong.github.com.git #github仓库地址
+    coding: git@git.coding.net:gh1506301420/blog.git
   branch: master # github分支

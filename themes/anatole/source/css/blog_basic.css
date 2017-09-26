@@ -526,10 +526,21 @@ dl dt {
 code[class*="language-"], pre[class*="language-"] {
   border: 0;
   font-family: 'Source Code Pro',-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, 'PingFang SC', 'Microsoft YaHei' !important;
+  background: #2a2a2a;
+}
+pre {
+  white-space: pre !important;
 }
 pre.line-numbers {
   padding-left: 3.0em !important;
 }
+pre.line-numbers > code{
+  overflow-wrap: normal !important;
+  white-space: inherit !important;
+}
 h2>span:target,h3>span:target, h4>span:target {
   padding-top: 60px;
+}
+iframe {
+  max-width: 100%;
 }

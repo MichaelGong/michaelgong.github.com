@@ -38,5 +38,18 @@ if theme.gentie
 if theme.uyan
     .comment-container
         #uyan_frame
-    script(src='http://v2.uyan.cc/code/uyan.js?uid=#{theme.uyan}')
+    script(src='//v2.uyan.cc/code/uyan.js?uid=#{theme.uyan}')
+
+if theme.livere
+    div#lv-container(data-id="city" data-uid="#{theme.livere}")
+    script.
+        (function(d, s) {
+            var j, e = d.getElementsByTagName(s)[0];
+            if (typeof LivereTower === 'function') { return; }
+            j = d.createElement(s);
+            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+            j.async = true;
+            e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+
 

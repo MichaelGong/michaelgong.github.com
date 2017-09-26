@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
-@import url(http://fonts.font.im/css?family=Roboto+Mono|Source+Code+Pro);
+/* @import url(http://fonts.font.im/css?family=Roboto+Mono|Source+Code+Pro); */
+@import url(//fonts.googleapis.com/css?family=Roboto+Mono|Source+Code+Pro|Fira+Mono);
 html {
 	background-color: #fff;
 	-webkit-font-smoothing: antialiased;
@@ -706,6 +707,9 @@ a.btn {
   .share {
     display: grid;
   }
+  .post {
+    margin: 20px;
+  }
 }
 .comment-container {
   margin: 30px;
@@ -719,10 +723,10 @@ a.btn {
 }
 .post-page .post-title {
   text-align: center;
-  font-size: 40px !important;
+  font-size: 30px !important;
 }
 .post-page .post-title h3 {
-  font-size: 40px !important;
+  font-size: 30px !important;
 }
 .post-page .post-title h3 a {
   text-decoration: none !important;
@@ -738,4 +742,37 @@ a.btn {
 }
 .content.categories .listing-item:hover {
   border-color: #4786D6;
+}
+.wordcount {
+  font-size: 12px;
+  margin: 5px;
+  vertical-align: middle;
+  line-height: 1;
+}
+.post-other-info {
+  color: #999;
+  font-size: 12px;
+  vertical-align: middle;
+  margin-top: 10px;
+}
+.post-other-info .wordcount .fa {
+  margin-right: 3px;
+  vertical-align: middle;
+}
+.post-other-info .wordcount span {
+  vertical-align: middle;
+}
+.post-count a.tag{
+  text-decoration: none;
+  padding-right: 10px;
+}
+.post-count a.tag:last-child {
+  padding-right: 0;
+}
+.post-count a.tag:hover {
+  text-decoration: none;
+  color: #4786D6;
+}
+a {
+  word-break: break-all;
 }

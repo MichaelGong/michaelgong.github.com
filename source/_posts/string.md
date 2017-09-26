@@ -1,8 +1,8 @@
 ---
 title: JavaScript中的string的方法总结
 date: 2017-09-13 15:25:35
-tags: [前端, string, 字符串]
 keywords: 字符串,string
+tags: [前端, string, 字符串]
 categories: [前端]
 summary: 关于js中string方法的一些整理
 ---

@@ -1,9 +1,9 @@
 ---
 title: 前端琐碎知识点整理
 date: 2017-09-15 18:52:18
+keywords: 前端知识点
 tags: [flex, 兼容性, 华为]
 categories: [前端, flex, 知识点]
-keywords: 前端知识点
 summary: 
 ---
 

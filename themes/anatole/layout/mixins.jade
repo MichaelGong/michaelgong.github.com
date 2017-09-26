@@ -6,8 +6,26 @@ mixin make_post(item, is_detail)
 					a= item.title
 				else
 					a(href= url_for(item.path))= item.title
-		
-
+			div.post-other-info
+				span.wordcount
+					i.fa.fa-calendar-o
+					span.post-count= date(item.date, 'YYYY-MM-DD')
+				span.post-meta-divider= '|'
+				span.wordcount
+					i.fa.fa-folder-o
+					span.post-count
+						- item.categories && item.categories.each(function (subItem) {
+							//- span= subItem.name + ' '
+							a.tag(href=config.root + subItem.path, title)= subItem.name
+						- })
+				span.post-meta-divider= '|'
+				span.wordcount
+					i.fa.fa-edit
+					span.post-count= '字数统计' + wordcount(item.content)
+				span.post-meta-divider= '|'
+				span.wordcount
+					i.fa.fa-clock-o
+					span.post-count= '阅读时长' + min2read(item.content) + '分钟'
 		if is_detail
 			.post-content!= item.content
 		else
