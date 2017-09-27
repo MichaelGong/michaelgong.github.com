@@ -324,7 +324,7 @@ export default {
 }
 ```
 调用方式
-```javasciprt
+```javascript
 import imgLoad from 'imageLoad.js';
 
 imgLoad.load(['http://img6.bdstatic.com/img/image/pcindex/tongmengpctufanbingbing.jpg'],null, function(index,url,img) {
@@ -338,6 +338,11 @@ imgLoad.load(['http://img6.bdstatic.com/img/image/pcindex/tongmengpctufanbingbin
 预加载的话其实已经没有什么可说的了，使用上述方法在图片展示之前加载图片就好。
 
 ## 图片懒加载
+
+图片懒加载的方式可以说和上述内容就没有太多关系了。
+
+图片懒加载的技术点主要在：监听页面滚动、判断元素是否出现在屏幕内。
+
 
 
 参考：
