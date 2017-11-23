@@ -343,7 +343,115 @@ imgLoad.load(['http://img6.bdstatic.com/img/image/pcindex/tongmengpctufanbingbin
 
 图片懒加载的技术点主要在：监听页面滚动、判断元素是否出现在屏幕内。
 
+### 监听页面滚动
 
+监听页面滚动只需要`window.addEventListener('scroll', function() {})`就可以了。但是这个过程是可以优化的。
+具体怎么优化呢？我们就需要用到：节流。 概念可以查看[这里](http://happybug.top/2017/10/10/debounce-throttle/)
+
+### 判断元素是否出现在屏幕内
+
+1、通过scrollTop来判断
+```javascript
+var ele = document.getElementById('img');
+if (ele.offsetTop - document.documentElement.scrollTop < document.documentElement.clientHeight) {
+    // 这里元素就在可视区域内
+}
+```
+2、getBoundingClientRect()
+getBoundingClientRect用于获取页面中某个元素相对于浏览器可视范围的上、右、下、左的距离。
+
+<div class="tip">注意：这个方法获取的距离是相对于浏览器左边界和上边界的。如下图所示</div>
+![https://mdn.mozillademos.org/files/15087/rect.png](https://mdn.mozillademos.org/files/15087/rect.png)
+
+这个方法的兼容性还是很好的，在大多数的浏览器下至少会返回6个参数：top,right,bottom,left,width,height(IE 下没有width、height属性)。
+IE没有宽度高度属性，如果你需要用IE下用到这个方法的话，可以利用`getBoundingClientRect().right-getBoundingClientRect().left`的方式来获取宽度，高度只需用bottom减去top就可以了。
+那么我们同样可以利用这个方法来判断元素是否出现在屏幕内。
+```javascript
+// 是否进入到屏幕内（只判断了垂直方向）
+function isIntoViewport(ele) {
+    var rect = ele.getBoundingClientRect();
+    var clientHeight = document.documentElement.clientHeight;
+    return ele.top >= 0 && ele.top <= clientHeight;
+}
+```
+以上方法可能和你在其他地方看到的思路不一样，是因为我们在这里的应用场景是判断元素进入到页面的时候，而不是元素完全在页面内。
+
+3、IntersectionObserver
+
+这个API的兼容性不是很好，具体可以查看[这里](http://caniuse.com/#search=intersection)
+你可以像这样初始化一个IntersectionObserver
+```javascript
+// 初始化某个元素
+var observer = new IntersectionObserver(function(entries) {
+    console.log(entries);
+}, {
+    root: null,
+    threshold: [0, 0.5, 1],
+    rootMargin: "50px 0px"
+});
+var ele = document.getElementById('img');
+// 开始观察某个元素，一个observer可以观察多个element
+observer.observe(ele);
+// 停止观察
+observer.unobserve(ele);
+// 关闭观察器
+observer.disconnect();
+```
+IntersectionObserver 接收两个参数：
+`callback`: 回调函数，该回调函数接收一个参数entries，这个参数是个数组，当前的oserver监听几个元素，这个数组的长度就是几。
+        entries中的每一个元素都是一个IntersectionObserverEntry对象，大概长这样：
+```json
+{
+    time: 3893.92,
+    rootBounds: ClientRect {
+        bottom: 920,
+        height: 1024,
+        left: 0,
+        right: 1024,
+        top: 0,
+        width: 920
+    },
+    boundingClientRect: ClientRect {
+        // ...
+    },
+    intersectionRect: ClientRect {
+        // ...
+    },
+    intersectionRatio: 0.54,
+    target: element
+}
+```
+每个属性的含义如下：
+```html
+time：可见性发生变化的时间，是一个高精度时间戳，单位为毫秒
+target：被观察的目标元素，是一个 DOM 节点对象
+rootBounds：根元素的矩形区域的信息，getBoundingClientRect()方法的返回值，如果没有根元素（即直接相对于视口滚动），则返回null
+boundingClientRect：目标元素的矩形区域的信息
+intersectionRect：目标元素与视口（或根元素）的交叉区域的信息
+intersectionRatio：目标元素的可见比例，即intersectionRect占boundingClientRect的比例，完全可见时为1，完全不可见时小于等于0
+```
+
+`options`: 这个参数是一个对象，可能的参数有：
+
+`threshold`: 数组，默认[0]，数组中参数形式都是0-1之间的小数，表示元素的可见范围。这个参数用于规定当前元素在可见多少范围时可见触发回调，例如传入[0,0.25,0.5,0.75,1]时，表示当前元素0%，25%，50%,75%,100%可见时，会触发回调函数。
+
+`root`: Element类型的元素，如：document.querySelector('#img')， 指定目标元素所在的容器节点（即根元素）。注意，容器元素必须是目标元素的祖先节点。
+
+`rootMargin`: 用来扩展或缩小rootBounds这个矩形的大小，从而影响intersectionRect交叉区域的大小。它使用CSS的定义方法，比如10px 20px 30px 40px，表示 top、right、bottom 和 left 四个方向的值。
+
+所以如果用IntersectionObserver来判断元素是否出现在屏幕内的话：
+```javascript
+var observer = new IntersectionObserver(function(entries) {
+    console.log('将要进入屏幕内');
+    // 可以在这里循环entries判断是否是ele元素，并停止该元素的observer
+})
+var ele = document.getElementById('img');
+observer.observe(ele);
+```
+[这里](https://github.com/ApoorvSaxena/lozad.js)有一个完全利用IntersectionObserver API实现的懒加载的库，有兴趣的可以阅读下。
+
+本来想自己实现一个图片懒加载的，后来想想没必要造那么多轮子，何况自己写的确实不如人家写的好，就不献丑了。这个放一个我时常用的一个懒加载的库：[https://github.com/toddmotto/echo](https://github.com/toddmotto/echo)
 
 参考：
 [比onload更快获取图片尺寸](http://www.codeweblog.com/%E6%AF%94onload%E6%9B%B4%E5%BF%AB%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E5%B0%BA%E5%AF%B8/)
+[IntersectionObserver API 使用教程](http://www.ruanyifeng.com/blog/2016/11/intersectionobserver_api.html)
