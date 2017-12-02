@@ -66,4 +66,37 @@ inherit：系统默认菜单不被禁用
 ```
 padding或者使用margin看你页面的实际需求，这是只是举个例子，这样你的锚点就角距离页面顶部80px了。
 
+##  移动端输入框自动获取焦点问题
+
+```html
+<input type="text" autofocus="autofocus" />
+```
+
+由于移动端的限制，尤其是iphone手机，如果你想要在进入页面之后没有任何交互行为的情况下出发输入框自动获取焦点，这基本是不可能的。所以这个属性起作用的重要前提是: 在自动获取焦点之前页面上有与用户的交互行为，比如点击按钮等等。
+
+## 移动端键盘右下角文字设置
+```html
+<form action="#">
+    <input type="text" />
+</form>
+```
+如果你的input没有被form包住的话，那么键盘右下角将显示 `换行` 字样，添加了form并且有action的话，就会显示`前往`或`GO`字样。 
+
+如果希望按钮上显示 `搜索`的话，那么input的type值应为`search`
+
+## localStorage在无痕模式下被禁用的问题
+
+在很多浏览器中开启了无痕模式后，localstorage无法使用了，建议在使用前可以做下localStorage的测试：
+```js
+function testLocalStorage() {
+    try {
+        localStorage.setItem('testLocalStorage', 1);
+        localStorage.removeItem('testLocalStorage');
+        return true;
+    } catch(e) {
+        return false;
+    }
+}
+```
+
 
