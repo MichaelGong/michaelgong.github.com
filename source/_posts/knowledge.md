@@ -99,4 +99,17 @@ function testLocalStorage() {
 }
 ```
 
+## SCSS中calc中不能处理变量的问题
+```css
+div {
+    height: calc(100% - $footerHeight);
+}
+```
+以上场景在scss中不能正常处理`$footerHeight`这个变量，如果需要在scss中使用变量的话需要将变量用`#{$variable}` 包裹一下，如下：
+```css
+div {
+    height: calc(100% - #{$footerHeight});
+}
+```
+
 
