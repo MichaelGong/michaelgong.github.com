@@ -78,6 +78,7 @@ body {
     }
 }
 ```
+这种方案不是很推荐，因为后面如果出现了同样操作模式的但是屏幕尺寸不同的其他iphone手机，就需要额外去弥补。
 
 ### 第二种方案
 
@@ -89,5 +90,18 @@ footer {
     height: calc(90px + constant(safe-area-inset-bottom));
 }
 ```
-
 个人比较推荐第二种方案，简单，而且能够自动适配横屏和竖屏的情况。
+
+========================更新于 2017年12月12日========================
+
+不得不说苹果真的是扯淡啊，刚出的新属性，结果在下一个系统小版本更新里就不再支持了，具体可以查看[这里](https://webkit.org/blog/7929/designing-websites-for-iphone-x/)，其中有这么一段话：
+<div class="tip">The env() function shipped in iOS 11 with the name constant(). Beginning with Safari Technology Preview 41 and the iOS 11.2 beta, constant() has been removed and replaced with env(). You can use the CSS fallback mechanism to support both versions, if necessary, but should prefer env() going forward.
+</div>
+所以从11.2开始就要使用`env`了，但是constant还是要兼容的，所以方案变成了下面这样：
+```css
+footer {
+    height: calc(90px + constant(safe-area-inset-bottom));
+    height: calc(90px + env(safe-area-inset-bottom));
+}
+```
+
