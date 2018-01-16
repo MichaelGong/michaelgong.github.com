@@ -1,5 +1,5 @@
 ---
-title: arrow_function
+title: 箭头函数与普通函数的区别
 date: 2018-01-16 21:18:36
 keywords: 箭头函数
 tags: [箭头函数]
