@@ -112,4 +112,22 @@ div {
 }
 ```
 
+## npm config (备忘)
+设置npm的registry
+``` bash
+# 淘宝镜像
+npm config set registry https://registry.npm.taobao.org/
+# 默认npm镜像
+npm config set registry=http://registry.npmjs.org
+
+# 当前登录的npm账号（注意要切换到默认npm镜像）
+npm whoami
+# 登录npm
+npm login
+# 发布npm
+npm publish .
+# 更新版本
+npm version 0.1.1
+```
+
 
