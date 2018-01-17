@@ -129,5 +129,6 @@ npm publish .
 # 更新版本
 npm version 0.1.1
 ```
+npm README 不更新的解决方法：https://github.com/npm/registry/issues/42#issuecomment-243428303
 
 
