@@ -132,5 +132,12 @@ deploy:
 
 然后在blog文件夹下的source文件夹下创建`CNAME`的文件，注意这个文件没有后缀名，并在里面输入自己的域名，例如：`happybug.top`,
 将代码部署到github就可以直接域名访问了（有可能DNS解析需要一些时间，一般十分钟）。
+
+七牛的qn.json的配置：
+{
+    "access_key": "xxx",
+    "secret_key": "xxx"
+}
+
 ## 参考：
 [零基础免费搭建个人博客-hexo+github](http://hifor.net/2015/07/01/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2-hexo-github/)
