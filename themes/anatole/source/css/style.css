@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 /* @import url(http://fonts.font.im/css?family=Roboto+Mono|Source+Code+Pro); */
-@import url(//fonts.googleapis.com/css?family=Roboto+Mono|Source+Code+Pro|Fira+Mono);
+/* @import url(//fonts.googleapis.com/css?family=Roboto+Mono|Source+Code+Pro|Fira+Mono); */
 html {
 	background-color: #fff;
 	-webkit-font-smoothing: antialiased;
@@ -10,12 +10,20 @@ html {
 
 body {
 	color: rgba(0, 0, 0, 0.5);
-	font-family: 'Source Code Pro',-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, 'PingFang SC', 'Microsoft YaHei' !important;
+  font-family: Avenir,"Monospaced Number", "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-size: 15px;
 	width: 100%;
 	margin: 0 auto 30px auto;
 	background-color: #fff;
 
+}
+::-moz-selection {
+  background: #1890ff;
+  color: #fff;
+}
+::selection {
+  background: #1890ff;
+  color: #fff;
 }
 
 p {
@@ -120,6 +128,8 @@ a:hover, a:active {
   margin-top: 60px;
   padding-left: 320px;
   padding-top: 1px;
+  color: #314659;
+  line-height: 2;
 }
 
 .page-top {
@@ -213,7 +223,7 @@ a:hover, a:active {
 }
 .sidebar .logo-title .title a {
   text-decoration: none;
-  color: #464646;
+  color: #0d1a26;  
   font-size: 2rem;
   font-weight: bold;
 }
@@ -271,7 +281,8 @@ a:hover, a:active {
 .post .post-title a {
   text-decoration: none;
   letter-spacing: 1px;
-  color: #5f5f5f;
+  color: #0d1a26;
+  font-weight: 500;
 }
 .post .post-title a:hover {
   text-decoration: underline;
