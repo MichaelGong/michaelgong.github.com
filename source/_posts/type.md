@@ -174,6 +174,7 @@ String | new 一个String对象，该对象内部属性[[PrimitiveValue]]被设�
 Object | 直接返回
 
 这就可以解释`Object.prototype.toString.call(1)` 和 `Object.prototype.toString.call(new Number(1))` 的结果都是"[object Number]" 了。
+有关ES6中的`Object.prototype.toString.call()` 的内容可以阅读参考11的文章。
 
 ## 参考
 
