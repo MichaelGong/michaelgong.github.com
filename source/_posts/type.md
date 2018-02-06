@@ -1,7 +1,12 @@
 ---
 title: js对象类型的判断
-tags:
+date: 2018-02-06 15:10:09
+keywords: typeof, instanceof, Object.prototype.toString
+tags: [前端, 原型]
+categories: [前端]
+summary: typeof、instanceof、Object.prototype.toString.call()的一些总结。
 ---
+
 JS对象类型的判断方式大致有三种方式：
 > 1. typeof
 > 2. instanceof
@@ -110,16 +115,65 @@ console.log(new String('a') instanceof String); // true
 console.log(true instanceof Boolean); // false
 console.log(new Boolean(true) instanceof Boolean); // true
 ```
-以上是 Number、String、Boolean类型的结果，之所以在非new的情况下返回false，是因为在[[HasInstance]]中的第一步就返回了false
+以上是 Number、String、Boolean类型的结果，之所以在非new的情况下返回false，是因为在`[[HasInstance]]`中的第一步就返回了false
 
-以下内容涉及到了原型链相关内容，可以先看下上面的原型链的图
-
+### 以下内容涉及到了原型链相关内容，可以先看下上面的原型链的图
 ```javascript
 console.log(Number instanceof Number); // false
 ```
-转换一下其实就是 Number.__proto__ === Number.prototype，这个当然是false了，
-因为所有的构造器/函数的__proto__ 都指向了Function.prototype
-同理 String、Boolean、Object、Function、Array、Error、Date、RegExp的__proto__都指向了Function.prototype
+转换一下其实就是 `Number.__proto__ === Number.prototype`，这个当然是false了，
+因为所有的`构造器/函数的__proto__`都指向了Function.prototype
+同理 String、Boolean、Object、Function、Array、Error、Date、RegExp的`__proto__`都指向了Function.prototype
+
+```javascript
+console.log(Object instanceof Object); // true
+```
+上面等式实际上是在判断`Object.__proto__ === Object.prototype`，`Object.__proto__`指向了 `Function.prototype`，而`Function.prototype.__proto__`指向了`Object.prototype`，所以结果为true。
+
+```javascript
+console.log(Function instanceof Object); // true
+```
+`Function.__proto__` 指向了 `Function.prototype`，而`Function.prototype.__proto__`指向了`Object.prototype`，所以结果为true。
+
+```javascript
+console.log(Object instanceof Function); // true
+```
+`Object.__proto__` 指向了 `Function.prototype`，而`Function.prototype.__proto__`指向了`Object.prototype`，所以结果为true。
+
+## Object.prototype.toString.call()
+由于typeof的限制、instanceof的不方便性，在开发中我们会经常使用`Object.prototype.toString.call()`来判断对象的类型。
+例如：
+```javascript
+var a = [];
+console.log(Object.prototype.toString.call(a)); // "[object Array]"
+```
+那么它的原理是什么呢？
+[15.2.4.2 Object.prototype.toString ( )](http://ecma-international.org/ecma-262/5.1/#sec-15.2.4.2) ES5.1规范里定义了Object.prototype.toString()的行为：
+**
+1、如果this的值为 `undefined`，就返回`"[object Undefined]"`.
+2、如果this的值为`null`，就返回`"[object Null]"`.
+3、O = ToObject(this) 即 O等于ToObject(this)的执行结果
+4、class = O.[[Class]] 即 class 等于O的内部属性[[Class]]的值
+5、返回三个字符串"[object ", class, 以及 "]"连接后的新字符串.
+**
+在规范的[8.6.2 Object Internal Properties and Methods](http://ecma-international.org/ecma-262/5.1/#sec-8.6.2) 有关于`[[Class]]`的说明：
+> The value of the [[Class]] internal property is defined by this specification for every kind of built-in object. The value of the [[Class]] internal property of a host object may be any String value except one of "Arguments", "Array", "Boolean", "Date", "Error", "Function", "JSON", "Math", "Number", "Object", "RegExp", and "String". The value of a [[Class]] internal property is used internally to distinguish different kinds of objects. Note that this specification does not provide any means for a program to access that value except through Object.prototype.toString (see 15.2.4.2).
+
+大致翻译一下：本规范中的所有的内置对象都定义了内部属性[[Class]]。宿主对象的内部属性[[Class]]的值可以使除了"Arguments", "Array", "Boolean", "Date", "Error", "Function", "JSON", "Math", "Number", "Object", "RegExp", "String"的任意字符串。内部属性[[Class]]的值被用于区分不同的对象。注意，本规范中除了Object.prototype.toString (见 15.2.4.2)没有提供任何方式可以获取这个值。
+
+接下来我们看下`ToObject`是做什么的？
+ES5 规范参见这里 [9.9 ToObject](http://ecma-international.org/ecma-262/5.1/#sec-9.9).
+
+参数类型 | 结果
+- | :-
+Undefined | 抛出TypeError异常 
+Null | 抛出TypeError异常
+Boolean | new 一个Boolean对象，该对象内部属性[[PrimitiveValue]]被设置为输入参数
+Number | new 一个Number对象，该对象内部属性[[PrimitiveValue]]被设置为输入参数
+String | new 一个String对象，该对象内部属性[[PrimitiveValue]]被设置为输入参数
+Object | 直接返回
+
+这就可以解释`Object.prototype.toString.call(1)` 和 `Object.prototype.toString.call(new Number(1))` 的结果都是"[object Number]" 了。
 
 ## 参考
 
@@ -132,3 +186,5 @@ console.log(Number instanceof Number); // false
 7. [JavaScript进阶系列—类型中的typeof 操作符](https://zhuanlan.zhihu.com/p/23248844)
 8. [ECMAScript® 2015 Language Specification](http://www.ecma-international.org/ecma-262/6.0/index.html)
 9. [ECMAScript® Language Specification](http://www.ecma-international.org/ecma-262/5.1/index.html)
+10. [instanceof 操作符实现原理解析](https://div.io/topic/2016)
+11. [JavaScript:Object.prototype.toString方法的原理](https://www.cnblogs.com/ziyunfei/archive/2012/11/05/2754156.html)

@@ -776,6 +776,7 @@ a.btn {
 .post-count a.tag{
   text-decoration: none;
   padding-right: 10px;
+  color: #999;
 }
 .post-count a.tag:last-child {
   padding-right: 0;
