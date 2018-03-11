@@ -1,0 +1,116 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="逍遥很晕"><title>前端琐碎知识点整理 · 逍遥很晕</title><meta name="description" content="flex在华为手机中的兼容性
+js判断是否是数组
+CSS控制用户无法选择内容
+CSS设置点击某个元素时高亮
+CSS禁用系统默认处理的功能
+CSS3选择器 :target
+移动端输入框自动获取焦点问题
+移动端键盘右下角文字设置
+localStorage在无痕模式下被禁用的问题
+SCSS中calc中不能"><meta name="keywords" content="前端知识点"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.jpeg" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-hopscotch.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/mg.jpeg" style="width:150px;border-radius: 50%;"><h3 title=""><a href="/">逍遥很晕</a></h3><div class="description"><p>开心了就笑，不开心了就过会再笑~~</p></div></div></div><ul class="social-links"></ul><div class="footer"><div>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></div><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li></div><div class="information"><div class="back_btn"><li><a onclick="window.history.go(-1)" class="fa fa-chevron-left"> </a></li></div><div class="avatar"><img></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>前端琐碎知识点整理</a></h3><div class="post-other-info"><span class="wordcount"><i class="fa fa-calendar-o"></i><span class="post-count">2017-09-15</span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-folder-o"></i><span class="post-count"><a href="/categories/前端/" title class="tag">前端</a><a href="/categories/前端/flex/" title class="tag">flex</a><a href="/categories/前端/flex/知识点/" title class="tag">知识点</a></span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-edit"></i><span class="post-count">字数统计1,016</span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-clock-o"></i><span class="post-count">阅读时长4分钟</span></span></div></div><div class="post-content"><div class="toc">
+
+<!-- toc -->
+<ul>
+<li><a href="#flex-zai-hua-wei-shou-ji-zhong-de-jian-rong-xing">flex在华为手机中的兼容性</a></li>
+<li><a href="#js-pan-duan-shi-fou-shi-shu-zu">js判断是否是数组</a></li>
+<li><a href="#css-kong-zhi-yong-hu-wu-fa-xuan-ze-nei-rong">CSS控制用户无法选择内容</a></li>
+<li><a href="#css-she-zhi-dian-ji-mou-ge-yuan-su-shi-gao-liang">CSS设置点击某个元素时高亮</a></li>
+<li><a href="#css-jin-yong-xi-tong-mo-ren-chu-li-de-gong-neng">CSS禁用系统默认处理的功能</a></li>
+<li><a href="#css3-xuan-ze-qi-target">CSS3选择器 <code>:target</code></a></li>
+<li><a href="#yi-dong-duan-shu-ru-kuang-zi-dong-huo-qu-jiao-dian-wen-ti">移动端输入框自动获取焦点问题</a></li>
+<li><a href="#yi-dong-duan-jian-pan-you-xia-jiao-wen-zi-she-zhi">移动端键盘右下角文字设置</a></li>
+<li><a href="#localstorage-zai-wu-hen-mo-shi-xia-bei-jin-yong-de-wen-ti">localStorage在无痕模式下被禁用的问题</a></li>
+<li><a href="#scss-zhong-calc-zhong-bu-neng-chu-li-bian-liang-de-wen-ti">SCSS中calc中不能处理变量的问题</a></li>
+<li><a href="#npm-config-bei-wang">npm config (备忘)</a></li>
+</ul>
+<!-- tocstop -->
+</div>
+
+<h2><span id="flex-zai-hua-wei-shou-ji-zhong-de-jian-rong-xing">flex在华为手机中的兼容性</span><a href="#flex-zai-hua-wei-shou-ji-zhong-de-jian-rong-xing" class="header-anchor">#</a></h2><p>只能说华为系统是个神奇的系统，正常来讲在华为手机上flex也是可以使用的，但是如果你使用了<code>flex:1</code>的话，很有可能出现布局问题，这个时候需要添加width:0属性。如果你的标签是行内元素的话，可能还需要给元素添加display:block属性</p>
+<h2><span id="js-pan-duan-shi-fou-shi-shu-zu">js判断是否是数组</span><a href="#js-pan-duan-shi-fou-shi-shu-zu" class="header-anchor">#</a></h2><pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">isArrayFn</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> Array<span class="token punctuation">.</span>isArray <span class="token operator">===</span> <span class="token string">'function'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// ES6语法</span>
+        <span class="token keyword">return</span> Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>toString<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> <span class="token operator">===</span> <span class="token string">'[object Array]'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2><span id="css-kong-zhi-yong-hu-wu-fa-xuan-ze-nei-rong">CSS控制用户无法选择内容</span><a href="#css-kong-zhi-yong-hu-wu-fa-xuan-ze-nei-rong" class="header-anchor">#</a></h2><pre class="line-numbers language-css"><code class="language-css"><span class="token property">-webkit-user-select</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+<span class="token property">-moz-user-select</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+<span class="token property">-ms-user-select</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+<span class="token property">user-select</span><span class="token punctuation">:</span> none<span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>移动端基本全都兼容，<a href="http://caniuse.com/#feat=user-select-none" target="_blank" rel="noopener">兼容性</a></p>
+<h2><span id="css-she-zhi-dian-ji-mou-ge-yuan-su-shi-gao-liang">CSS设置点击某个元素时高亮</span><a href="#css-she-zhi-dian-ji-mou-ge-yuan-su-shi-gao-liang" class="header-anchor">#</a></h2><pre class="line-numbers language-css"><code class="language-css"><span class="token selector">a </span><span class="token punctuation">{</span>
+    <span class="token property">-webkit-tap-highlight-color</span><span class="token punctuation">:</span><span class="token function">rgba</span><span class="token punctuation">(</span><span class="token number">0</span>,<span class="token number">0</span>,<span class="token number">0</span>,<span class="token number">.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>详情可以点<a href="http://www.css88.com/webkit/-webkit-tap-highlight-color/" target="_blank" rel="noopener">这里</a></p>
+<h2><span id="css-jin-yong-xi-tong-mo-ren-chu-li-de-gong-neng">CSS禁用系统默认处理的功能</span><a href="#css-jin-yong-xi-tong-mo-ren-chu-li-de-gong-neng" class="header-anchor">#</a></h2><p>-webkit-touch-callout<br>是否禁用系统默认处理的功能，例如：链接元素比如新窗口打开，img元素比如保存图像等等</p>
+<pre class="line-numbers language-css"><code class="language-css"><span class="token property">-webkit-touch-callout</span><span class="token punctuation">:</span> 属性
+none： 系统默认菜单被禁用
+inherit：系统默认菜单不被禁用
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>详情请点<a href="http://www.css88.com/webkit/-webkit-touch-callout/" target="_blank" rel="noopener">这里</a></p>
+<h2><span id="css3-xuan-ze-qi-target">CSS3选择器 <code>:target</code></span><a href="#css3-xuan-ze-qi-target" class="header-anchor">#</a></h2><p>很惭愧，这个属性的用法是最近才知道的。<br>之前有同事问过我一个问题：浏览器锚点（就是url中带有#id这种形式的）怎么让页面上方空出一块距离。当时我的回答是：好像不行吧，除非用js来控制。显然这回答是不正确的，我们利用<code>:target</code>选择器可以做到这一点，例如本站的锚点。<br>假设你有需要锚点的div如下：</p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>target<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>这里是锚点<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>那么你的css可以这样写：</p>
+<pre class="line-numbers language-css"><code class="language-css"><span class="token selector"><span class="token id">#target</span><span class="token pseudo-class">:target</span> </span><span class="token punctuation">{</span>
+    <span class="token property">padding-top</span><span class="token punctuation">:</span> <span class="token number">80</span>px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>padding或者使用margin看你页面的实际需求，这是只是举个例子，这样你的锚点就角距离页面顶部80px了。</p>
+<h2><span id="yi-dong-duan-shu-ru-kuang-zi-dong-huo-qu-jiao-dian-wen-ti">移动端输入框自动获取焦点问题</span><a href="#yi-dong-duan-shu-ru-kuang-zi-dong-huo-qu-jiao-dian-wen-ti" class="header-anchor">#</a></h2><pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token attr-name">autofocus</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>autofocus<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>由于移动端的限制，尤其是iphone手机，如果你想要在进入页面之后没有任何交互行为的情况下出发输入框自动获取焦点，这基本是不可能的。所以这个属性起作用的重要前提是: 在自动获取焦点之前页面上有与用户的交互行为，比如点击按钮等等。</p>
+<h2><span id="yi-dong-duan-jian-pan-you-xia-jiao-wen-zi-she-zhi">移动端键盘右下角文字设置</span><a href="#yi-dong-duan-jian-pan-you-xia-jiao-wen-zi-she-zhi" class="header-anchor">#</a></h2><pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>form</span> <span class="token attr-name">action</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>input</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>form</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>如果你的input没有被form包住的话，那么键盘右下角将显示 <code>换行</code> 字样，添加了form并且有action的话，就会显示<code>前往</code>或<code>GO</code>字样。 </p>
+<p>如果希望按钮上显示 <code>搜索</code>的话，那么input的type值应为<code>search</code></p>
+<h2><span id="localstorage-zai-wu-hen-mo-shi-xia-bei-jin-yong-de-wen-ti">localStorage在无痕模式下被禁用的问题</span><a href="#localstorage-zai-wu-hen-mo-shi-xia-bei-jin-yong-de-wen-ti" class="header-anchor">#</a></h2><p>在很多浏览器中开启了无痕模式后，localstorage无法使用了，建议在使用前可以做下localStorage的测试：</p>
+<pre class="line-numbers language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">testLocalStorage</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">try</span> <span class="token punctuation">{</span>
+        localStorage<span class="token punctuation">.</span><span class="token function">setItem</span><span class="token punctuation">(</span><span class="token string">'testLocalStorage'</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        localStorage<span class="token punctuation">.</span><span class="token function">removeItem</span><span class="token punctuation">(</span><span class="token string">'testLocalStorage'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span> <span class="token keyword">catch</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2><span id="scss-zhong-calc-zhong-bu-neng-chu-li-bian-liang-de-wen-ti">SCSS中calc中不能处理变量的问题</span><a href="#scss-zhong-calc-zhong-bu-neng-chu-li-bian-liang-de-wen-ti" class="header-anchor">#</a></h2><pre class="line-numbers language-css"><code class="language-css"><span class="token selector">div </span><span class="token punctuation">{</span>
+    <span class="token property">height</span><span class="token punctuation">:</span> <span class="token function">calc</span><span class="token punctuation">(</span><span class="token number">100%</span> - $footerHeight<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>以上场景在scss中不能正常处理<code>$footerHeight</code>这个变量，如果需要在scss中使用变量的话需要将变量用<code>#{$variable}</code> 包裹一下，如下：</p>
+<pre class="line-numbers language-css"><code class="language-css"><span class="token selector">div </span><span class="token punctuation">{</span>
+    <span class="token selector">height: calc(100% - #</span><span class="token punctuation">{</span>$footerHeight<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2><span id="npm-config-bei-wang">npm config (备忘)</span><a href="#npm-config-bei-wang" class="header-anchor">#</a></h2><p>设置npm的registry</p>
+<pre class="line-numbers language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># 淘宝镜像</span>
+<span class="token function">npm</span> config <span class="token keyword">set</span> registry https://registry.npm.taobao.org/
+<span class="token comment" spellcheck="true"># 默认npm镜像</span>
+<span class="token function">npm</span> config <span class="token keyword">set</span> registry<span class="token operator">=</span>http://registry.npmjs.org
+
+<span class="token comment" spellcheck="true"># 当前登录的npm账号（注意要切换到默认npm镜像）</span>
+<span class="token function">npm</span> <span class="token function">whoami</span>
+<span class="token comment" spellcheck="true"># 登录npm</span>
+<span class="token function">npm</span> login
+<span class="token comment" spellcheck="true"># 发布npm</span>
+<span class="token function">npm</span> publish <span class="token keyword">.</span>
+<span class="token comment" spellcheck="true"># 更新版本</span>
+<span class="token function">npm</span> version 0.1.1
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>npm README 不更新的解决方法：<a href="https://github.com/npm/registry/issues/42#issuecomment-243428303" target="_blank" rel="noopener">https://github.com/npm/registry/issues/42#issuecomment-243428303</a></p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2017-09-15</span><i class="fa fa-tag"></i><a href="/tags/flex/" title="flex" class="tag">flex </a><a href="/tags/兼容性/" title="兼容性" class="tag">兼容性 </a><a href="/tags/华为/" title="华为" class="tag">华为 </a></div></div></div></div><div class="share"><div class="evernote"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></div><div class="weibo"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></div><div class="twitter"><a href="http://twitter.com/home?status=,http://happybug.top/2017/09/15/knowledge/,逍遥很晕,前端琐碎知识点整理,;" class="fa fa-twitter"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a role="navigation" href="/2017/09/19/vue-component/" title="如何实现一个简单的移动端Vue Confirm组件" class="btn">上一篇</a></li><li class="next pagbuttons"><a role="navigation" href="/2017/09/13/string/" title="JavaScript中的string的方法总结" class="btn">下一篇</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7b168a4f1a257e5aaf73660ae4ffad1c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></body></html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="逍遥很晕"><title>如何实现一个简单的移动端Vue Confirm组件 · 逍遥很晕</title><meta name="description" content="什么是组件
+Vue组件
+实现一个Confirm组件
+1、首先，我们需要创建html元素
+2、写样式
+3、组件的js
+4、将HTML与js联合起来
+5、在其他组件中引用Confirm组件
+
+
+给组件添加动画
+效果演示
+其他思考
+
+
+
+
+什么是组件#百度百科的定义是：组件（Component）是对数据和"><meta name="keywords" content="vue, 组件"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.jpeg" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-hopscotch.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/mg.jpeg" style="width:150px;border-radius: 50%;"><h3 title=""><a href="/">逍遥很晕</a></h3><div class="description"><p>开心了就笑，不开心了就过会再笑~~</p></div></div></div><ul class="social-links"></ul><div class="footer"><div>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></div><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li></div><div class="information"><div class="back_btn"><li><a onclick="window.history.go(-1)" class="fa fa-chevron-left"> </a></li></div><div class="avatar"><img></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>如何实现一个简单的移动端Vue Confirm组件</a></h3><div class="post-other-info"><span class="wordcount"><i class="fa fa-calendar-o"></i><span class="post-count">2017-09-19</span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-folder-o"></i><span class="post-count"><a href="/categories/vue/" title class="tag">vue</a><a href="/categories/vue/前端/" title class="tag">前端</a></span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-edit"></i><span class="post-count">字数统计3,202</span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-clock-o"></i><span class="post-count">阅读时长12分钟</span></span></div></div><div class="post-content"><div class="toc">
+
+<!-- toc -->
+<ul>
+<li><a href="#shi-me-shi-zu-jian">什么是组件</a></li>
+<li><a href="#vue-zu-jian">Vue组件</a></li>
+<li><a href="#shi-xian-yi-ge-confirm-zu-jian">实现一个Confirm组件</a><ul>
+<li><a href="#1-shou-xian-wo-men-xu-yao-chuang-jian-html-yuan-su">1、首先，我们需要创建html元素</a></li>
+<li><a href="#2-xie-yang-shi">2、写样式</a></li>
+<li><a href="#3-zu-jian-de-js">3、组件的js</a></li>
+<li><a href="#4-jiang-html-yu-js-lian-he-qi-lai">4、将HTML与js联合起来</a></li>
+<li><a href="#5-zai-qi-ta-zu-jian-zhong-yin-yong-confirm-zu-jian">5、在其他组件中引用Confirm组件</a></li>
+</ul>
+</li>
+<li><a href="#gei-zu-jian-tian-jia-dong-hua">给组件添加动画</a></li>
+<li><a href="#xiao-guo-yan-shi">效果演示</a></li>
+<li><a href="#qi-ta-si-kao">其他思考</a></li>
+</ul>
+<!-- tocstop -->
+</div>
+
+<h2><span id="shi-me-shi-zu-jian">什么是组件</span><a href="#shi-me-shi-zu-jian" class="header-anchor">#</a></h2><p>百度百科的定义是：组件（Component）是对数据和方法的简单封装。<br>定义说明了组件的两个主要功能：数据和方法。对于软件开发而言，组件应该是服务于具体的业务逻辑，但是又和具体的业务逻辑没有直接关系的代码段。也就是说，组件是来源于实际业务需求，但高于业务需求的。一般来讲，组件可以接受用户的输入（这里的输入不一定是input的输入，可以理解成参数传入。），在经过一些处理之后将处理之后的结果反馈到用户面前。</p>
+<h2><span id="vue-zu-jian">Vue组件</span><a href="#vue-zu-jian" class="header-anchor">#</a></h2><div class="tip">如果你对Vue的组件已经很熟悉了，可以直接跳过该部分，以下内容全部来自官网</div>
+
+<p>Vue官方文章的解释：</p>
+<blockquote>
+<p>组件 (Component) 是 Vue.js 最强大的功能之一。组件可以扩展 HTML 元素，封装可重用的代码。在较高层面上，组件是自定义元素，Vue.js 的编译器为它添加特殊功能。在有些情况下，组件也可以是原生 HTML 元素的形式，以 is 特性扩展。</p>
+</blockquote>
+<p>具体请参考<a href="https://cn.vuejs.org/v2/guide/components.html" target="_blank" rel="noopener">vue中文文档</a></p>
+<p>这里对Vue组件简单回顾一下：<br>1、Vue组件可以采用全局注册和局部注册的形式，</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">// 全局注册</span>
+Vue<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">'my-component'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  template<span class="token punctuation">:</span> <span class="token string">'&lt;div>A custom component!&lt;/div>'</span><span class="token punctuation">,</span>
+  data<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> data
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// 局部注册</span>
+<span class="token keyword">var</span> Child <span class="token operator">=</span> <span class="token punctuation">{</span>
+  template<span class="token punctuation">:</span> <span class="token string">'&lt;div>A custom component!&lt;/div>'</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+  components<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// &lt;my-component> 将只在父模板可用</span>
+    <span class="token string">'my-component'</span><span class="token punctuation">:</span> Child
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>2、data必须是函数 <a href="https://cn.vuejs.org/v2/guide/components.html#data-必须是函数" target="_blank" rel="noopener">官网参考</a><br>data必须是函数，原因也很简单，使用函数是为了保证多个组件之间的数据相互独立，不共享。</p>
+<p>3、props数据传递<br>你可以props从父组件向子组件传递信息，例如：<br>创建子组件，在子组件中利用props接收参数message</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript">Vue<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">'child'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// 声明 props</span>
+  props<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'message'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token comment" spellcheck="true">// 就像 data 一样，prop 可以用在模板内</span>
+  <span class="token comment" spellcheck="true">// 同样也可以在 vm 实例中像“this.message”这样使用</span>
+  template<span class="token punctuation">:</span> <span class="token string">'&lt;span>{{ message }}&lt;/span>'</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在父组件中，调用子组件时：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">// 传递静态定值</span>
+<span class="token operator">&lt;</span>child message<span class="token operator">=</span><span class="token string">"hello"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>child<span class="token operator">></span> 
+<span class="token comment" spellcheck="true">// 传递动态变量值 hello是个变量</span>
+<span class="token operator">&lt;</span>child <span class="token punctuation">:</span>message<span class="token operator">=</span><span class="token string">"hello"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>child<span class="token operator">></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>当然你还可以在子组件中设置props的值，参考<a href="https://cn.vuejs.org/v2/guide/components.html#Prop-验证" target="_blank" rel="noopener">这里</a></p>
+<p>4、自定义事件<br>在父组件中使用 $on(eventName) 监听事件<br>在子组件中使用 $emit(eventName) 触发事件</p>
+<p>Vue组件中还有很多其他概念，比如动态组件、组件v-model、slot、异步组件、递归组件等等，如果需要了解这些内容，可以查看官方网站。</p>
+<h2><span id="shi-xian-yi-ge-confirm-zu-jian">实现一个Confirm组件</span><a href="#shi-xian-yi-ge-confirm-zu-jian" class="header-anchor">#</a></h2><p>这个Confirm组件，模拟浏览器中的Confirm的行为：标题，内容，确定和取消按钮，样式模拟一下ios的样式。</p>
+<p>这个组件的形式还是比较简单的，就是根据输入，显示相关信息，并在用户点击了确定和取消按钮的时候，做出相应的反应。</p>
+<p>那么接下来我们就需要看下这个组件都要接收哪些参数了：<br>1、title:标题文字<br>2、content:提示内容<br>3、cancelText:取消按钮文字内容，默认“取消”<br>4、cancelFunc: 取消按钮的回调<br>5、confirmText: 确定按钮， 默认“确定”<br>6、confirmFunc: 确定按钮的回调</p>
+<p>那么接下来就我们一步一步的实现一个Confirm组件，我们会按照<code>.vue</code>文件的形式进行这个组件的开发，并命名为<code>confirm.vue</code></p>
+<h3><span id="1-shou-xian-wo-men-xu-yao-chuang-jian-html-yuan-su">1、首先，我们需要创建html元素</span><a href="#1-shou-xian-wo-men-xu-yao-chuang-jian-html-yuan-su" class="header-anchor">#</a></h3><p>html元素大致分为几层：</p>
+<blockquote>
+<ul>
+<li>最外层的包装层 （可以理解为一个外层容器）</li>
+<li>半透明的背景层 （可以用于点击背景弹层消失）</li>
+<li>主体内容部分   （正常的需要展示的内容）</li>
+</ul>
+</blockquote>
+<p>其中<code>主体内容部分</code>又可以分为：</p>
+<blockquote>
+<ul>
+<li>标题区域</li>
+<li>内容提示区域</li>
+<li>按钮区域</li>
+</ul>
+</blockquote>
+<p>按照上述的规划，页面元素可以这样写(按照.vue文件的形式，html需要放在template标签之内)：</p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>section</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>confirm-pop-container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>section</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>confirm-pop-bg<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>section</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>section</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>confirm-pop-main<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>confirm-pop-title<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>标题<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>confirm-pop-content<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>提示内容<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>confirm-pop-footer<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>confirm-pop-btn<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>取消<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>confirm-pop-btn<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>确定<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>section</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>section</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>页面的HTML结构大致是这样的：</p>
+<p>section.confirm-pop-container : 最外层包装层<br>    section.confirm-pop-bg : 半透明的背景层<br>    section.confirm-pop-main : 主体内容部分<br>        div.confirm-pop-title : 标题区域<br>        div.confirm-pop-content : 内容提示区域<br>        div.confirm-pop-footer : 按钮区域<br>            div.confirm-pop-btn : 分别代表两个按钮</p>
+<p>这样我们页面的大致结构就已经有了，接下来我们可以根据结构来写样式了</p>
+<h3><span id="2-xie-yang-shi">2、写样式</span><a href="#2-xie-yang-shi" class="header-anchor">#</a></h3><p>样式部分我用的scss写的，这部分没什么特别的，就是正常写样式就可以了。<br>在<code>.vue</code>文件中，样式需要添加到style标签中，如下所示：</p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>scss<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token style language-css">
+
+</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<iframe width="100%" height="300" src="//jsfiddle.net/Michael_Gong/oznqcz6p/embedded/css,html/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<p>样式添加完成后，confirm弹出框的样子(html中确定按钮添加了其他样式)：<br><img src="http://ovtdovq9q.bkt.clouddn.com/confirm.jpg"></p>
+<p>这样就是confirm样式就暂时完成了。</p>
+<h3><span id="3-zu-jian-de-js">3、组件的js</span><a href="#3-zu-jian-de-js" class="header-anchor">#</a></h3><p>静态的组件我们现在已经完成了，现在就可以给组件添加js逻辑了，让我们的组件动起来。<br>按照<code>.vue</code>组件的形式，我们需要往script标签添加如下代码：</p>
+<iframe width="100%" height="300" src="//jsfiddle.net/Michael_Gong/oznqcz6p/embedded/js/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<h3><span id="4-jiang-html-yu-js-lian-he-qi-lai">4、将HTML与js联合起来</span><a href="#4-jiang-html-yu-js-lian-he-qi-lai" class="header-anchor">#</a></h3><p>这样添加的话，我们的页面依旧没有和js联系起来，所以还需要在html添加事件监听，代码如下：</p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>confirm-pop-btn<span class="token punctuation">"</span></span> <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btnActionHandler(<span class="token punctuation">'</span>cancel<span class="token punctuation">'</span>)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>取消<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>confirm-pop-btn confirm-pop-btn-border blue<span class="token punctuation">"</span></span> <span class="token attr-name">@click</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>btnActionHandler(<span class="token punctuation">'</span>confirm<span class="token punctuation">'</span>)<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>确定<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>以上是给取消和确定按钮添加点击事件的响应。<code>btnActionHandler</code> 这个方法统一处理了取消和确定的事件处理，在这个方法内部还调用了一个方法<code>hideCallback</code>，这个方法向父组件发送一个<code>toggleconfirm</code>的事件，并传递一个参数：false，用于隐藏组件。</p>
+<p>添加了事件以后，现在还不能控制组件的显示与隐藏。要想控制组件的显示和隐藏，需要利用props传递进来的参数<code>isShow</code>来控制组件的显示与隐藏，此时需要在组件最外层的<code>&lt;section class=&quot;confirm-pop-container&quot;&gt;&lt;/section&gt;</code>这个标签上添加<code>v-show</code>或者<code>v-if</code>属性，代码如下：</p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>section</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>confirm-pop-container<span class="token punctuation">"</span></span> <span class="token attr-name">v-show</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>isShow<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+...
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>section</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>除了以上设置外外，还需要将页面中的元素修改成js中对应的变量，比如：<code>标题</code>的位置需要修改成用<code>&#123;&#123;title&#125;&#125;</code>，此时html代码应该如下所示：</p>
+<iframe width="100%" height="300" src="//jsfiddle.net/Michael_Gong/oznqcz6p/22/embedded/html/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<p>这个时候一个<code>.vue</code>文件形式的组件已经创建好了，接下来就可以使用该组件了。</p>
+<h3><span id="5-zai-qi-ta-zu-jian-zhong-yin-yong-confirm-zu-jian">5、在其他组件中引用Confirm组件</span><a href="#5-zai-qi-ta-zu-jian-zhong-yin-yong-confirm-zu-jian" class="header-anchor">#</a></h3><p>引用的方式很简单，首先需要在需要使用的组件内引入confirm组件，然后在组件中的<code>components</code>添加confirm组件，最后需在html中引入confirm组件，并传入相应参数，例如：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">import</span> confirm <span class="token keyword">from</span> <span class="token string">'./confirm.vue'</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  name<span class="token punctuation">:</span> <span class="token string">'example'</span><span class="token punctuation">,</span>
+  data<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    confirmShow<span class="token punctuation">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  components<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    confirm
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token function">toggleConfirm</span><span class="token punctuation">(</span>isShow<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 接收confirm组件传递上来的参数</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>confirmShow <span class="token operator">=</span> isShow<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以上代码是将confirm中引入进去js中，然后在html中如下调用：</p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>confirm</span> 
+  <span class="token attr-name">:isShow</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>confirmShow<span class="token punctuation">"</span></span> 
+  <span class="token attr-name">title</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>标题<span class="token punctuation">"</span></span> 
+  <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>提示内容<span class="token punctuation">"</span></span> 
+  <span class="token attr-name">@toggleconfirm</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>toggleConfirm<span class="token punctuation">"</span></span>
+<span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>confirm</span><span class="token punctuation">></span></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这样这个confirm组件就可以正常调用了。</p>
+<h2><span id="gei-zu-jian-tian-jia-dong-hua">给组件添加动画</span><a href="#gei-zu-jian-tian-jia-dong-hua" class="header-anchor">#</a></h2><p>以上的代码已经可以正常使用了，现在我们希望我们的组件有点动效，就需要给我们的组件添加一些动画效果，我们可以利用vue中的<code>transition</code>来让我们的组件动起来。</p>
+<p><code>transition</code>详细用法请看<a href="https://cn.vuejs.org/v2/guide/transitions.html" target="_blank" rel="noopener">官网</a></p>
+<p>首先制定一下我们想要的动画效果：<br>1、背景图渐隐出现，渐隐消失，这个效果利用opacity实现<br>2、主体内容出现的时候从小变大，消失的时候从大变小，这个效果利用transform中的scale实现</p>
+<p>我们将主要利用transition中的两个api：<code>v-enter-active</code>、<code>v-leave-active</code>。<br>利用以上两个api需要添加的样式如下：</p>
+<pre class="line-numbers language-css"><code class="language-css"><span class="token selector"><span class="token class">.confirm-ani-enter-active</span>, <span class="token class">.confirm-ani-leave-active</span> </span><span class="token punctuation">{</span>
+    <span class="token selector">transition: all <span class="token class">.2s</span>;
+    <span class="token class">.confirm-pop-main</span> </span><span class="token punctuation">{</span>
+        <span class="token property">opacity</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">translate</span><span class="token punctuation">(</span>-<span class="token number">50%</span>, -<span class="token number">50%</span><span class="token punctuation">)</span> <span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">0.7</span><span class="token punctuation">)</span><span class="token punctuation">;</span> // <span class="token function">translate</span><span class="token punctuation">(</span>-<span class="token number">50%</span>, -<span class="token number">50%</span><span class="token punctuation">)</span> 是为了保证居中状态
+    <span class="token punctuation">}</span>
+    <span class="token selector"><span class="token class">.confirm-pop-bg</span> </span><span class="token punctuation">{</span>
+        <span class="token property">opacity</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>此外还需要给<code>.confirm-pop-bg</code>和<code>.confirm-pop-main</code>添加css属性：<code>transition: all .2s</code>，这样你的组件就可以动起来了。</p>
+<h2><span id="xiao-guo-yan-shi">效果演示</span><a href="#xiao-guo-yan-shi" class="header-anchor">#</a></h2><p>以下是我在jsfiddle中做的效果，由于jsfiddle中并不能直接写<code>.vue</code>组件，所以这种形式和以上介绍的方式还是有所区别的，比如html模板的形式、命名的形式等等都存在差别，请注意差别。</p>
+<iframe width="500" height="500" src="//jsfiddle.net/Michael_Gong/11b3dk44/14/embedded/html,css,js,result/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+
+<h2><span id="qi-ta-si-kao">其他思考</span><a href="#qi-ta-si-kao" class="header-anchor">#</a></h2><p>在实际项目开发中，像confirm、toast、loading这样的组件，我们可能在各个组件中都会用到，如果按照上述写法，就需要在每个需要用的到组件中都添加该组件的引用，这种方法难免有点麻烦，并且代码有些冗余。</p>
+<p>那么，采用什么方式比较好呢？<br>以下说下我知道的两种实现方式：</p>
+<blockquote>
+<ul>
+<li>1、在最顶级组件中引入该组件，搭配vuex的属性来控制组件的状态</li>
+<li>2、制作成单独的组件，利用js方法调用来控制组件的状态。</li>
+</ul>
+</blockquote>
+<p>第一种方法，确实可以实现，有些时候在我们的项目中也确实会存在这样的情况（虽然不是很推荐这种写法），个人不是很推荐使用，虽然能够解决问题，但是却要总是依赖于vuex，代码并不优雅。</p>
+<p>那么就只是剩下第二种方式了，以上的描述方式可能并不是很清晰，那么我就来一步一步的实现它。</p>
+<p>依然按照<code>.vue</code>文件的形式进行开发。<br>首先将之前的创建好的<code>confirm.vue</code>文件,拷贝到<code>confirm</code>文件夹下（confirm文件夹请自行创建），并在这个目录下创建一个<code>confirm.js</code>的文件。此时的目录结构应该是这样的：</p>
+<p>├── confirm<br>|   ├── confirm.vue<br>|   └── confirm.js</p>
+<p>在confirm.js中加入如下代码：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">'vue'</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> Confirm <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./confirm.vue'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 声明一个Confirm组件，一下操作的就是这个Confirm组件</span>
+<span class="token keyword">let</span> instance<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Confirm组件的一个实例</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+    <span class="token function">show</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 显示的方法，options可以是组件中的属性或方法</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>instance<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 首先判断instancs是否为真，如果不为真，表示组件并没有实例化过，就需要实例化</span>
+            instance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Confirm</span><span class="token punctuation">(</span><span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 初始化confirm组件</span>
+                el<span class="token punctuation">:</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>instance<span class="token punctuation">.</span>isShow<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 如果组件已经是显示状态，那么不在向下执行代码</span>
+        instance<span class="token punctuation">.</span>isShow <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 将组件的状态修改成显示</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> prop <span class="token keyword">in</span> options<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 遍历传进来的属性，修改组件的属性值</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>options<span class="token punctuation">.</span><span class="token function">hasOwnProperty</span><span class="token punctuation">(</span>prop<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                instance<span class="token punctuation">[</span>prop<span class="token punctuation">]</span> <span class="token operator">=</span> options<span class="token punctuation">[</span>prop<span class="token punctuation">]</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+        instance<span class="token punctuation">.</span>hideCallback <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token function">callback</span><span class="token punctuation">(</span>isShow<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 声明组件的隐藏的回调方法，这里声明了，组件内部的那个hideCallback方法就可以去掉了</span>
+            instance<span class="token punctuation">.</span>isShow <span class="token operator">=</span> isShow<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>instance<span class="token punctuation">.</span>$el<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 将组件添加到页面中去</span>
+
+        Vue<span class="token punctuation">.</span><span class="token function">nextTick</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 在下一帧时显示组件</span>
+            instance<span class="token punctuation">.</span>isShow <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span> 
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// 关闭组件</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>instance<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            instance<span class="token punctuation">.</span>isShow <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以上方法有两点需要注意的：<br>1、<code>confirm.vue</code>中的 <code>hideCallback</code> 方法可以移除掉了，而是在<code>confirm.js</code>中声明了该方法，而且这个方法的行为也发生了变化，不在向父组件发送通知，而是修改了组件的<code>isShow</code>属性<br>2、当前这个组件有且仅有一个实例，在任何地方调用的都是操作的同一个实例。更进阶的方式是，做一个confirm栈，没初始化一个confirm实例都向栈中添加一个实例，隐藏时则将改实例移除出栈。栈是用来控制其显示顺序的，用户看到的永远是栈顶的组件，当栈顶的组件被隐藏后就将该组件移除出栈，接着显示下一个组件。</p>
+<p>组件创建完成之后，还需要将组件添加到<code>Vue</code>实例中，方便我们调用：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">'vue'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> confirm <span class="token keyword">from</span> <span class="token string">'./confirm/confirm.js'</span><span class="token punctuation">;</span>
+Vue<span class="token punctuation">.</span>$confirm <span class="token operator">=</span> Vue<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>$confirm <span class="token operator">=</span> Confirm<span class="token punctuation">;</span>
+<span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  el<span class="token punctuation">:</span><span class="token string">'#app'</span>
+  <span class="token operator">...</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其中最关键的一句就是：<code>Vue.$confirm = Vue.prototype.$confirm = Confirm;</code>，将confirm组件绑定到Vue上。</p>
+<p>这样我们在组件中就可以直接像这样调用：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">// 显示</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>$confirm<span class="token punctuation">.</span><span class="token function">show</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    content<span class="token punctuation">:</span> <span class="token string">'显示内容'</span><span class="token punctuation">,</span>
+    cancelText<span class="token punctuation">:</span> <span class="token string">'取消'</span><span class="token punctuation">,</span>
+    cancelFunc<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    confirmText<span class="token punctuation">:</span> <span class="token string">'删除'</span><span class="token punctuation">,</span>
+    confirmFunc<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 关闭</span>
+<span class="token keyword">this</span><span class="token punctuation">.</span>$confirm<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这样我们的Confirm组件就完成了。</p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2017-09-19</span><i class="fa fa-tag"></i><a href="/tags/vue/" title="vue" class="tag">vue </a><a href="/tags/组件/" title="组件" class="tag">组件 </a></div></div></div></div><div class="share"><div class="evernote"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></div><div class="weibo"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></div><div class="twitter"><a href="http://twitter.com/home?status=,http://happybug.top/2017/09/19/vue-component/,逍遥很晕,如何实现一个简单的移动端Vue Confirm组件,;" class="fa fa-twitter"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a role="navigation" href="/2017/09/26/imageLoad/" title="图片预加载与懒加载" class="btn">上一篇</a></li><li class="next pagbuttons"><a role="navigation" href="/2017/09/15/knowledge/" title="前端琐碎知识点整理" class="btn">下一篇</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7b168a4f1a257e5aaf73660ae4ffad1c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></body></html>

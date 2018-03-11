@@ -1,0 +1,106 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="逍遥很晕"><title>利用Hexo配置个人博客 · 逍遥很晕</title><meta name="description" content="一、介绍
+二、安装工具
+1. 安装Nodejs
+2. 安装git
+3. 安装hexo
+
+
+三、建站
+四、hexo指令
+五、主题
+六、利用github生成自己的网站
+1. 注册github
+2. 创建代码库
+3. 设置代码库
+4. 配置SSH keys
+5. 部署到github
+
+
+七、配置自己的域名"><meta name="keywords" content="hexo"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.jpeg" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-hopscotch.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/mg.jpeg" style="width:150px;border-radius: 50%;"><h3 title=""><a href="/">逍遥很晕</a></h3><div class="description"><p>开心了就笑，不开心了就过会再笑~~</p></div></div></div><ul class="social-links"></ul><div class="footer"><div>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></div><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li></div><div class="information"><div class="back_btn"><li><a onclick="window.history.go(-1)" class="fa fa-chevron-left"> </a></li></div><div class="avatar"><img></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>利用Hexo配置个人博客</a></h3><div class="post-other-info"><span class="wordcount"><i class="fa fa-calendar-o"></i><span class="post-count">2017-09-05</span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-folder-o"></i><span class="post-count"></span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-edit"></i><span class="post-count">字数统计1,853</span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-clock-o"></i><span class="post-count">阅读时长7分钟</span></span></div></div><div class="post-content"><div class="toc">
+
+<!-- toc -->
+<ul>
+<li><a href="#yi-jie-shao">一、介绍</a></li>
+<li><a href="#er-an-zhuang-gong-ju">二、安装工具</a><ul>
+<li><a href="#1-an-zhuang-nodejs">1. 安装Nodejs</a></li>
+<li><a href="#2-an-zhuang-git">2. 安装git</a></li>
+<li><a href="#3-an-zhuang-hexo">3. 安装hexo</a></li>
+</ul>
+</li>
+<li><a href="#san-jian-zhan">三、建站</a></li>
+<li><a href="#si-hexo-zhi-ling">四、hexo指令</a></li>
+<li><a href="#wu-zhu-ti">五、主题</a></li>
+<li><a href="#liu-li-yong-github-sheng-cheng-zi-ji-de-wang-zhan">六、利用github生成自己的网站</a><ul>
+<li><a href="#1-zhu-ce-github">1. 注册github</a></li>
+<li><a href="#2-chuang-jian-dai-ma-ku">2. 创建代码库</a></li>
+<li><a href="#3-she-zhi-dai-ma-ku">3. 设置代码库</a></li>
+<li><a href="#4-pei-zhi-ssh-keys">4. 配置SSH keys</a></li>
+<li><a href="#5-bu-shu-dao-github">5. 部署到github</a></li>
+</ul>
+</li>
+<li><a href="#qi-pei-zhi-zi-ji-de-yu-ming-dao-github">七、配置自己的域名到github</a></li>
+<li><a href="#can-kao">参考：</a></li>
+</ul>
+<!-- tocstop -->
+</div>
+
+<h2><span id="yi-jie-shao">一、介绍</span><a href="#yi-jie-shao" class="header-anchor">#</a></h2><p>Hexo 是一个快速、简洁且高效的博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。</p>
+<div class="tip">官方网站：<a href="https://hexo.io" target="_blank" rel="noopener">https://hexo.io</a></div>
+
+<h2><span id="er-an-zhuang-gong-ju">二、安装工具</span><a href="#er-an-zhuang-gong-ju" class="header-anchor">#</a></h2><h3><span id="1-an-zhuang-nodejs">1. 安装Nodejs</span><a href="#1-an-zhuang-nodejs" class="header-anchor">#</a></h3><p>可以访问Node官方网站下载：<a href="https://nodejs.org" target="_blank" rel="noopener">https://nodejs.org</a>，一般选择最新稳定版本下载安装就可以了。<br>或者可以先安装NVM<a href="https://github.com/creationix/nvm" target="_blank" rel="noopener">(https://github.com/creationix/nvm)</a>，然后可以通过NVM切换自己想要的node版本。<br>安装完毕后，可以通过在命令行中执行：<code>node -v</code> 来查看是否安装成功。</p>
+<h3><span id="2-an-zhuang-git">2. 安装git</span><a href="#2-an-zhuang-git" class="header-anchor">#</a></h3><p>可以去 <a href="https://git-scm.com/" target="_blank" rel="noopener">https://git-scm.com/</a> 下载相应系统的git版本直接安装就可以，或者如果有其他方案的话也可以选择，比如GUI界面的工具。<br>安装完成后，可以在命令行或者git bash中，输入<code>git version</code>，如果输出类似<code>git version 2.13.1</code>这样的文字说明你安装成功。</p>
+<h3><span id="3-an-zhuang-hexo">3. 安装hexo</span><a href="#3-an-zhuang-hexo" class="header-anchor">#</a></h3><p>接下来就可以安装hexo了，在命令行中执行<code>npm install -g hexo-cli</code></p>
+<h2><span id="san-jian-zhan">三、建站</span><a href="#san-jian-zhan" class="header-anchor">#</a></h2><p>Hexo安装完成之后，就可以创建自己的网站了。<br>在你希望的目录下，依次执行以下命令：</p>
+<blockquote>
+<ul>
+<li>hexo init blog</li>
+<li>cd blog</li>
+<li>npm install</li>
+</ul>
+</blockquote>
+<p>命令会自动创建一个blog文件夹，并在blog文件夹内创建一些文件和文件夹，blog内的文件结构大致如下：<br>├── _config.yml      <code>网站的配置信息（大部分的配置都在这里）</code><br>├── package.json     <code>应用程序的信息以及安装了的插件</code><br>├── scaffolds        <code>模版 文件夹。当您新建文章时，Hexo 会根据指定的scaffold 来建立文件。</code><br>├── source           <code>资源文件夹是存放用户资源的地方。</code><br>|   ├── _drafts<br>|   └── _posts<br>└── themes           <code>主题文件夹。Hexo 会根据主题来生成静态页面。</code></p>
+<p>具体的设置可以查看 <a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">官方网站</a></p>
+<h2><span id="si-hexo-zhi-ling">四、hexo指令</span><a href="#si-hexo-zhi-ling" class="header-anchor">#</a></h2><p>当你创建项目的时候，其实你已经用到了一个hexo指令：<code>hexo init xxx</code>，这个指令可以帮你初始化一个hexo项目，hexo还有其他的一些常用指令：</p>
+<blockquote>
+<ul>
+<li>hexo server  <code>启动一个端口为4000的本地服务启</code>，添加 -p 参数可以改变端口设置，如：hexo server -p 8787</li>
+<li>hexo clean <code>清除缓存文件 (db.json) 和已生成的静态文件 (public)</code></li>
+<li>hexo new [layout] title <code>新建一篇文章。如果没有设置 layout 的话，默认使用 _config.yml 中的 default_layout 参数代替。如果标题包含空格的话，请使用引号括起来。</code> 如果你想添加一篇名为 美好的日子 的文章，可以：<code>hexo new 美好的日子</code>，如果你想创建一个名为 beautifulDay 的路由的话，可以：<code>hexo new page beautifulDay</code></li>
+<li>hexo generate <code>生成静态文件</code>，可以简写成 <code>hexo g</code>, <code>hexo generate --watch</code>这个命令可以监听文件变化并自动生成静态文件</li>
+<li>hexo deploy <code>部署之前预先生成静态文件</code>，可以简写成 <code>hexo d</code></li>
+<li>hexo g -d 这个命令可以生成静态文件并将静态文件部署到相应位置</li>
+</ul>
+</blockquote>
+<h2><span id="wu-zhu-ti">五、主题</span><a href="#wu-zhu-ti" class="header-anchor">#</a></h2><p>你可以去 <a href="https://hexo.io/themes/" target="_blank" rel="noopener">这里</a> 选择自己喜欢的主题 或者 <a href="https://github.com/hexojs/awesome-hexo" target="_blank" rel="noopener">这里</a> 选择主题。<br>选择到自己喜欢的主题之后，就可以在blog目录下添加主题，具体操作如下（本站用的是anatole修改样式后的主题）：</p>
+<blockquote>
+<p><code>git clone git@github.com:Ben02/hexo-theme-Anatole.git themes/anatole</code></p>
+</blockquote>
+<p>或者直接去github上下载，并把下载后的代码放在 <code>blog/themes</code> 下，并将文件夹命名为anatole(文件夹名字需要根据各自的主题名称命名，这里只是举例)。</p>
+<p>然后需要修改blog下的<code>_config.yml</code>文件中的theme为：<code>theme:anatole</code>，<br>这样你的主题就生效了，如果需要自己修改主题样式的话，可以在themes/anatole下查找你需要修改的内容，并进行修改。<br>修改完毕后，可以执行<code>hexo server</code>，<code>hexo generate --watch</code> ，并在浏览器里访问<a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a> 就可以看到效果了</p>
+<h2><span id="liu-li-yong-github-sheng-cheng-zi-ji-de-wang-zhan">六、利用github生成自己的网站</span><a href="#liu-li-yong-github-sheng-cheng-zi-ji-de-wang-zhan" class="header-anchor">#</a></h2><p><a href="github.com">github</a> 是一个可以免费托管代码的平台，有很多开源项目都会把代码放在github上，供大家参考学习。</p>
+<h3><span id="1-zhu-ce-github">1. 注册github</span><a href="#1-zhu-ce-github" class="header-anchor">#</a></h3><p>如果已经注册，直接跳过<br>官网：<a href="github.com">github.com</a><br><img src="http://ovtdovq9q.bkt.clouddn.com/github/login.jpg?imageMogr2/thumbnail/350x" alt="注册"><br>填写必要的信息，注册完成直接登录。</p>
+<h3><span id="2-chuang-jian-dai-ma-ku">2. 创建代码库</span><a href="#2-chuang-jian-dai-ma-ku" class="header-anchor">#</a></h3><p>点击右上角头像左侧的加号创建一个仓库<br><img src="http://ovtdovq9q.bkt.clouddn.com/github/newre.jpg?imageMogr2/thumbnail/350x" alt="创建仓库"></p>
+<p>填写仓库名称：比如我的github名字是MichaelGong，那我的仓库名字就是：<code>michaelgong.github.io</code>，<br>如果你的名字是haha的话，就写<code>haha.github.io</code><br><img src="http://ovtdovq9q.bkt.clouddn.com/github/createre.jpg?imageMogr2/thumbnail/550x" alt="仓库"></p>
+<h3><span id="3-she-zhi-dai-ma-ku">3. 设置代码库</span><a href="#3-she-zhi-dai-ma-ku" class="header-anchor">#</a></h3><p>代码仓库创建完毕后，就会进入到如下页面，你可以点击<code>We recommend every repository include a README,LICENSE and .gitignore</code> 中的 <code>README</code> 添加一个readme先，如下图：<br><img src="http://ovtdovq9q.bkt.clouddn.com/github/setting.jpg?imageMogr2/thumbnail/751x" alt="仓库"><br>然后可以点击<code>setting</code>，进入到新页面，向下滑，找到<code>GitHub Pages</code>的位置，这时大概是这样的：<br><img src="http://ovtdovq9q.bkt.clouddn.com/github/ghpages.jpg?imageMogr2/thumbnail/750x" alt="仓库"></p>
+<h3><span id="4-pei-zhi-ssh-keys">4. 配置SSH keys</span><a href="#4-pei-zhi-ssh-keys" class="header-anchor">#</a></h3><p>在命令行中输入</p>
+<p><div class="tip">ssh-keygen -t rsa -C “邮箱地址，如：<a href="mailto:xxx@163.com" target="_blank" rel="noopener">xxx@163.com</a>“</div>后面可以一路enter下去，就可以创建成功了。</p>
+<p>创建成功后，需要拿到你的公钥，window用户在<code>C:\Documents and Settings\Administrator.ssh\id_rsa.pub</code>，MAC用户在<code>~/.ssh/id_rsa.pub</code>，<br>登陆github系统。点击右上角的 Account Settings—&gt;SSH Public keys —&gt; add another public keys<br>把你本地生成的密钥复制到里面（key文本框中）， 点击 add key 就ok了</p>
+<p>设置git身份信息</p>
+<pre class="line-numbers language-bash"><code class="language-bash">$ <span class="token function">git</span> config --global user.name <span class="token string">"你的用户名"</span>
+$ <span class="token function">git</span> config --global user.email <span class="token string">"你的邮箱"</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h3><span id="5-bu-shu-dao-github">5. 部署到github</span><a href="#5-bu-shu-dao-github" class="header-anchor">#</a></h3><p>首先在blog跟目录下执行 <code>npm install hexo-deployer-git --save</code> ，安装部署到git仓库的插件，供以后使用。<br>修改blog目录下的<code>_config.yml</code>中的 <code>deploy</code>属性：<br><blockquote><p>deploy:<br>&nbsp;&nbsp;type: git<br>&nbsp;&nbsp;# michaelgong改为你的github用户名<br>&nbsp;&nbsp;repository: <a href="https://github.com/michaelgong/michaelgong.github.io.git" target="_blank" rel="noopener">https://github.com/michaelgong/michaelgong.github.io.git</a><br>&nbsp;&nbsp;branch: master</p>
+</blockquote> 这个时候可以执行命令<code>hexo g -d</code> 将代码部署到github上了，然后就可以通过访问<a href="http://michaelgong.github.io" target="_blank" rel="noopener">http://michaelgong.github.io</a>  来查看自己的文章。</p>
+<h2><span id="qi-pei-zhi-zi-ji-de-yu-ming-dao-github">七、配置自己的域名到github</span><a href="#qi-pei-zhi-zi-ji-de-yu-ming-dao-github" class="header-anchor">#</a></h2><p>首先你要有个域名，我的是<a href="https://wanwang.aliyun.com/" target="_blank" rel="noopener">阿里云</a>上购买的，如果你想在其他网站购买域名都可以的，只要就可以购买就可以的。<br>进入网站，输入自己想要的域名，一般来讲.com后缀的域名相应的会贵一些，你可以选择.me、.net、.top之类的域名进行购买，如果你不差钱，请直接无视我。<br>购买完了之后，可以在阿里云的控制台<a href="https://netcn.console.aliyun.com/core/domain/list" target="_blank" rel="noopener">https://netcn.console.aliyun.com/core/domain/list</a> 查看自己的域名，如下图：</p>
+<p><img src="http://ovtdovq9q.bkt.clouddn.com/githubdomain.jpg" alt="阿里云域名"><br><img src="http://ovtdovq9q.bkt.clouddn.com/github/domain.jpg"><br>点击解析，进入到新页面，点击添加解析，添加如下三条解析设置，<br><img src="http://ovtdovq9q.bkt.clouddn.com/github/dns.jpg" alt="dns"></p>
+<p>然后在blog文件夹下的source文件夹下创建<code>CNAME</code>的文件，注意这个文件没有后缀名，并在里面输入自己的域名，例如：<code>happybug.top</code>,<br>将代码部署到github就可以直接域名访问了（有可能DNS解析需要一些时间，一般十分钟）。</p>
+<p>七牛的qn.json的配置：<br>{<br>    “access_key”: “xxx”,<br>    “secret_key”: “xxx”<br>}</p>
+<h2><span id="can-kao">参考：</span><a href="#can-kao" class="header-anchor">#</a></h2><p><a href="http://hifor.net/2015/07/01/%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%8D%E8%B4%B9%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2-hexo-github/" target="_blank" rel="noopener">零基础免费搭建个人博客-hexo+github</a></p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2017-09-05</span><i class="fa fa-tag"></i><a href="/tags/hexo/" title="hexo" class="tag">hexo </a></div></div></div></div><div class="share"><div class="evernote"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></div><div class="weibo"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></div><div class="twitter"><a href="http://twitter.com/home?status=,http://happybug.top/2017/09/05/hexo/,逍遥很晕,利用Hexo配置个人博客,;" class="fa fa-twitter"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a role="navigation" href="/2017/09/12/jsonp/" title="跨域请求之JSONP" class="btn">上一篇</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7b168a4f1a257e5aaf73660ae4ffad1c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></body></html>

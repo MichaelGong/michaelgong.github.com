@@ -1,0 +1,380 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="逍遥很晕"><title>图片预加载与懒加载 · 逍遥很晕</title><meta name="description" content="我们在项目开发过程中，经常有预加载或者懒加载的需求，今天我们就来分析一下，图片预加载与懒加载。
+图片的加载#我们可以通过多种方式来加载图片，比如：html中img标签，css中background以及js中的new Image等方式，今天我们的主要方式就是js中的new Image的方式。new I"><meta name="keywords" content="图片, 预加载, 懒加载"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.jpeg" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-hopscotch.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/mg.jpeg" style="width:150px;border-radius: 50%;"><h3 title=""><a href="/">逍遥很晕</a></h3><div class="description"><p>开心了就笑，不开心了就过会再笑~~</p></div></div></div><ul class="social-links"></ul><div class="footer"><div>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></div><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li></div><div class="information"><div class="back_btn"><li><a onclick="window.history.go(-1)" class="fa fa-chevron-left"> </a></li></div><div class="avatar"><img></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>图片预加载与懒加载</a></h3><div class="post-other-info"><span class="wordcount"><i class="fa fa-calendar-o"></i><span class="post-count">2017-09-26</span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-folder-o"></i><span class="post-count"><a href="/categories/图片加载/" title class="tag">图片加载</a></span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-edit"></i><span class="post-count">字数统计3,355</span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-clock-o"></i><span class="post-count">阅读时长14分钟</span></span></div></div><div class="post-content"><p>我们在项目开发过程中，经常有预加载或者懒加载的需求，今天我们就来分析一下，图片预加载与懒加载。</p>
+<h2><span id="tu-pian-de-jia-zai">图片的加载</span><a href="#tu-pian-de-jia-zai" class="header-anchor">#</a></h2><p>我们可以通过多种方式来加载图片，比如：html中img标签，css中background以及js中的<code>new Image</code>等方式，今天我们的主要方式就是js中的<code>new Image</code>的方式。<code>new Image</code>的方式实际上等价于<code>document.createElement(&#39;img&#39;)</code></p>
+<p>先看下语法：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token function">Image</span><span class="token punctuation">(</span>width<span class="token punctuation">,</span> height<span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>width、height就是指定图片的宽高。</p>
+<p>Image对象的实例有很多属性，其中比较常用的有：<br>width: 图片的渲染宽度<br>height: 图片的渲染高度<br>naturalWidth: 图片的实际宽度<br>naturalHeight: 图片的实际高度<br>complete: 只读属性，返回一个 Boolean 如果浏览器已经取出图像则返回true, 并且它是一个 supported image type,图像解码的过程中没有错误.</p>
+<p>Image对象还有三个事件函数：<br>onabort: 当用户放弃图像的装载时调用的事件句柄。<br>onerror: 在装载图像的过程中发生错误时调用的事件句柄。<br>onload: 当图像装载完毕时调用的事件句柄。</p>
+<h2><span id="shi-xian-yi-ge-jian-dan-de-tu-pian-jia-zai">实现一个简单的图片加载</span><a href="#shi-xian-yi-ge-jian-dan-de-tu-pian-jia-zai" class="header-anchor">#</a></h2><p>有了以上Image的知识，我们来实现一个简单的图片加载就比较容易了。<br>首先你可以new 一个 Image对象，然后给Image对象添加src属性，然后就利用onload的事件函数就可以加载图片了。</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">loadImage</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span> cb<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> image <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Image</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    image<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'图片加载完成了'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        cb <span class="token operator">&amp;&amp;</span> cb<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>image<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    image<span class="token punctuation">.</span>src <span class="token operator">=</span> url<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>image<span class="token punctuation">.</span>complete<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        cb <span class="token operator">&amp;&amp;</span> cb<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>image<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        image<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token function">loadImage</span><span class="token punctuation">(</span><span class="token string">'http://img6.bdstatic.com/img/image/pcindex/tongmengpctufanbingbing.jpg'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'width: '</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>width<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'naturalWidth: '</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>naturalWidth<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这样一个简单的图片加载就完成了，当然这个方法是有局限性的，并不能支持多图加载，只能一张，有兴趣的话，可以自行改造一下，其实添加一个循环就可以了。</p>
+<p>其实想说的并不是这种方式，这种方式想必大家都会，也不用我多说，哈哈哈！</p>
+<h2><span id="gao-duan-wan-fa-yi-ji-si-kao">高端玩法以及思考</span><a href="#gao-duan-wan-fa-yi-ji-si-kao" class="header-anchor">#</a></h2><p>这种方法不是我发明的，是从<a href="http://www.codeweblog.com/%E6%AF%94onload%E6%9B%B4%E5%BF%AB%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E5%B0%BA%E5%AF%B8/" target="_blank" rel="noopener">这里</a>学习来的。<br><a href="https://gist.github.com/hehongwei44/5ab040cf3a8b27311d72" target="_blank" rel="noopener">gist地址</a></p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">// 更新：</span>
+<span class="token comment" spellcheck="true">// 05.27: 1、保证回调执行顺序：error > ready > load；2、回调函数this指向img本身</span>
+<span class="token comment" spellcheck="true">// 04-02: 1、增加图片完全加载后的回调 2、提高性能</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 图片头数据加载就绪事件 - 更快获取图片尺寸
+ * @version    2011.05.27
+ * @author    TangBin（PS:我不是作者，我只是代码的搬运工）
+ * @see        http://www.planeart.cn/?p=1121
+ * @param    {String}    图片路径
+ * @param    {Function}    尺寸就绪
+ * @param    {Function}    加载完毕 (可选)
+ * @param    {Function}    加载错误 (可选)
+ * @example imgReady('http://www.google.com.hk/intl/zh-CN/images/logo_cn.png', function () {
+        alert('size ready: width=' + this.width + '; height=' + this.height);
+    });
+ */</span>
+<span class="token keyword">var</span> imgReady <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">/*list用来存放onready的函数队列,intervalID用来存放定时器的引用*/</span>
+    <span class="token keyword">var</span> list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> intervalId <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+
+    <span class="token comment" spellcheck="true">// 用来执行队列</span>
+    tick <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> list<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token comment" spellcheck="true">/*end用来表示onready函数是否执行完必，splice用来删除队列中的项目*/</span>
+            list<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>end <span class="token operator">?</span> list<span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span>i<span class="token operator">--</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> list<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">//队列全部执行完成后的清除工作。</span>
+        <span class="token operator">!</span>list<span class="token punctuation">.</span>length <span class="token operator">&amp;&amp;</span> <span class="token function">stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+    <span class="token comment" spellcheck="true">// 停止所有定时器队列,释放内存中的引用</span>
+    stop <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">clearInterval</span><span class="token punctuation">(</span>intervalId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        intervalId <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">/**
+  * 闭包
+  * @param:url  图片的路径
+  * @param:ready 图片尺寸就绪的回调函数
+  * @param: load 图片加载完毕的回调函数
+  * @param: err 图片加载出错的回调函数
+  *
+  */</span>
+    <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>url<span class="token punctuation">,</span> ready<span class="token punctuation">,</span> load<span class="token punctuation">,</span> error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> onready<span class="token punctuation">,</span> width<span class="token punctuation">,</span> height<span class="token punctuation">,</span> newWidth<span class="token punctuation">,</span> newHeight<span class="token punctuation">,</span>
+              img <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Image</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        img<span class="token punctuation">.</span>src <span class="token operator">=</span> url<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 如果图片被缓存，则直接返回缓存数据</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>img<span class="token punctuation">.</span>complete<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            ready<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            load <span class="token operator">&amp;&amp;</span> load<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+        width <span class="token operator">=</span> img<span class="token punctuation">.</span>width<span class="token punctuation">;</span>
+        height <span class="token operator">=</span> img<span class="token punctuation">.</span>height<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 加载错误后的事件</span>
+        img<span class="token punctuation">.</span>onerror <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            error <span class="token operator">&amp;&amp;</span> error<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            onready<span class="token punctuation">.</span>end <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            img <span class="token operator">=</span> img<span class="token punctuation">.</span>onload <span class="token operator">=</span> img<span class="token punctuation">.</span>onerror <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 图片尺寸就绪</span>
+        onready <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            newWidth <span class="token operator">=</span> img<span class="token punctuation">.</span>width<span class="token punctuation">;</span>
+            newHeight <span class="token operator">=</span> img<span class="token punctuation">.</span>height<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>newWidth <span class="token operator">!==</span> width <span class="token operator">||</span> newHeight <span class="token operator">!==</span> height <span class="token operator">||</span>
+                <span class="token comment" spellcheck="true">// 如果图片已经在其他地方加载可使用面积检测</span>
+                newWidth <span class="token operator">*</span> newHeight <span class="token operator">></span> <span class="token number">1024</span>
+            <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                ready<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                onready<span class="token punctuation">.</span>end <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token function">onready</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 完全加载完毕的事件</span>
+        img<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// onload在定时器时间差范围内可能比onready快</span>
+            <span class="token comment" spellcheck="true">// 这里进行检查并保证onready优先执行</span>
+            <span class="token operator">!</span>onready<span class="token punctuation">.</span>end <span class="token operator">&amp;&amp;</span> <span class="token function">onready</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            load <span class="token operator">&amp;&amp;</span> load<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">// IE gif动画会循环执行onload，置空onload即可</span>
+            img <span class="token operator">=</span> img<span class="token punctuation">.</span>onload <span class="token operator">=</span> img<span class="token punctuation">.</span>onerror <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 加入队列中定期执行</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>onready<span class="token punctuation">.</span>end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            list<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>onready<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 无论何时只允许出现一个定时器，减少浏览器性能损耗</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>intervalId <span class="token operator">===</span> <span class="token keyword">null</span><span class="token punctuation">)</span> intervalId <span class="token operator">=</span> <span class="token function">setInterval</span><span class="token punctuation">(</span>tick<span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这段代码在社区中感觉存在的挺多的，在各种图预加载中被使用，据说是腾讯大牛写的。这段代码的精妙之处在于制作了一个定时器，并在定时器内对图片进行了面积检测，当检测到宽高积大于某个值的时候，就认为图片尺寸准备好了，相应的就会触发ready方法。</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript">onready <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    newWidth <span class="token operator">=</span> img<span class="token punctuation">.</span>width<span class="token punctuation">;</span>
+    newHeight <span class="token operator">=</span> img<span class="token punctuation">.</span>height<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>newWidth <span class="token operator">!==</span> width <span class="token operator">||</span> newHeight <span class="token operator">!==</span> height <span class="token operator">||</span>
+        <span class="token comment" spellcheck="true">// 如果图片已经在其他地方加载可使用面积检测</span>
+        newWidth <span class="token operator">*</span> newHeight <span class="token operator">></span> <span class="token number">1024</span>
+    <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        ready<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        onready<span class="token punctuation">.</span>end <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>面积检测的逻辑就在这段代码中，至于为什么是1024，可能是程序员的执着吧，哈哈哈！ </p>
+<p>这个想法我个人还是很佩服的，大神就是大神。</p>
+<p>但是，这里想要说明一下的是：<br>虽然上述例子中推荐的方法是这样的：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token function">imgReady</span><span class="token punctuation">(</span><span class="token string">'http://www.google.com.hk/intl/zh-CN/images/logo_cn.png'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'size ready: width='</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>width <span class="token operator">+</span> <span class="token string">'; height='</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>height<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>但是 这种方式作者的意图在于能够比onload更提前的获取到图片的尺寸值，而不是完全加载完图片，完全加载完图片还是需要在load函数中调用，像这样：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token function">imgReady</span><span class="token punctuation">(</span><span class="token string">'http://www.google.com.hk/intl/zh-CN/images/logo_cn.png'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'size ready: width='</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>width <span class="token operator">+</span> <span class="token string">'; height='</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>height<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>两种方式都可以，但是还是需要结合自己的业务场景来使用，比如，上述代码使用到商品列表中，个人建议使用第一种方式即传入ready函数，但是如果你是h5的小游戏，需要提前加载图片资源的话，个人建议使用第二种方式即传入load函数，ready可以传入一个空函数，或者你也可以改造一下上述代码，使得ready可以传null。</p>
+<h2><span id="gai-zao-cheng-ke-yi-chuan-ru-tu-pian-shu-zu-de-fang-shi">改造成可以传入图片数组的方式</span><a href="#gai-zao-cheng-ke-yi-chuan-ru-tu-pian-shu-zu-de-fang-shi" class="header-anchor">#</a></h2><p>创建一个js文件，名叫：imageLoad.js</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">var</span> imgReady <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> intervalId <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+
+    <span class="token comment" spellcheck="true">// 用来执行队列</span>
+    tick <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> list<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            list<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>end <span class="token operator">?</span> list<span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span>i<span class="token operator">--</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">:</span> list<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token operator">!</span>list<span class="token punctuation">.</span>length <span class="token operator">&amp;&amp;</span> <span class="token function">stop</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+    <span class="token comment" spellcheck="true">// 停止所有定时器队列</span>
+    stop <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">clearInterval</span><span class="token punctuation">(</span>intervalId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        intervalId <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>url<span class="token punctuation">,</span> ready<span class="token punctuation">,</span> load<span class="token punctuation">,</span> error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> onready<span class="token punctuation">,</span> width<span class="token punctuation">,</span> height<span class="token punctuation">,</span> newWidth<span class="token punctuation">,</span> newHeight<span class="token punctuation">,</span>
+            img <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Image</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        img<span class="token punctuation">.</span>src <span class="token operator">=</span> url<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 如果图片被缓存，则直接返回缓存数据</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>img<span class="token punctuation">.</span>complete<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            ready<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            load <span class="token operator">&amp;&amp;</span> load<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">return</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token punctuation">;</span>
+
+        width <span class="token operator">=</span> img<span class="token punctuation">.</span>width<span class="token punctuation">;</span>
+        height <span class="token operator">=</span> img<span class="token punctuation">.</span>height<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 加载错误后的事件</span>
+        img<span class="token punctuation">.</span>onerror <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            error <span class="token operator">&amp;&amp;</span> error<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            onready<span class="token punctuation">.</span>end <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            img <span class="token operator">=</span> img<span class="token punctuation">.</span>onload <span class="token operator">=</span> img<span class="token punctuation">.</span>onerror <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 图片尺寸就绪</span>
+        onready <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            newWidth <span class="token operator">=</span> img<span class="token punctuation">.</span>width<span class="token punctuation">;</span>
+            newHeight <span class="token operator">=</span> img<span class="token punctuation">.</span>height<span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>newWidth <span class="token operator">!==</span> width <span class="token operator">||</span> newHeight <span class="token operator">!==</span> height <span class="token operator">||</span>
+                <span class="token comment" spellcheck="true">// 如果图片已经在其他地方加载可使用面积检测</span>
+                newWidth <span class="token operator">*</span> newHeight <span class="token operator">></span> <span class="token number">1024</span>
+                <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                ready <span class="token operator">&amp;&amp;</span> ready<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                onready<span class="token punctuation">.</span>end <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token function">onready</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 完全加载完毕的事件</span>
+        img<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// onload在定时器时间差范围内可能比onready快</span>
+            <span class="token comment" spellcheck="true">// 这里进行检查并保证onready优先执行</span>
+            <span class="token operator">!</span>onready<span class="token punctuation">.</span>end <span class="token operator">&amp;&amp;</span> <span class="token function">onready</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            load <span class="token operator">&amp;&amp;</span> load<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>img<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+            <span class="token comment" spellcheck="true">// IE gif动画会循环执行onload，置空onload即可</span>
+            img <span class="token operator">=</span> img<span class="token punctuation">.</span>onload <span class="token operator">=</span> img<span class="token punctuation">.</span>onerror <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 加入队列中定期执行</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>onready<span class="token punctuation">.</span>end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            list<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>onready<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token comment" spellcheck="true">// 无论何时只允许出现一个定时器，减少浏览器性能损耗</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>intervalId <span class="token operator">===</span> <span class="token keyword">null</span><span class="token punctuation">)</span> intervalId <span class="token operator">=</span> <span class="token function">setInterval</span><span class="token punctuation">(</span>tick<span class="token punctuation">,</span> <span class="token number">40</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 导出一个对象</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
+    * 加载函数
+    * @param: imgs  图片的路径的数组
+    * @param: onComplete 所有图片都加载过的回调
+    * @param: onReady 每张图片可以获取大小时候的回调
+    * @param: isReady 是否启用ready函数，默认false。如果此值传true，那么onReady会在每张图能够获取到尺寸的时候触发；如果传false或者不传，onReady会在每张图loaded的时候触发
+    */</span>
+    load<span class="token punctuation">:</span><span class="token keyword">function</span><span class="token punctuation">(</span>imgs<span class="token punctuation">,</span> onComplete<span class="token punctuation">,</span> onReady<span class="token punctuation">,</span> isReady<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> onComplete <span class="token operator">=</span> onComplete <span class="token operator">||</span> <span class="token keyword">function</span><span class="token punctuation">(</span>count<span class="token punctuation">,</span>imgs<span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> onReady <span class="token operator">=</span> onReady <span class="token operator">||</span> <span class="token keyword">function</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span>img<span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> tmpFunc <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> isReady <span class="token operator">=</span> isReady <span class="token operator">||</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> loaded <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> error <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> imgs<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+            <span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">var</span> n <span class="token operator">=</span> n<span class="token punctuation">;</span>
+                <span class="token keyword">var</span> loadFunc <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                    <span class="token operator">++</span>loaded<span class="token punctuation">;</span>
+                    onReady <span class="token operator">&amp;&amp;</span> <span class="token function">onReady</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span> imgs<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token keyword">if</span><span class="token punctuation">(</span>loaded <span class="token operator">+</span> error <span class="token operator">>=</span> imgs<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                        onComplete <span class="token operator">&amp;&amp;</span> <span class="token function">onComplete</span><span class="token punctuation">(</span>loaded<span class="token punctuation">,</span>imgs<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">}</span>
+                <span class="token function">imgReady</span><span class="token punctuation">(</span>imgs<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">,</span>
+                    isReady <span class="token operator">?</span> loadFunc <span class="token punctuation">:</span> tmpFunc<span class="token punctuation">,</span>
+                    isReady <span class="token operator">?</span> tmpFunc <span class="token punctuation">:</span> loadFunc<span class="token punctuation">,</span>
+                    <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                        <span class="token operator">++</span> error<span class="token punctuation">;</span>
+                        <span class="token keyword">if</span><span class="token punctuation">(</span>error <span class="token operator">+</span> loaded <span class="token operator">>=</span> imgs<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                            onComplete <span class="token operator">&amp;&amp;</span> <span class="token function">onComplete</span><span class="token punctuation">(</span>loaded<span class="token punctuation">,</span>imgs<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                        <span class="token punctuation">}</span>
+                    <span class="token punctuation">}</span>
+                <span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>调用方式</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">import</span> imgLoad <span class="token keyword">from</span> <span class="token string">'imageLoad.js'</span><span class="token punctuation">;</span>
+
+imgLoad<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'http://img6.bdstatic.com/img/image/pcindex/tongmengpctufanbingbing.jpg'</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span>url<span class="token punctuation">,</span>img<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>index<span class="token punctuation">,</span> url<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'size ready: width='</span> <span class="token operator">+</span> img<span class="token punctuation">.</span>width <span class="token operator">+</span> <span class="token string">'; height='</span> <span class="token operator">+</span> img<span class="token punctuation">.</span>height<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这样我们就可以一次加载多张图片了。</p>
+<h2><span id="tu-pian-yu-jia-zai">图片预加载</span><a href="#tu-pian-yu-jia-zai" class="header-anchor">#</a></h2><p>预加载的话其实已经没有什么可说的了，使用上述方法在图片展示之前加载图片就好。</p>
+<h2><span id="tu-pian-lan-jia-zai">图片懒加载</span><a href="#tu-pian-lan-jia-zai" class="header-anchor">#</a></h2><p>图片懒加载的方式可以说和上述内容就没有太多关系了。</p>
+<p>图片懒加载的技术点主要在：监听页面滚动、判断元素是否出现在屏幕内。</p>
+<h3><span id="jian-ting-ye-mian-gun-dong">监听页面滚动</span><a href="#jian-ting-ye-mian-gun-dong" class="header-anchor">#</a></h3><p>监听页面滚动只需要<code>window.addEventListener(&#39;scroll&#39;, function() {})</code>就可以了。但是这个过程是可以优化的。<br>具体怎么优化呢？我们就需要用到：节流。 概念可以查看<a href="http://happybug.top/2017/10/10/debounce-throttle/">这里</a></p>
+<h3><span id="pan-duan-yuan-su-shi-fou-chu-xian-zai-ping-mu-nei">判断元素是否出现在屏幕内</span><a href="#pan-duan-yuan-su-shi-fou-chu-xian-zai-ping-mu-nei" class="header-anchor">#</a></h3><p>1、通过scrollTop来判断</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">var</span> ele <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'img'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>ele<span class="token punctuation">.</span>offsetTop <span class="token operator">-</span> document<span class="token punctuation">.</span>documentElement<span class="token punctuation">.</span>scrollTop <span class="token operator">&lt;</span> document<span class="token punctuation">.</span>documentElement<span class="token punctuation">.</span>clientHeight<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 这里元素就在可视区域内</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>2、getBoundingClientRect()<br>getBoundingClientRect用于获取页面中某个元素相对于浏览器可视范围的上、右、下、左的距离。</p>
+<p><div class="tip">注意：这个方法获取的距离是相对于浏览器左边界和上边界的。如下图所示</div><br><img src="https://mdn.mozillademos.org/files/15087/rect.png" alt="https://mdn.mozillademos.org/files/15087/rect.png"></p>
+<p>这个方法的兼容性还是很好的，在大多数的浏览器下至少会返回6个参数：top,right,bottom,left,width,height(IE 下没有width、height属性)。<br>IE没有宽度高度属性，如果你需要用IE下用到这个方法的话，可以利用<code>getBoundingClientRect().right-getBoundingClientRect().left</code>的方式来获取宽度，高度只需用bottom减去top就可以了。<br>那么我们同样可以利用这个方法来判断元素是否出现在屏幕内。</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">// 是否进入到屏幕内（只判断了垂直方向）</span>
+<span class="token keyword">function</span> <span class="token function">isIntoViewport</span><span class="token punctuation">(</span>ele<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> rect <span class="token operator">=</span> ele<span class="token punctuation">.</span><span class="token function">getBoundingClientRect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> clientHeight <span class="token operator">=</span> document<span class="token punctuation">.</span>documentElement<span class="token punctuation">.</span>clientHeight<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> ele<span class="token punctuation">.</span>top <span class="token operator">>=</span> <span class="token number">0</span> <span class="token operator">&amp;&amp;</span> ele<span class="token punctuation">.</span>top <span class="token operator">&lt;=</span> clientHeight<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以上方法可能和你在其他地方看到的思路不一样，是因为我们在这里的应用场景是判断元素进入到页面的时候，而不是元素完全在页面内。</p>
+<p>3、IntersectionObserver</p>
+<p>这个API的兼容性不是很好，具体可以查看<a href="http://caniuse.com/#search=intersection" target="_blank" rel="noopener">这里</a><br>你可以像这样初始化一个IntersectionObserver</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">// 初始化某个元素</span>
+<span class="token keyword">var</span> observer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">IntersectionObserver</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>entries<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>entries<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    root<span class="token punctuation">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+    threshold<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    rootMargin<span class="token punctuation">:</span> <span class="token string">"50px 0px"</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> ele <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'img'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 开始观察某个元素，一个observer可以观察多个element</span>
+observer<span class="token punctuation">.</span><span class="token function">observe</span><span class="token punctuation">(</span>ele<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 停止观察</span>
+observer<span class="token punctuation">.</span><span class="token function">unobserve</span><span class="token punctuation">(</span>ele<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 关闭观察器</span>
+observer<span class="token punctuation">.</span><span class="token function">disconnect</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>IntersectionObserver 接收两个参数：<br><code>callback</code>: 回调函数，该回调函数接收一个参数entries，这个参数是个数组，当前的oserver监听几个元素，这个数组的长度就是几。<br>        entries中的每一个元素都是一个IntersectionObserverEntry对象，大概长这样：</p>
+<pre class="line-numbers language-json"><code class="language-json"><span class="token punctuation">{</span>
+    time<span class="token operator">:</span> <span class="token number">3893.92</span><span class="token punctuation">,</span>
+    rootBounds<span class="token operator">:</span> ClientRect <span class="token punctuation">{</span>
+        bottom<span class="token operator">:</span> <span class="token number">920</span><span class="token punctuation">,</span>
+        height<span class="token operator">:</span> <span class="token number">1024</span><span class="token punctuation">,</span>
+        left<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        right<span class="token operator">:</span> <span class="token number">1024</span><span class="token punctuation">,</span>
+        top<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        width<span class="token operator">:</span> <span class="token number">920</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    boundingClientRect<span class="token operator">:</span> ClientRect <span class="token punctuation">{</span>
+        // ...
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    intersectionRect<span class="token operator">:</span> ClientRect <span class="token punctuation">{</span>
+        // ...
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    intersectionRatio<span class="token operator">:</span> <span class="token number">0.54</span><span class="token punctuation">,</span>
+    target<span class="token operator">:</span> element
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>每个属性的含义如下：</p>
+<pre class="line-numbers language-html"><code class="language-html">time：可见性发生变化的时间，是一个高精度时间戳，单位为毫秒
+target：被观察的目标元素，是一个 DOM 节点对象
+rootBounds：根元素的矩形区域的信息，getBoundingClientRect()方法的返回值，如果没有根元素（即直接相对于视口滚动），则返回null
+boundingClientRect：目标元素的矩形区域的信息
+intersectionRect：目标元素与视口（或根元素）的交叉区域的信息
+intersectionRatio：目标元素的可见比例，即intersectionRect占boundingClientRect的比例，完全可见时为1，完全不可见时小于等于0
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><code>options</code>: 这个参数是一个对象，可能的参数有：</p>
+<p><code>threshold</code>: 数组，默认[0]，数组中参数形式都是0-1之间的小数，表示元素的可见范围。这个参数用于规定当前元素在可见多少范围时可见触发回调，例如传入[0,0.25,0.5,0.75,1]时，表示当前元素0%，25%，50%,75%,100%可见时，会触发回调函数。</p>
+<p><code>root</code>: Element类型的元素，如：document.querySelector(‘#img’)， 指定目标元素所在的容器节点（即根元素）。注意，容器元素必须是目标元素的祖先节点。</p>
+<p><code>rootMargin</code>: 用来扩展或缩小rootBounds这个矩形的大小，从而影响intersectionRect交叉区域的大小。它使用CSS的定义方法，比如10px 20px 30px 40px，表示 top、right、bottom 和 left 四个方向的值。</p>
+<p>所以如果用IntersectionObserver来判断元素是否出现在屏幕内的话：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">var</span> observer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">IntersectionObserver</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>entries<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'将要进入屏幕内'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// 可以在这里循环entries判断是否是ele元素，并停止该元素的observer</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">var</span> ele <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'img'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+observer<span class="token punctuation">.</span><span class="token function">observe</span><span class="token punctuation">(</span>ele<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><a href="https://github.com/ApoorvSaxena/lozad.js" target="_blank" rel="noopener">这里</a>有一个完全利用IntersectionObserver API实现的懒加载的库，有兴趣的可以阅读下。</p>
+<p>本来想自己实现一个图片懒加载的，后来想想没必要造那么多轮子，何况自己写的确实不如人家写的好，就不献丑了。这个放一个我时常用的一个懒加载的库：<a href="https://github.com/toddmotto/echo" target="_blank" rel="noopener">https://github.com/toddmotto/echo</a></p>
+<p>参考：<br><a href="http://www.codeweblog.com/%E6%AF%94onload%E6%9B%B4%E5%BF%AB%E8%8E%B7%E5%8F%96%E5%9B%BE%E7%89%87%E5%B0%BA%E5%AF%B8/" target="_blank" rel="noopener">比onload更快获取图片尺寸</a><br><a href="http://www.ruanyifeng.com/blog/2016/11/intersectionobserver_api.html" target="_blank" rel="noopener">IntersectionObserver API 使用教程</a></p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2017-09-26</span><i class="fa fa-tag"></i><a href="/tags/图片/" title="图片" class="tag">图片 </a><a href="/tags/预加载/" title="预加载" class="tag">预加载 </a><a href="/tags/懒加载/" title="懒加载" class="tag">懒加载 </a></div></div></div></div><div class="share"><div class="evernote"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></div><div class="weibo"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></div><div class="twitter"><a href="http://twitter.com/home?status=,http://happybug.top/2017/09/26/imageLoad/,逍遥很晕,图片预加载与懒加载,;" class="fa fa-twitter"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a role="navigation" href="/2017/10/09/vscode-vue-emmet/" title="vscode中vue文件emmet进行tab不起作用" class="btn">上一篇</a></li><li class="next pagbuttons"><a role="navigation" href="/2017/09/19/vue-component/" title="如何实现一个简单的移动端Vue Confirm组件" class="btn">下一篇</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7b168a4f1a257e5aaf73660ae4ffad1c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></body></html>

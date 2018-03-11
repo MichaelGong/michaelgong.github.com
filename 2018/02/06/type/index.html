@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="逍遥很晕"><title>js对象类型的判断 · 逍遥很晕</title><meta name="description" content="JS对象类型的判断方式大致有三种方式：
+
+
+typeof
+instanceof
+Object.prototype.toString.call()
+
+
+JavaScript的数据类型#JavaScript中的数据类型可以分为两类：原始类型、引用类型。
+原始数据类型：
+
+Boolean
+Number
+S"><meta name="keywords" content="typeof, instanceof, Object.prototype.toString"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.jpeg" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-hopscotch.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/mg.jpeg" style="width:150px;border-radius: 50%;"><h3 title=""><a href="/">逍遥很晕</a></h3><div class="description"><p>开心了就笑，不开心了就过会再笑~~</p></div></div></div><ul class="social-links"></ul><div class="footer"><div>Hosted by <a href="https://pages.coding.me" style="font-weight: bold">Coding Pages</a></div><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li></div><div class="information"><div class="back_btn"><li><a onclick="window.history.go(-1)" class="fa fa-chevron-left"> </a></li></div><div class="avatar"><img></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>js对象类型的判断</a></h3><div class="post-other-info"><span class="wordcount"><i class="fa fa-calendar-o"></i><span class="post-count">2018-02-06</span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-folder-o"></i><span class="post-count"><a href="/categories/前端/" title class="tag">前端</a></span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-edit"></i><span class="post-count">字数统计2,152</span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-clock-o"></i><span class="post-count">阅读时长9分钟</span></span></div></div><div class="post-content"><p>JS对象类型的判断方式大致有三种方式：</p>
+<blockquote>
+<ol>
+<li>typeof</li>
+<li>instanceof</li>
+<li>Object.prototype.toString.call()</li>
+</ol>
+</blockquote>
+<h2><span id="javascript-de-shu-ju-lei-xing">JavaScript的数据类型</span><a href="#javascript-de-shu-ju-lei-xing" class="header-anchor">#</a></h2><p>JavaScript中的数据类型可以分为两类：原始类型、引用类型。</p>
+<p>原始数据类型：</p>
+<ul>
+<li>Boolean</li>
+<li>Number</li>
+<li>String</li>
+<li>Undefined</li>
+<li>Null</li>
+<li>Symbol(ECMAScript 6 新定义)</li>
+</ul>
+<p>引用类型:</p>
+<ul>
+<li>Object</li>
+</ul>
+<p>原始数据类型和引用类型的<code>区别</code>在于：</p>
+<blockquote>
+<ol>
+<li><code>原始数据类型</code>会存放在<code>变量对象</code>中，这个对象实际上是存放在堆内存中的，但是他的功能比较特殊，理解上可以和堆内存做一下区分，在变量对象中的原始数据类型都是直接存的值，且是按值访问的，所以原始类型的操作都是操作的实际的值。</li>
+<li><code>引用类型</code>的值是保存在堆内存中的对象。JavaScript不允许直接访问堆内存中的位置，因此我们不能直接操作对象的堆内存空间。在操作对象时，实际上是在操作对象的引用而不是实际的对象。因此，引用类型的值都是按引用访问的。当访问引用类型的值的时候，其实上首先从变量对象中获取了该对象的地址应用(或者地址指针)，然后再从堆内存中获取我们需要的数据。</li>
+</ol>
+</blockquote>
+<p>具体可以阅读<a href="http://www.cnblogs.com/NatChen/p/6388793.html" target="_blank" rel="noopener">前端基础进阶（一）：内存空间详细图解</a>，解析的很详细。</p>
+<h2><span id="typeof">typeof</span><a href="#typeof" class="header-anchor">#</a></h2><p>typeof返回的是元素的数据类型。请注意typeof可以象函数那样使用<code>typeof(xx)</code>，但是typeof并不是一个函数，而是一个操作符。</p>
+<p>我们可以像下面这样来调用typeof:</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">var</span> str <span class="token operator">=</span> <span class="token string">'str'</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">typeof</span> str<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>JavaScript类型表格</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th style="text-align:left">Class</th>
+<th style="text-align:right">Type </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>“foo”</td>
+<td style="text-align:left">String</td>
+<td style="text-align:right">string </td>
+</tr>
+<tr>
+<td>new String(“foo”)</td>
+<td style="text-align:left">String</td>
+<td style="text-align:right">object </td>
+</tr>
+<tr>
+<td>1.2</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:right">number</td>
+</tr>
+<tr>
+<td>new Number(1.2)</td>
+<td style="text-align:left">Number</td>
+<td style="text-align:right">object</td>
+</tr>
+<tr>
+<td>true</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:right">boolean</td>
+</tr>
+<tr>
+<td>new Boolean(true)</td>
+<td style="text-align:left">Boolean</td>
+<td style="text-align:right">object</td>
+</tr>
+<tr>
+<td>new Date()</td>
+<td style="text-align:left">Date</td>
+<td style="text-align:right">object</td>
+</tr>
+<tr>
+<td>new Error()</td>
+<td style="text-align:left">Error</td>
+<td style="text-align:right">object</td>
+</tr>
+<tr>
+<td>[1,2,3]</td>
+<td style="text-align:left">Array</td>
+<td style="text-align:right">object</td>
+</tr>
+<tr>
+<td>new Array(1,2,3)</td>
+<td style="text-align:left">Array</td>
+<td style="text-align:right">object</td>
+</tr>
+<tr>
+<td>new Function()</td>
+<td style="text-align:left">Function</td>
+<td style="text-align:right">function</td>
+</tr>
+<tr>
+<td>/abc/g</td>
+<td style="text-align:left">RegExp</td>
+<td style="text-align:right">object</td>
+</tr>
+<tr>
+<td>new RegExp(“meow”)</td>
+<td style="text-align:left">RegExp</td>
+<td style="text-align:right">object</td>
+</tr>
+<tr>
+<td>()</td>
+<td style="text-align:left">Object</td>
+<td style="text-align:right">object</td>
+</tr>
+<tr>
+<td>new Object()</td>
+<td style="text-align:left">Object</td>
+<td style="text-align:right">object</td>
+</tr>
+</tbody>
+</table>
+<p>参考：<a href="http://wiki.jikexueyuan.com/project/javascript-garden/types/typeof.html" target="_blank" rel="noopener">typeof 操作符</a></p>
+<p>在这个表格中 <code>type</code> 一列就是<code>typeof</code>的运算结果。这个值都是小写的，而且涉及到new操作的除了Function以外都是object。<br>以上表格需要注意的点是：</p>
+<div class="tip">typeof ‘1’ 和 typeof (new String(‘1’)) 的值并不相同，同样的Number、Boolean也有相同的问题。<br></div>
+
+<p>上表中涉及到的内容还少了几个值：<code>undefined</code>、<code>NaN</code>、<code>null</code>，接下来看下这几个值。</p>
+<ol>
+<li><code>typeof undefined === &#39;undefined&#39;</code><br>在js中不光只有<code>undefined</code>的typeof值是 ‘undefined’，<code>typeof document.all === &#39;undefined&#39;</code>也是成立的。<code>document.all</code> 也是个奇葩的东西，在chrome等现代浏览器中，单独使用<code>document.all</code>的时候可以正常输出一个数组（包含了所有dom节点），但在判断boolean时，它的值是false，但在ie6 7 8中就是true</li>
+<li><code>typeof NaN === &#39;number&#39;</code><br>js中遵循的是<a href="https://en.wikipedia.org/wiki/IEEE_754" target="_blank" rel="noopener">IEEE 754</a>浮点数标准，在这个标准中规定了NaN也是一个浮点数：<code>arithmetic formats: sets of binary and decimal floating-point data, which consist of finite numbers (including signed zeros and subnormal numbers), infinities, and special &quot;not a number&quot; values (NaNs)</code></li>
+<li><code>typeof null === &#39;object&#39;</code><br>null的值为object，确实是让人产生疑惑的，这里面还有一些小故事，有兴趣的可以查看<a href="https://www.zhihu.com/question/66941121/answer/247939890" target="_blank" rel="noopener">有哪些明明是bug，却被说成是feature的例子？</a> 的回答。<br>总结一下原因：JavaScript最初版本使用的是32位心痛，为了性能考虑，使用了低位存储变量的类型信息的方式，也就是：000-&gt;对象，001-&gt;整数，010-&gt;浮点数，100-&gt;字符串，110-&gt;布尔，这样的设置导致了null出现了不同的情况，因为null代表的是空指针，在多数平台下都是0x00来表示，低位的三位自然也就是000，所以typeof null 就是 ‘object’了。</li>
+</ol>
+<h2><span id="instanceof">instanceof</span><a href="#instanceof" class="header-anchor">#</a></h2><p>判断某个实例是否属于某种类型。<br>用法：L instanceof R<br>其中L表示要判断的实例，R是一个类型值，比如 <code>var a = {}; a instanceof Object</code>，instanceof的一个更重要的作用是用于判断一个实例是否属于它的父类型，比如如下：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">Parent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token keyword">function</span> <span class="token function">Child</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+Child<span class="token punctuation">.</span>prototype <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Parent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> child <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Child</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>child <span class="token keyword">instanceof</span> <span class="token class-name">Child</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>child <span class="token keyword">instanceof</span> <span class="token class-name">Parent</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>instanceof不光可以判断实例是否属于直接父类，它也可以判断实例是否属于祖先的实例。<br>比如：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>child <span class="token keyword">instanceof</span> <span class="token class-name">Object</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><div class="tip">instanceof的执行原理：<br>1、如果L不是<code>Object</code>，返回false。<br>2、否则，另<code>L = L.__proto__</code>，<br>3、如果<code>L === null</code>返回false<br>4、判断<code>L === R.prototype</code>，如果为true，返回true，否则执行步骤2。<br></div>可以看到，这其实是一个循环的过程，会不断的取<code>L.__proto__</code>的值和<code>R.prototype</code>进行对比。这个地方涉及到了原型链的相关知识，这里不做深入探讨，引入一张经典图供参考：</p>
+<p><img src="http://ovtdovq9q.bkt.clouddn.com/prototype.jpg" alt="原型链图"></p>
+<p>有关于<code>instanceof</code>的规范可以查看<a href="http://www.ecma-international.org/ecma-262/5.1/#sec-11.8.6" target="_blank" rel="noopener">11.8.6 The instanceof operator</a>，其中的第7步中涉及到的<code>[[HasInstance]]</code>相关的方法，可以查看[15.3.5.3 <a href="http://www.ecma-international.org/ecma-262/5.1/index.html#sec-15.3.5.3" target="_blank" rel="noopener">[HasInstance]] (V)</a>，其中的参数V就是我们例子中的L，F就是我们例子中的R，O就是R.prototype。</p>
+<p>那么接下来我们来看下一些instanceof示例：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token number">1</span> <span class="token keyword">instanceof</span> <span class="token class-name">Number</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// false</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Number</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token keyword">instanceof</span> <span class="token class-name">Number</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'a'</span> <span class="token keyword">instanceof</span> <span class="token class-name">String</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// false</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">)</span> <span class="token keyword">instanceof</span> <span class="token class-name">String</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token boolean">true</span> <span class="token keyword">instanceof</span> <span class="token class-name">Boolean</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// false</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Boolean</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token keyword">instanceof</span> <span class="token class-name">Boolean</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>以上是 Number、String、Boolean类型的结果，之所以在非new的情况下返回false，是因为在<code>[[HasInstance]]</code>中的第一步就返回了false</p>
+<h3><span id="yi-xia-nei-rong-she-ji-dao-liao-yuan-xing-lian-xiang-guan-nei-rong-ke-yi-xian-kan-xia-shang-mian-de-yuan-xing-lian-de-tu">以下内容涉及到了原型链相关内容，可以先看下上面的原型链的图</span><a href="#yi-xia-nei-rong-she-ji-dao-liao-yuan-xing-lian-xiang-guan-nei-rong-ke-yi-xian-kan-xia-shang-mian-de-yuan-xing-lian-de-tu" class="header-anchor">#</a></h3><pre class="line-numbers language-javascript"><code class="language-javascript">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Number <span class="token keyword">instanceof</span> <span class="token class-name">Number</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// false</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>转换一下其实就是 <code>Number.__proto__ === Number.prototype</code>，这个当然是false了，<br>因为所有的<code>构造器/函数的__proto__</code>都指向了Function.prototype<br>同理 String、Boolean、Object、Function、Array、Error、Date、RegExp的<code>__proto__</code>都指向了Function.prototype</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Object <span class="token keyword">instanceof</span> <span class="token class-name">Object</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>上面等式实际上是在判断<code>Object.__proto__ === Object.prototype</code>，<code>Object.__proto__</code>指向了 <code>Function.prototype</code>，而<code>Function.prototype.__proto__</code>指向了<code>Object.prototype</code>，所以结果为true。</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Function <span class="token keyword">instanceof</span> <span class="token class-name">Object</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><code>Function.__proto__</code> 指向了 <code>Function.prototype</code>，而<code>Function.prototype.__proto__</code>指向了<code>Object.prototype</code>，所以结果为true。</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Object <span class="token keyword">instanceof</span> <span class="token class-name">Function</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p><code>Object.__proto__</code> 指向了 <code>Function.prototype</code>，而<code>Function.prototype.__proto__</code>指向了<code>Object.prototype</code>，所以结果为true。</p>
+<h2><span id="object-prototype-tostring-call">Object.prototype.toString.call()</span><a href="#object-prototype-tostring-call" class="header-anchor">#</a></h2><p>由于typeof的限制、instanceof的不方便性，在开发中我们会经常使用<code>Object.prototype.toString.call()</code>来判断对象的类型。<br>例如：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>toString<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// "[object Array]"</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>那么它的原理是什么呢？<br><a href="http://ecma-international.org/ecma-262/5.1/#sec-15.2.4.2" target="_blank" rel="noopener">15.2.4.2 Object.prototype.toString ( )</a> ES5.1规范里定义了Object.prototype.toString()的行为：<br><strong><br>1、如果this的值为 <code>undefined</code>，就返回<code>&quot;[object Undefined]&quot;</code>.<br>2、如果this的值为<code>null</code>，就返回<code>&quot;[object Null]&quot;</code>.<br>3、O = ToObject(this) 即 O等于ToObject(this)的执行结果<br>4、class = O.[[Class]] 即 class 等于O的内部属性[[Class]]的值<br>5、返回三个字符串”[object “, class, 以及 “]”连接后的新字符串.
+</strong><br>在规范的<a href="http://ecma-international.org/ecma-262/5.1/#sec-8.6.2" target="_blank" rel="noopener">8.6.2 Object Internal Properties and Methods</a> 有关于<code>[[Class]]</code>的说明：</p>
+<blockquote>
+<p>The value of the [[Class]] internal property is defined by this specification for every kind of built-in object. The value of the [[Class]] internal property of a host object may be any String value except one of “Arguments”, “Array”, “Boolean”, “Date”, “Error”, “Function”, “JSON”, “Math”, “Number”, “Object”, “RegExp”, and “String”. The value of a [[Class]] internal property is used internally to distinguish different kinds of objects. Note that this specification does not provide any means for a program to access that value except through Object.prototype.toString (see 15.2.4.2).</p>
+</blockquote>
+<p>大致翻译一下：本规范中的所有的内置对象都定义了内部属性[[Class]]。宿主对象的内部属性[[Class]]的值可以使除了”Arguments”, “Array”, “Boolean”, “Date”, “Error”, “Function”, “JSON”, “Math”, “Number”, “Object”, “RegExp”, “String”的任意字符串。内部属性[[Class]]的值被用于区分不同的对象。注意，本规范中除了Object.prototype.toString (见 15.2.4.2)没有提供任何方式可以获取这个值。</p>
+<p>接下来我们看下<code>ToObject</code>是做什么的？<br>ES5 规范参见这里 <a href="http://ecma-international.org/ecma-262/5.1/#sec-9.9" target="_blank" rel="noopener">9.9 ToObject</a>.</p>
+<table>
+<thead>
+<tr>
+<th>参数类型</th>
+<th style="text-align:left">结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Undefined</td>
+<td style="text-align:left">抛出TypeError异常 </td>
+</tr>
+<tr>
+<td>Null</td>
+<td style="text-align:left">抛出TypeError异常</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td style="text-align:left">new 一个Boolean对象，该对象内部属性[[PrimitiveValue]]被设置为输入参数</td>
+</tr>
+<tr>
+<td>Number</td>
+<td style="text-align:left">new 一个Number对象，该对象内部属性[[PrimitiveValue]]被设置为输入参数</td>
+</tr>
+<tr>
+<td>String</td>
+<td style="text-align:left">new 一个String对象，该对象内部属性[[PrimitiveValue]]被设置为输入参数</td>
+</tr>
+<tr>
+<td>Object</td>
+<td style="text-align:left">直接返回</td>
+</tr>
+</tbody>
+</table>
+<p>这就可以解释<code>Object.prototype.toString.call(1)</code> 和 <code>Object.prototype.toString.call(new Number(1))</code> 的结果都是”[object Number]” 了。<br>有关ES6中的<code>Object.prototype.toString.call()</code> 的内容可以阅读参考11的文章。</p>
+<h2><span id="can-kao">参考</span><a href="#can-kao" class="header-anchor">#</a></h2><ol>
+<li><a href="http://www.cnblogs.com/NatChen/p/6388793.html" target="_blank" rel="noopener">前端基础进阶（一）：内存空间详细图解</a></li>
+<li><a href="http://wiki.jikexueyuan.com/project/javascript-garden/types/typeof.html" target="_blank" rel="noopener">typeof 操作符</a></li>
+<li><a href="https://www.ibm.com/developerworks/cn/web/1306_jiangjj_jsinstanceof/index.html" target="_blank" rel="noopener">JavaScript instanceof 运算符深入剖析</a></li>
+<li><a href="https://www.zhihu.com/question/66941121/answer/247939890" target="_blank" rel="noopener">有哪些明明是bug，却被说成是feature的例子？</a></li>
+<li><a href="https://en.wikipedia.org/wiki/IEEE_754" target="_blank" rel="noopener">IEEE 754</a></li>
+<li><a href="http://bonsaiden.github.io/JavaScript-Garden/zh/#types.typeof" target="_blank" rel="noopener">typeof 操作符</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/23248844" target="_blank" rel="noopener">JavaScript进阶系列—类型中的typeof 操作符</a></li>
+<li><a href="http://www.ecma-international.org/ecma-262/6.0/index.html" target="_blank" rel="noopener">ECMAScript® 2015 Language Specification</a></li>
+<li><a href="http://www.ecma-international.org/ecma-262/5.1/index.html" target="_blank" rel="noopener">ECMAScript® Language Specification</a></li>
+<li><a href="https://div.io/topic/2016" target="_blank" rel="noopener">instanceof 操作符实现原理解析</a></li>
+<li><a href="https://www.cnblogs.com/ziyunfei/archive/2012/11/05/2754156.html" target="_blank" rel="noopener">JavaScript:Object.prototype.toString方法的原理</a></li>
+</ol>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2018-02-06</span><i class="fa fa-tag"></i><a href="/tags/前端/" title="前端" class="tag">前端 </a><a href="/tags/原型/" title="原型" class="tag">原型 </a></div></div></div></div><div class="share"><div class="evernote"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></div><div class="weibo"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></div><div class="twitter"><a href="http://twitter.com/home?status=,http://happybug.top/2018/02/06/type/,逍遥很晕,js对象类型的判断,;" class="fa fa-twitter"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a role="navigation" href="/2018/03/08/reduce/" title="数组操作之reduce" class="btn">上一篇</a></li><li class="next pagbuttons"><a role="navigation" href="/2018/01/30/v-model/" title="Vue中v-model的使用" class="btn">下一篇</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7b168a4f1a257e5aaf73660ae4ffad1c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></body></html>
