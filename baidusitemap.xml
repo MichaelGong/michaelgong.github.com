@@ -4,6 +4,36 @@
 
     
   <url>
+    <loc>http://happybug.top/2017/09/15/knowledge/</loc>
+    <lastmod>2018-03-22T14:15:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>前端琐碎知识点整理</title>
+        <pubTime>2017-09-15T10:52:18.000Z</pubTime>
+        
+        <tag>flex</tag>
+         
+        <tag>兼容性</tag>
+         
+        <tag>华为</tag>
+         
+         
+           
+             
+              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
+          
+             
+              <breadCrumb title="flex" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/flex/"/>
+          
+             
+              <breadCrumb title="知识点" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/flex/%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://happybug.top/2018/03/08/reduce/</loc>
     <lastmod>2018-03-09T02:17:17.000Z</lastmod>
     <data>
@@ -27,7 +57,6 @@
     </data>
     </url>
 
-    
     
     
   <url>
@@ -55,27 +84,6 @@
     </url>
 
     
-  <url>
-    <loc>http://happybug.top/2018/02/06/type/</loc>
-    <lastmod>2018-03-08T01:51:12.524Z</lastmod>
-    <data>
-        <display>
-        <title>js对象类型的判断</title>
-        <pubTime>2018-02-06T07:10:09.000Z</pubTime>
-        
-        <tag>前端</tag>
-         
-        <tag>原型</tag>
-         
-         
-           
-             
-              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
-          
-        </display>
-    </data>
-    </url>
-
     
   <url>
     <loc>http://happybug.top/2017/09/13/string/</loc>
@@ -90,6 +98,28 @@
         <tag>string</tag>
          
         <tag>字符串</tag>
+         
+         
+           
+             
+              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://happybug.top/2018/02/06/type/</loc>
+    <lastmod>2018-03-08T01:51:12.524Z</lastmod>
+    <data>
+        <display>
+        <title>js对象类型的判断</title>
+        <pubTime>2018-02-06T07:10:09.000Z</pubTime>
+        
+        <tag>前端</tag>
+         
+        <tag>原型</tag>
          
          
            
@@ -151,33 +181,6 @@
 
     
   <url>
-    <loc>http://happybug.top/2017/11/24/iphoneX/</loc>
-    <lastmod>2018-03-08T01:51:12.523Z</lastmod>
-    <data>
-        <display>
-        <title>iPhoneX H5适配</title>
-        <pubTime>2017-11-24T11:31:42.000Z</pubTime>
-        
-        <tag>前端</tag>
-         
-        <tag>string</tag>
-         
-        <tag>字符串</tag>
-         
-         
-           
-             
-              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
-          
-             
-              <breadCrumb title="前端适配" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E9%80%82%E9%85%8D/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://happybug.top/2017/09/12/jsonp/</loc>
     <lastmod>2018-03-08T01:51:12.523Z</lastmod>
     <data>
@@ -205,18 +208,18 @@
 
     
   <url>
-    <loc>http://happybug.top/2017/09/15/knowledge/</loc>
+    <loc>http://happybug.top/2017/11/24/iphoneX/</loc>
     <lastmod>2018-03-08T01:51:12.523Z</lastmod>
     <data>
         <display>
-        <title>前端琐碎知识点整理</title>
-        <pubTime>2017-09-15T10:52:18.000Z</pubTime>
+        <title>iPhoneX H5适配</title>
+        <pubTime>2017-11-24T11:31:42.000Z</pubTime>
         
-        <tag>flex</tag>
+        <tag>前端</tag>
          
-        <tag>兼容性</tag>
+        <tag>string</tag>
          
-        <tag>华为</tag>
+        <tag>字符串</tag>
          
          
            
@@ -224,10 +227,7 @@
               <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
           
              
-              <breadCrumb title="flex" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/flex/"/>
-          
-             
-              <breadCrumb title="知识点" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/flex/%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
+              <breadCrumb title="前端适配" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E9%80%82%E9%85%8D/"/>
           
         </display>
     </data>
