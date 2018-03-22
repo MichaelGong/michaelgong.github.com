@@ -131,4 +131,11 @@ npm version 0.1.1
 ```
 npm README 不更新的解决方法：https://github.com/npm/registry/issues/42#issuecomment-243428303
 
+## git 修改.gitignore文件后缓存问题
+```bash
+git rm -r --cached .
+git add .
+git commit -m 'update .gitignore'
+```
+
 
