@@ -12,7 +12,7 @@ summary: margin-collpase，又称外边距塌陷或边距重叠，它表示在ht
 margin-collpase，又称外边距塌陷或边距重叠，它表示在html流式布局中，在垂直方向上外边距会发生叠加的现象。
 
 ## margin collpase 的表现
-测试连接：[点这里](https://codesandbox.io/s/pyz8nq0o9x)，你可以边看文章，边修改属性以加深理解
+测试连接：[点这里](https://codesandbox.io/s/pyz8nq0o9x)，你可以边看文章，边修改属性以加深理解。
 ### 1、兄弟元素之间存在垂直方向的margin，取最大值
 ```html
 <div class="div1">div1</div>
