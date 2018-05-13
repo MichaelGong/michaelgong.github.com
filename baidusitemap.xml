@@ -4,6 +4,29 @@
 
     
   <url>
+    <loc>http://happybug.top/2018/05/13/margin-collpase/</loc>
+    <lastmod>2018-05-13T07:19:06.000Z</lastmod>
+    <data>
+        <display>
+        <title>Margin Collpase/ Margin 重叠</title>
+        <pubTime>2018-05-13T05:11:11.000Z</pubTime>
+        
+        <tag>margin-collpase</tag>
+         
+         
+           
+             
+              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
+          
+             
+              <breadCrumb title="margin" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/margin/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://happybug.top/2017/09/15/knowledge/</loc>
     <lastmod>2018-03-22T14:15:50.000Z</lastmod>
     <data>
@@ -59,6 +82,7 @@
 
     
     
+    
   <url>
     <loc>http://happybug.top/2017/09/19/vue-component/</loc>
     <lastmod>2018-03-08T01:51:12.525Z</lastmod>
@@ -83,7 +107,6 @@
     </data>
     </url>
 
-    
     
   <url>
     <loc>http://happybug.top/2017/09/13/string/</loc>
@@ -110,21 +133,23 @@
 
     
   <url>
-    <loc>http://happybug.top/2018/02/06/type/</loc>
+    <loc>http://happybug.top/2017/10/09/vscode-vue-emmet/</loc>
     <lastmod>2018-03-08T01:51:12.524Z</lastmod>
     <data>
         <display>
-        <title>js对象类型的判断</title>
-        <pubTime>2018-02-06T07:10:09.000Z</pubTime>
+        <title>vscode中vue文件emmet进行tab不起作用</title>
+        <pubTime>2017-10-09T09:33:13.000Z</pubTime>
         
-        <tag>前端</tag>
-         
-        <tag>原型</tag>
-         
          
            
              
-              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
+              <breadCrumb title="vscode" url="http://happybug.top/categories/vscode/"/>
+          
+             
+              <breadCrumb title="vue" url="http://happybug.top/categories/vscode/vue/"/>
+          
+             
+              <breadCrumb title="emmet" url="http://happybug.top/categories/vscode/vue/emmet/"/>
           
         </display>
     </data>
@@ -157,23 +182,21 @@
 
     
   <url>
-    <loc>http://happybug.top/2017/10/09/vscode-vue-emmet/</loc>
+    <loc>http://happybug.top/2018/02/06/type/</loc>
     <lastmod>2018-03-08T01:51:12.524Z</lastmod>
     <data>
         <display>
-        <title>vscode中vue文件emmet进行tab不起作用</title>
-        <pubTime>2017-10-09T09:33:13.000Z</pubTime>
+        <title>js对象类型的判断</title>
+        <pubTime>2018-02-06T07:10:09.000Z</pubTime>
         
+        <tag>前端</tag>
+         
+        <tag>原型</tag>
+         
          
            
              
-              <breadCrumb title="vscode" url="http://happybug.top/categories/vscode/"/>
-          
-             
-              <breadCrumb title="vue" url="http://happybug.top/categories/vscode/vue/"/>
-          
-             
-              <breadCrumb title="emmet" url="http://happybug.top/categories/vscode/vue/emmet/"/>
+              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
           
         </display>
     </data>
@@ -181,26 +204,23 @@
 
     
   <url>
-    <loc>http://happybug.top/2017/09/12/jsonp/</loc>
+    <loc>http://happybug.top/2017/09/26/imageLoad/</loc>
     <lastmod>2018-03-08T01:51:12.523Z</lastmod>
     <data>
         <display>
-        <title>跨域请求之JSONP</title>
-        <pubTime>2017-09-12T13:35:05.000Z</pubTime>
+        <title>图片预加载与懒加载</title>
+        <pubTime>2017-09-26T06:36:20.000Z</pubTime>
         
-        <tag>前端</tag>
+        <tag>图片</tag>
          
-        <tag>jsonp</tag>
+        <tag>预加载</tag>
          
-        <tag>跨域</tag>
+        <tag>懒加载</tag>
          
          
            
              
-              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
-          
-             
-              <breadCrumb title="jsonp" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/jsonp/"/>
+              <breadCrumb title="图片加载" url="http://happybug.top/categories/%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD/"/>
           
         </display>
     </data>
@@ -235,23 +255,26 @@
 
     
   <url>
-    <loc>http://happybug.top/2017/09/26/imageLoad/</loc>
+    <loc>http://happybug.top/2017/09/12/jsonp/</loc>
     <lastmod>2018-03-08T01:51:12.523Z</lastmod>
     <data>
         <display>
-        <title>图片预加载与懒加载</title>
-        <pubTime>2017-09-26T06:36:20.000Z</pubTime>
+        <title>跨域请求之JSONP</title>
+        <pubTime>2017-09-12T13:35:05.000Z</pubTime>
         
-        <tag>图片</tag>
+        <tag>jsonp</tag>
          
-        <tag>预加载</tag>
+        <tag>前端</tag>
          
-        <tag>懒加载</tag>
+        <tag>跨域</tag>
          
          
            
              
-              <breadCrumb title="图片加载" url="http://happybug.top/categories/%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD/"/>
+              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
+          
+             
+              <breadCrumb title="jsonp" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/jsonp/"/>
           
         </display>
     </data>
