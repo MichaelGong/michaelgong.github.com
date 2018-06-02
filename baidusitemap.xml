@@ -4,6 +4,29 @@
 
     
   <url>
+    <loc>http://happybug.top/2018/06/01/NaN/</loc>
+    <lastmod>2018-06-02T09:49:39.000Z</lastmod>
+    <data>
+        <display>
+        <title>isNaN 与 Number.isNaN 区别</title>
+        <pubTime>2018-06-01T04:51:49.000Z</pubTime>
+        
+        <tag>isNaN</tag>
+         
+         
+           
+             
+              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
+          
+             
+              <breadCrumb title="isNaN" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/isNaN/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://happybug.top/2018/05/13/margin-collpase/</loc>
     <lastmod>2018-05-13T07:51:37.000Z</lastmod>
     <data>
@@ -82,7 +105,6 @@
 
     
     
-    
   <url>
     <loc>http://happybug.top/2017/09/19/vue-component/</loc>
     <lastmod>2018-03-08T01:51:12.525Z</lastmod>
@@ -94,6 +116,32 @@
         <tag>vue</tag>
          
         <tag>组件</tag>
+         
+         
+           
+             
+              <breadCrumb title="vue" url="http://happybug.top/categories/vue/"/>
+          
+             
+              <breadCrumb title="前端" url="http://happybug.top/categories/vue/%E5%89%8D%E7%AB%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+    
+  <url>
+    <loc>http://happybug.top/2018/01/30/v-model/</loc>
+    <lastmod>2018-03-08T01:51:12.524Z</lastmod>
+    <data>
+        <display>
+        <title>Vue中v-model的使用</title>
+        <pubTime>2018-01-30T14:01:42.000Z</pubTime>
+        
+        <tag>vue</tag>
+         
+        <tag>v-model</tag>
          
          
            
@@ -157,31 +205,6 @@
 
     
   <url>
-    <loc>http://happybug.top/2018/01/30/v-model/</loc>
-    <lastmod>2018-03-08T01:51:12.524Z</lastmod>
-    <data>
-        <display>
-        <title>Vue中v-model的使用</title>
-        <pubTime>2018-01-30T14:01:42.000Z</pubTime>
-        
-        <tag>vue</tag>
-         
-        <tag>v-model</tag>
-         
-         
-           
-             
-              <breadCrumb title="vue" url="http://happybug.top/categories/vue/"/>
-          
-             
-              <breadCrumb title="前端" url="http://happybug.top/categories/vue/%E5%89%8D%E7%AB%AF/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://happybug.top/2018/02/06/type/</loc>
     <lastmod>2018-03-08T01:51:12.524Z</lastmod>
     <data>
@@ -204,23 +227,26 @@
 
     
   <url>
-    <loc>http://happybug.top/2017/09/26/imageLoad/</loc>
+    <loc>http://happybug.top/2017/09/12/jsonp/</loc>
     <lastmod>2018-03-08T01:51:12.523Z</lastmod>
     <data>
         <display>
-        <title>图片预加载与懒加载</title>
-        <pubTime>2017-09-26T06:36:20.000Z</pubTime>
+        <title>跨域请求之JSONP</title>
+        <pubTime>2017-09-12T13:35:05.000Z</pubTime>
         
-        <tag>图片</tag>
+        <tag>前端</tag>
          
-        <tag>预加载</tag>
+        <tag>jsonp</tag>
          
-        <tag>懒加载</tag>
+        <tag>跨域</tag>
          
          
            
              
-              <breadCrumb title="图片加载" url="http://happybug.top/categories/%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD/"/>
+              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
+          
+             
+              <breadCrumb title="jsonp" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/jsonp/"/>
           
         </display>
     </data>
@@ -255,26 +281,23 @@
 
     
   <url>
-    <loc>http://happybug.top/2017/09/12/jsonp/</loc>
+    <loc>http://happybug.top/2017/09/26/imageLoad/</loc>
     <lastmod>2018-03-08T01:51:12.523Z</lastmod>
     <data>
         <display>
-        <title>跨域请求之JSONP</title>
-        <pubTime>2017-09-12T13:35:05.000Z</pubTime>
+        <title>图片预加载与懒加载</title>
+        <pubTime>2017-09-26T06:36:20.000Z</pubTime>
         
-        <tag>jsonp</tag>
+        <tag>图片</tag>
          
-        <tag>前端</tag>
+        <tag>预加载</tag>
          
-        <tag>跨域</tag>
+        <tag>懒加载</tag>
          
          
            
              
-              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
-          
-             
-              <breadCrumb title="jsonp" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/jsonp/"/>
+              <breadCrumb title="图片加载" url="http://happybug.top/categories/%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD/"/>
           
         </display>
     </data>
