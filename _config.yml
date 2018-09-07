@@ -131,5 +131,5 @@ deploy:
   repo: 
     github: git@github.com:MichaelGong/michaelgong.github.com.git #github仓库地址
     coding: git@git.coding.net:gh1506301420/blog.git
-    happybug: git@happybug.top:blog.git 
+    happybug: git@47.99.117.119:blog.git 
   branch: master # github分支
