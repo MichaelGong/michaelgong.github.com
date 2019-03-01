@@ -8,6 +8,17 @@ summary:
 ---
 
 <!-- toc -->
+## ios系统对yyyy-mm-dd hh:mm:ss时间格式不兼容
+
+ios系统(主要safari浏览器)对yyyy-mm-dd hh:mm:ss格式的时间不兼容
+```javascript
+let date = new Date('2019-03-01 17:55:24');  
+```
+对于以上结果会返回 `null`,所以需要针对这种情况进行特殊处理，将'-'变成'/' 即可，形如：yyyy/mm/dd hh:mm:ss，代码如下：
+```javascript
+replace(/\-/g, '/');
+```
+
 
 ## flex在华为手机中的兼容性
 
