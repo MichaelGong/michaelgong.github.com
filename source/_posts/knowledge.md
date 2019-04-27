@@ -123,6 +123,27 @@ div {
 }
 ```
 
+## CORS相关
+preflight(预检请求，即Options请求的发送)的发送原则：
+1、使用了以下任意HTTP方法：`PUT、DELETE、CONNECT、OPTIONS、TRACE、PATCH`
+2、人为设置了`CORS安全首部字段集合`之外的其他首部，该集合为：
+    `Accept、Accept-Language、Content-Language、Content-Type、DPR、Downlink、Save-Data、Viewport-Width、Width`
+其中Content-Type要满足下文的条件
+3、Content-Type的值不属于下列之一：
+    application/x-www-form-urlencoded
+    multipart/form-data
+    text/plain
+4、请求中的XMLHttpRequestUpload 对象注册了任意多个事件监听器
+5、请求中使用了ReadableStream对象。
+
+以上各项的相反就是简单请求。
+参考：https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS
+
+## withCredentials
+如果你在a域发送了b域的请求，且b域设置了cookie信息，那么在a域会以b域的形式存储一份cookie，如果没有设定withCredentials或是credentials: ‘include’的话，就算服务器传了set-cookie也不会被写入。
+
+在你请求b域的接口时，如果不设置withCredentials为true的话，请求依然会被跨域限制，而且此时服务器的返回头不能是`Access-Control-Allow-Origin: *` 必须指定相应的域名才行。
+
 ## npm config (备忘)
 设置npm的registry
 ``` bash
