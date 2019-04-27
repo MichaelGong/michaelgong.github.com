@@ -3,6 +3,26 @@
 
 
     
+  <url>
+    <loc>http://happybug.top/2019/04/27/mysql/</loc>
+    <lastmod>2019-04-27T12:58:25.200Z</lastmod>
+    <data>
+        <display>
+        <title>unbuntu下安装mysql</title>
+        <pubTime>2019-04-27T12:33:55.000Z</pubTime>
+        
+        <tag>mysql</tag>
+         
+         
+           
+             
+              <breadCrumb title="mysql" url="http://happybug.top/categories/mysql/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
     
   <url>
     <loc>http://happybug.top/2017/09/15/knowledge/</loc>
@@ -209,28 +229,6 @@
 
     
   <url>
-    <loc>http://happybug.top/2018/02/06/type/</loc>
-    <lastmod>2018-03-08T01:51:12.524Z</lastmod>
-    <data>
-        <display>
-        <title>js对象类型的判断</title>
-        <pubTime>2018-02-06T07:10:09.000Z</pubTime>
-        
-        <tag>前端</tag>
-         
-        <tag>原型</tag>
-         
-         
-           
-             
-              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://happybug.top/2017/09/13/string/</loc>
     <lastmod>2018-03-08T01:51:12.524Z</lastmod>
     <data>
@@ -243,6 +241,28 @@
         <tag>string</tag>
          
         <tag>字符串</tag>
+         
+         
+           
+             
+              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://happybug.top/2018/02/06/type/</loc>
+    <lastmod>2018-03-08T01:51:12.524Z</lastmod>
+    <data>
+        <display>
+        <title>js对象类型的判断</title>
+        <pubTime>2018-02-06T07:10:09.000Z</pubTime>
+        
+        <tag>前端</tag>
+         
+        <tag>原型</tag>
          
          
            
