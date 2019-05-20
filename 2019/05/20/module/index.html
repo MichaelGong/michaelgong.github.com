@@ -1,0 +1,123 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="逍遥很晕"><title>JS中的模块化 · 逍遥很晕</title><meta name="description" content="模块化#1、为什么会出现模块化#在古老的还没有模块化的年代(其实也没几年)开发前端页面的时候一个html里面一个js文件搞定所有的功能，好一点的程序员可能会进行文件的划分，不同的文件内做不同的功能，但是这样依然会带来一些问题，比如：全局变量的污染、没有明显的命名空间、代码维护性低等等问题，虽然之后出"><meta name="keywords"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.jpeg" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-hopscotch.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/mg.jpeg" style="width:150px;border-radius: 50%;"><h3 title=""><a href="/">逍遥很晕</a></h3><div class="description"><p>开心了就笑，不开心了就过会再笑~~</p></div></div></div><ul class="social-links"></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li></div><div class="information"><div class="back_btn"><li><a onclick="window.history.go(-1)" class="fa fa-chevron-left"> </a></li></div><div class="avatar"><img></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>JS中的模块化</a></h3><div class="post-other-info"><span class="wordcount"><i class="fa fa-calendar-o"></i><span class="post-count">2019-05-20</span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-folder-o"></i><span class="post-count"><a href="/categories/模块化/" title class="tag">模块化</a></span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-edit"></i><span class="post-count">字数统计2,183</span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-clock-o"></i><span class="post-count">阅读时长8分钟</span></span></div></div><div class="post-content"><h1><span id="mo-kuai-hua">模块化</span><a href="#mo-kuai-hua" class="header-anchor">#</a></h1><h1><span id="1-wei-shi-me-hui-chu-xian-mo-kuai-hua">1、为什么会出现模块化</span><a href="#1-wei-shi-me-hui-chu-xian-mo-kuai-hua" class="header-anchor">#</a></h1><p>在古老的还没有模块化的年代(其实也没几年)开发前端页面的时候一个html里面一个js文件搞定所有的功能，好一点的程序员可能会进行文件的划分，不同的文件内做不同的功能，但是这样依然会带来一些问题，比如：<strong>全局变量的污染、没有明显的命名空间、代码维护性低</strong>等等问题，虽然之后出现IIFE(立即执行函数)的方式在一定程度上解决了全局变量污染的问题，但是依然无法满足我们对于模块化或者命名空间的需求。</p>
+<p>所以js模块化在之后的发展过程中依次出现了</p>
+<ol>
+<li>commonjs</li>
+<li>amd</li>
+<li>cmd</li>
+<li>es6模块化</li>
+</ol>
+<h1><span id="2-mo-kuai-hua-de-fa-zhan-li-cheng">2、模块化的发展历程</span><a href="#2-mo-kuai-hua-de-fa-zhan-li-cheng" class="header-anchor">#</a></h1><h2><span id="2-1-wu-mo-kuai-hua">2.1、无模块化</span><a href="#2-1-wu-mo-kuai-hua" class="header-anchor">#</a></h2><p>简单的script链接的堆叠(有时需要保证链接的顺序)，在不同的文件内做不同的功能，在这种模式下出现全局变量污染等问题，有时你甚至不知道你同事写的代码中用到的变量都是从哪里来的，开发体验非常差。</p>
+<h2><span id="2-2-commonjs-gui-fan-zhu-yao-gua-yong-yu-fei-liu-lan-qi-duan">2.2、CommonJS规范(主要适用于非浏览器端)</span><a href="#2-2-commonjs-gui-fan-zhu-yao-gua-yong-yu-fei-liu-lan-qi-duan" class="header-anchor">#</a></h2><p>CommonJS规范推出的时候主要的应用场景并不是浏览器端，你可以查看维基百科中<a href="https://en.wikipedia.org/wiki/CommonJS" target="_blank" rel="noopener">CommonJS</a>的介绍：</p>
+<blockquote>
+<p>CommonJS is a project with the goal to establish conventions on module ecosystem for JavaScript outside of the web browser.</p>
+</blockquote>
+<p>基于非浏览器(主要是node内)运行的特性，commonjs被设计成<strong>同步</strong>加载模块的方式。</p>
+<p>Commonjs作为规范，有各种各样的实现，其中与前端密切相关的就是Nodejs中 Module的设计。</p>
+<h3><span id="nodejs-module">NodeJs   Module</span><a href="#nodejs-module" class="header-anchor">#</a></h3><p>在nodejs module中，每个文件都被当做一个单独的模块，当node模块系统解析某个文件的时候，会自动在文件内容外部包裹一段代码，如下：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>exports<span class="token punctuation">,</span> require<span class="token punctuation">,</span> module<span class="token punctuation">,</span> __filename<span class="token punctuation">,</span> __dirname<span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>具体代码可以查看nodejs中有关commonjs loader的代码：<a href="https://github.com/nodejs/node/blob/master/lib/internal/modules/cjs/loader.js#L127" target="_blank" rel="noopener">loader</a>, 在127行代码中就引用了Module.wrapper对script进行包装。</p>
+<blockquote>
+<p>exports: 导出对象<br>require: 引入其他模块<br>module: 模块的引用<br><strong>filename: 绝对文件名
+</strong>dirname:  文件的绝对路径</p>
+</blockquote>
+<p>所以其实commonjs是包裹了你的代码并将你的代码的export绑定到了mudule.exports 或是exports内。同时上述方法也解释了为什么node中的文件默认会有require、exports、module、<strong>filename、</strong>dirname等变量。</p>
+<h2><span id="2-3-amd-gui-fan-asynchronous-module-definition">2.3、AMD规范(Asynchronous Module Definition)</span><a href="#2-3-amd-gui-fan-asynchronous-module-definition" class="header-anchor">#</a></h2><p>由于CommonJS是采用同步的方式，所以它并不适用于浏览器端，因为浏览器端都是从远程服务器上去加载js脚本的，这个时候如果采用同步的方式浏览器将会卡主，体验极差。所以为了满足浏览器端的模块化开发的需求，就出现了AMD，而requirejs就是对AMD的一种实现。</p>
+<p>在requirejs中主要有两个核心内容：define 、require，一个用来定义模块，一个用来引用模块。接下来我们来看一个简单的例子：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">// 对requirejs进行基础配置</span>
+requirejs<span class="token punctuation">.</span><span class="token function">config</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  baseUrl<span class="token punctuation">:</span> <span class="token string">'lib'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 规定文件的下载位置</span>
+  paths<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    app<span class="token punctuation">:</span> <span class="token string">'./app'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 规定某个模块的路径位置</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 定义一个app模块，它依赖module1模块</span>
+<span class="token function">define</span><span class="token punctuation">(</span><span class="token string">'app'</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'module1'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>module1<span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token function">alert</span><span class="token punctuation">(</span>module1<span class="token punctuation">.</span>text<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 使用app模块进行业务开发，当app模块被加载完毕并执行后，才会执行后面的回调函数</span>
+<span class="token function">require</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'app'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>app<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// 进行业务逻辑</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>requirejs是<strong>依赖前置</strong>的，也就是说当你的回调函数factory执行之前，你依赖的所有文件(包括代码中require进来的)都已经被执行了。</p>
+<h2><span id="2-4-cmd-gui-fan-common-module-definition">2.4、CMD规范(Common Module Definition)</span><a href="#2-4-cmd-gui-fan-common-module-definition" class="header-anchor">#</a></h2><p>CMD要解决的问题和AMD是一致的，只不过在模块的定义与模块运行的方式上有所差异。CMD规范主要思想是<strong>依赖就近</strong>原则，Seajs是CMD的一种比较流行的实现方式。</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">// module.js</span>
+<span class="token function">define</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>require<span class="token punctuation">,</span> exports<span class="token punctuation">,</span> module<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> $ <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'jquery'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'body'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addClass</span><span class="token punctuation">(</span><span class="token string">'body'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+seajs<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'module'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>module<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// 业务逻辑</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>从写法上看，Seajs与requirejs的不同：</p>
+<ol>
+<li>define的写法的不同，主要体现在factory回调函数上，seajs中的factory中的参数是固定的:require、exports、mdule，当然在语法上seajs也支持requirejs一样的语法，但是并不建议使用。</li>
+<li>seajs中是依赖就近的，所以你只需要在你需要用到某个模块的时候书写 require(‘xxx’) 就可以引入该模块，这是与requirejs的主要区别。</li>
+</ol>
+<p>实际上CMD的写法和Commonjs十分相似。</p>
+<h2><span id="2-5-umd">2.5、UMD</span><a href="#2-5-umd" class="header-anchor">#</a></h2><p>随之模块化的发展，amd和cmd在前端中的使用越来越多，为了同时兼容AMD、CMD、CommonJS以及没有模块化等情况，我们的前辈们发明了UMD模式，代码如下：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>root<span class="token punctuation">,</span> factory<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> define <span class="token operator">===</span> <span class="token string">'function'</span> <span class="token operator">&amp;&amp;</span> define<span class="token punctuation">.</span>amd<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// AMD</span>
+    <span class="token function">define</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'jquery'</span><span class="token punctuation">,</span> <span class="token string">'lodash'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> factory<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> exports <span class="token operator">===</span> <span class="token string">'object'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// commonjs cmd</span>
+    module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token function">factory</span><span class="token punctuation">(</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'jquery'</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'lodash'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 浏览器全局变量(root 即 window)</span>
+    root<span class="token punctuation">.</span>xxx <span class="token operator">=</span> <span class="token function">factory</span><span class="token punctuation">(</span>root<span class="token punctuation">.</span>jQuery<span class="token punctuation">,</span> root<span class="token punctuation">.</span>_<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>$<span class="token punctuation">,</span> _<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p> 参考：<a href="https://75team.com/post/%E8%AF%91%E7%A5%9E%E9%A9%AC%E6%98%AFamd-commonjs-umd.html" target="_blank" rel="noopener">https://75team.com/post/译神马是amd-commonjs-umd.html</a></p>
+<h2><span id="2-6-es6-module">2.6、ES6 Module</span><a href="#2-6-es6-module" class="header-anchor">#</a></h2><p>长期以来，JS中并没有原生的模块系统，因此在ES6中引入的原生Module的概念，但是到目前为止各大浏览器并没有实现这个规范。</p>
+<p>ES6 模块的设计思想是尽量的静态化，使得编译时就能确定模块的依赖关系，以及输入和输出的变量。CommonJS 和 AMD 模块，都只能在运行时确定这些东西。比如，CommonJS 模块就是对象，输入时必须查找对象属性。</p>
+<p>其实我们现在平时开发中已经在大量使用了ES6 Module了：import export就是ES6 Module的两大特性。如果想要深入了解ES6 Module的话，推荐阅读<a href="http://es6.ruanyifeng.com/#docs/module" target="_blank" rel="noopener">阮一峰老师的博客</a>，讲解的非常细致。</p>
+<h1><span id="3-qi-ta">3、其他</span><a href="#3-qi-ta" class="header-anchor">#</a></h1><h3><span id="commonjs-zhong-exports-he-module-exports-de-lian-xi-yu-qu-bie">CommonJs中 exports 和 module.exports 的联系与区别</span><a href="#commonjs-zhong-exports-he-module-exports-de-lian-xi-yu-qu-bie" class="header-anchor">#</a></h3><p>在CommonJS中exports实际上就是module.exports的引用，但是当你像这样写的话：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript">exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  a<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>这时exports被重新赋值，此时exports就不是module.exports的引用了，所以现在exports !== module.exports.</p>
+<p>所以在非必要情况下不建议这种写法。</p>
+<h3><span id="requirejs-he-seajs-de-zhi-xing-dui-bi">requireJs 和 seajs的执行对比</span><a href="#requirejs-he-seajs-de-zhi-xing-dui-bi" class="header-anchor">#</a></h3><p>先看下requirejs与seajs的区别：</p>
+<p><img src="/images/modulecompare.png" alt=""></p>
+<p>区别截图来自：<a href="https://www.cnblogs.com/zhangruiqi/p/7538920.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhangruiqi/p/7538920.html</a></p>
+<p>关于执行的对比：</p>
+<p>两者都是先异步加载所有模块。</p>
+<p>requirejs 依赖前置，在模块加载完毕之后就执行该模块，在所有模块加载完毕后会进入到factory回调函数中，执行主逻辑。</p>
+<p>seajs 依赖就近，会先加载所有模块，但是不会执行，在所有模块加载完毕之后会进入到factory回调函数中，当遇到对应的require方法时才会去执行对应的模块，这样模块的执行和顺序和书写顺序是完全一致的。</p>
+<h3><span id="commonjs-yu-es6-module-qu-bie">CommonJS 与 ES6 Module区别</span><a href="#commonjs-yu-es6-module-qu-bie" class="header-anchor">#</a></h3><p>如果你看过上面提到的<a href="http://es6.ruanyifeng.com/#docs/module" target="_blank" rel="noopener">阮一峰老师的博客</a>的话，可以直接忽略下面的内容。</p>
+<p>(1) CommonJS模块的输出是一个值的拷贝，ES6 Module 输出的是值的引用。</p>
+<ul>
+<li>commonjs输出的值是一个拷贝，也就是说，一旦输出一个值，模块内部的变化将不会影响输出的值。</li>
+<li>ES6 Module是值的的引用，它是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。</li>
+</ul>
+<p>(2) CommonJS是运行时加载，ES6 Module是编译时输出接口</p>
+<ul>
+<li>运行时加载: CommonJS 模块就是对象；即在输入时是先加载整个模块，生成一个对象，然后再从这个对象上面读取方法，这种加载称为“运行时加载”。</li>
+<li>编译时加载: ES6 模块不是对象，而是通过 <code>export</code> 命令显式指定输出的代码，<code>import</code>时采用静态命令的形式。即在<code>import</code>时可以指定加载某个输出值，而不是加载整个模块，这种加载称为“编译时加载”。</li>
+</ul>
+<p>CommonJS 加载的是一个对象（即<code>module.exports</code>属性），该对象只有在脚本运行完才会生成。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。</p>
+<p>参考：</p>
+<p>这一次，我要弄懂javascript的模块化：<a href="https://juejin.im/post/5b4420e7f265da0f4b7a7b27" target="_blank" rel="noopener">https://juejin.im/post/5b4420e7f265da0f4b7a7b27</a></p>
+<p>阮一峰博客： <a href="http://es6.ruanyifeng.com/#docs/module" target="_blank" rel="noopener">http://es6.ruanyifeng.com/#docs/module</a></p>
+<p>RequireJS 与 SeaJS 的异同：<a href="https://www.cnblogs.com/zhangruiqi/p/7538920.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhangruiqi/p/7538920.html</a></p>
+<p>深入浅出 Nodejs（ 二 ）：Nodejs 文件模块机制：<a href="https://cloud.tencent.com/developer/article/1005768" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1005768</a></p>
+<p>深入浅出 Node.js（三）：深入 Node.js 的模块机制：<a href="https://www.infoq.cn/article/nodejs-module-mechanism" target="_blank" rel="noopener">https://www.infoq.cn/article/nodejs-module-mechanism</a></p>
+<p>深入浅出 Nodejs（四）：Nodejs 异步 I/O 机制：<a href="https://cloud.tencent.com/developer/article/1005792" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1005792</a></p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2019-05-20</span><i class="fa fa-tag"></i><a href="/tags/模块化/" title="模块化" class="tag">模块化 </a></div></div></div></div><div class="share"><div class="evernote"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></div><div class="weibo"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></div><div class="twitter"><a href="http://twitter.com/home?status=,http://happybug.top/2019/05/20/module/,逍遥很晕,JS中的模块化,;" class="fa fa-twitter"></a></div></div><div class="pagination"><ul class="clearfix"><li class="next pagbuttons"><a role="navigation" href="/2019/04/27/mysql/" title="unbuntu下安装mysql" class="btn">下一篇</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7b168a4f1a257e5aaf73660ae4ffad1c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></body></html>
