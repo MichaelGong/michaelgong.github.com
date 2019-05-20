@@ -78,22 +78,22 @@ Hexo安装完成之后，就可以创建自己的网站了。
 ### 1. 注册github
 如果已经注册，直接跳过
 官网：[github.com](github.com)
-![注册](http://ovtdovq9q.bkt.clouddn.com/github/login.jpg?imageMogr2/thumbnail/350x)
+![注册](github/login.jpg?imageMogr2/thumbnail/350x)
 填写必要的信息，注册完成直接登录。
 
 ### 2. 创建代码库
 点击右上角头像左侧的加号创建一个仓库
-![创建仓库](http://ovtdovq9q.bkt.clouddn.com/github/newre.jpg?imageMogr2/thumbnail/350x)
+![创建仓库](/images/github/newre.jpg?imageMogr2/thumbnail/350x)
 
 填写仓库名称：比如我的github名字是MichaelGong，那我的仓库名字就是：`michaelgong.github.io`，
 如果你的名字是haha的话，就写`haha.github.io`
-![仓库](http://ovtdovq9q.bkt.clouddn.com/github/createre.jpg?imageMogr2/thumbnail/550x)
+![仓库](/images/github/createre.jpg?imageMogr2/thumbnail/550x)
 
 ### 3. 设置代码库
 代码仓库创建完毕后，就会进入到如下页面，你可以点击`We recommend every repository include a README,LICENSE and .gitignore` 中的 `README` 添加一个readme先，如下图：
-![仓库](http://ovtdovq9q.bkt.clouddn.com/github/setting.jpg?imageMogr2/thumbnail/751x)
+![仓库](/images/github/setting.jpg?imageMogr2/thumbnail/751x)
 然后可以点击`setting`，进入到新页面，向下滑，找到`GitHub Pages`的位置，这时大概是这样的：
-![仓库](http://ovtdovq9q.bkt.clouddn.com/github/ghpages.jpg?imageMogr2/thumbnail/750x)
+![仓库](/images/github/ghpages.jpg?imageMogr2/thumbnail/750x)
 
 ### 4. 配置SSH keys
 在命令行中输入
@@ -125,10 +125,9 @@ deploy:
 进入网站，输入自己想要的域名，一般来讲.com后缀的域名相应的会贵一些，你可以选择.me、.net、.top之类的域名进行购买，如果你不差钱，请直接无视我。
 购买完了之后，可以在阿里云的控制台[https://netcn.console.aliyun.com/core/domain/list](https://netcn.console.aliyun.com/core/domain/list) 查看自己的域名，如下图：
 
-![阿里云域名](http://ovtdovq9q.bkt.clouddn.com/githubdomain.jpg)
-{% qnimg github/domain.jpg %}
+![阿里云域名](/images/github/domain.jpg)
 点击解析，进入到新页面，点击添加解析，添加如下三条解析设置，
-![dns](http://ovtdovq9q.bkt.clouddn.com/github/dns.jpg)
+![dns](/images/github/dns.jpg)
 
 然后在blog文件夹下的source文件夹下创建`CNAME`的文件，注意这个文件没有后缀名，并在里面输入自己的域名，例如：`happybug.top`,
 将代码部署到github就可以直接域名访问了（有可能DNS解析需要一些时间，一般十分钟）。
