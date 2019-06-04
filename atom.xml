@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://happybug.top/"/>
-  <updated>2019-05-20T06:34:43.337Z</updated>
+  <updated>2019-06-04T07:09:24.573Z</updated>
   <id>http://happybug.top/</id>
   
   <author>
@@ -15,6 +15,58 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>BFC</title>
+    <link href="http://happybug.top/2019/06/04/BFC/"/>
+    <id>http://happybug.top/2019/06/04/BFC/</id>
+    <published>2019-06-04T07:07:45.000Z</published>
+    <updated>2019-06-04T07:09:24.573Z</updated>
+    
+    <content type="html"><![CDATA[<h1><span id="bfc">BFC</span><a href="#bfc" class="header-anchor">#</a></h1><h2><span id="shi-me-shi-bfc">什么是BFC？</span><a href="#shi-me-shi-bfc" class="header-anchor">#</a></h2><p>BFC(Block Formatting Context) 块级格式化上下文，是W3C CSS 2.1规范中的一个概念，它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用。BFC中的内容不会影响到其外部的内容，类似于一个BFC就是一个独立的行政单位，也就是说BFC就是一个作用范围，可以把它理解成是一个独立的容器，容器内的元素不会在布局上影响到外面的元素，并且BFC具有普通容器所没有的一些特性。</p><h2><span id="zen-yang-hong-fa-bfc">怎样触发BFC？</span><a href="#zen-yang-hong-fa-bfc" class="header-anchor">#</a></h2><ol><li>根元素</li><li>float属性值不为none</li><li>overflow属性值不为visible</li><li>position属性值absolute、fixed</li><li>display属性：inline-block、table、table-row、table-row-group、table-header-group、table-cell、table-caption、table-header-footer-group、inline-block、flow-root、flex\inline-flex、grid\inline-grid</li><li>column-count或column-width不为auto</li><li>column-span的属性为all的元素</li></ol><blockquote><p>1、外边距折叠(Margin collapsing) 也只会发生在属于同一BFC的块级元素之间。<br>2、浮动定位和清除浮动时只会应用于同一个BFC内的元素。<br>3、浮动不会影响其他BFC中元素的布局，而清除浮动只能清除同一BFC中在它前面的元素的浮动。</p></blockquote><h2><span id="te-dian">特点</span><a href="#te-dian" class="header-anchor">#</a></h2><ol><li>BFC垂直方向边距重叠(margin-collapsing)</li><li>BFC区域不会与浮动元素重叠(经典的左右两栏布局)</li><li>计算BFC高度的时候，浮动子元素也会参与计算</li><li>BFC就是一个独立的容器</li></ol><h2><span id="shi-ti">试题</span><a href="#shi-ti" class="header-anchor">#</a></h2><pre><code>&lt;body&gt;    &lt;div id=&quot;div1&quot; style=&quot;margin: 10px;&quot;&gt;&lt;/div&gt;    &lt;div id=&quot;div2&quot; style=&quot;margin: 20px;&quot;&gt;&lt;/div&gt;&lt;body&gt;</code></pre><p>div1 与 div2 之间的间距是多少？为什么？</p><p>答：div1与div2之间的间距是20px，因为在BFC中触发了margin-collapsing，在这种情况下取较大的margin值。</p><pre><code>&lt;body&gt;    &lt;div id=&quot;div&quot; style=&quot;margin: 10px;&quot;&gt;&lt;/div&gt;    &lt;span id=&quot;span&quot; style=&quot;margin: 20px;&quot;&gt;&lt;/span&gt;&lt;body&gt;</code></pre><p>div 与 span 之间的间距是多少？为什么？</p><p>答：div1与div2之间的间距是10px，因为对于span来说padding-top\padding-bottom\margin-top\margin-bottom都不起作用</p><h2><span id="can-kao">参考</span><a href="#can-kao" class="header-anchor">#</a></h2><p>块格式化上下文：<a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context</a></p><p>BFC 深入理解, 什么是BFC ?：<a href="https://juejin.im/post/5b724d5051882561131aaa52" target="_blank" rel="noopener">https://juejin.im/post/5b724d5051882561131aaa52</a></p><p>10 分钟理解 BFC 原理：<a href="https://zhuanlan.zhihu.com/p/25321647" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/25321647</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1&gt;&lt;span id=&quot;bfc&quot;&gt;BFC&lt;/span&gt;&lt;a href=&quot;#bfc&quot; class=&quot;header-anchor&quot;&gt;#&lt;/a&gt;&lt;/h1&gt;&lt;h2&gt;&lt;span id=&quot;shi-me-shi-bfc&quot;&gt;什么是BFC？&lt;/span&gt;&lt;a href=&quot;#shi-me-shi
+      
+    
+    </summary>
+    
+      <category term="CSS" scheme="http://happybug.top/categories/CSS/"/>
+    
+    
+      <category term="BFC" scheme="http://happybug.top/tags/BFC/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>for-of 中为什么可以做异步回调</title>
+    <link href="http://happybug.top/2019/06/04/for-of/"/>
+    <id>http://happybug.top/2019/06/04/for-of/</id>
+    <published>2019-06-04T07:00:55.000Z</published>
+    <updated>2019-06-04T07:07:30.158Z</updated>
+    
+    <content type="html"><![CDATA[<h1><span id="for-of-zhong-wei-shi-me-ke-yi-zuo-yi-bu-hui-diao">for-of 中为什么可以做异步回调</span><a href="#for-of-zhong-wei-shi-me-ke-yi-zuo-yi-bu-hui-diao" class="header-anchor">#</a></h1><h1><span id="iterator">Iterator</span><a href="#iterator" class="header-anchor">#</a></h1><p><code>**可迭代协议**</code>：允许js对象去定义它们的迭代行为。为了变成可迭代对象，一个对象必须实现@@iterator 方法，意思是这个对象或者对象的原型上必须要有一个Symbol.iterator的属性</p><p><code>**迭代器协议**</code>：实现Iterator的方式：必须要有一个next方法，并且该方法返回一个形如 <code>{value: xx, done: false }</code> 的对象，当迭代器的迭代次数超过了可迭代次数时done为true，value的值可以别省略。</p><p>Iterator是一种接口，为各种不同的数据结构提供统一的访问机制。任何数据结构只要部署Iterator接口，就可以完成遍历操作。Iterator本身是符合迭代器协议的。</p><p>Iterator的作用主要有三个：</p><ol><li>为各种数据结构，提供统一、简洁的访问接口</li><li>使数据结构的成员能够按照某种次序排列</li><li>为ES6中的for…of命令提供接口，供其消费(解构赋值和扩展运算符中也会用到Iterator：[…arr])</li></ol><p>模拟实现一个简单的Iterator</p><pre><code>function iteratorMaker(arr) {    let nextIndex = 0;    return function() {        return nextIndex &lt; arr.length            ? {value: arr[nextIndex], done: false}            : {value: undefined, done: true};    }}</code></pre><p>在原生js中，String、Array、TypedArray、Map、Set、Arguments、NodeList对象都有默认的Iterator实现（object对象默认没有实现Iterator，主要是因为默认无法确定遍历的顺序），他们是通过实现Symbol.iterator属性实现的。如果我们想某个对象拥有自定义的Iterator属性，可以通过定义这个对象的Symbol.iterator属性：</p><pre><code>const obj = {    [Symbol.iterator]: function()         return {            next: function() {                return {                    value: 1,                    done: true,                }            }        }    }}</code></pre><h3><span id="bian-li-qi-dui-xiang-de-return-throw-fang-fa">遍历器对象的return()、throw()方法</span><a href="#bian-li-qi-dui-xiang-de-return-throw-fang-fa" class="header-anchor">#</a></h3><p>遍历器中除了具有next方法之外，还可以具有return方法和throw方法。</p><p><strong>return方法</strong>：当你的遍历器对象在执行过程中提前退出时(通常是因为出错或者是有break语句)，就会调用return方法，如果一个对象在完成遍历前，需要清理或释放资源，就可以部署return方法。return方法必须返回一个对象。</p><pre><code>function readLinesSync(file) {    return {        [Symbol.iterator]() {            return {                next() {                    return {done: false, value: 1};                },                return() {                    file.close();                    return { done: ture}                }            }        }    }}</code></pre><p>throw方法主要配合Generator函数使用，一般的遍历器对象用不到这个方法。</p><h2><span id="generator">Generator</span><a href="#generator" class="header-anchor">#</a></h2><p>语法：</p><pre><code>function* generator() {    var a = &#39;hello&#39;;    yield a;    yield &#39;world&#39;;}var a = generator();a.next(); // { value: &#39;hello&#39;, done: false}a.next(); // { value: &#39;world&#39;, done: false}a.next(); // { value: undefined, done: true}</code></pre><p>在调用generator的时候，其函数体并不立即执行，而是会返回一个遍历器iterator对象，当你执行遍历器对象的next方法的时候，才会真正执行generator方法体内部的内容。</p><p>当执行next的方法的时候，在函数体内遇到yield的时候，函数体将停止执行并将yield后的结果值返回出来(也就是next的执行结果，形如：{value:xxx,done: false})，直到下一个next方法被调用时才会从上次停止的位置继续向下执行。</p><blockquote><p>yield表达式本身没有返回值，但是next方法可以带一个参数，这个参数会被当做上一个yield表达式的返回值。这里需要注意的是第一次调用next方法时，传入的参数是无效的，因为它之前并没有yield方法。</p></blockquote><p>举个栗子🌰：</p><pre><code>function* foo(x) {  console.log(&#39;第一个:&#39;, &#39; x:&#39;, x);  var y = 2 * (yield (x + 1));  console.log(&#39;第二个:&#39;, &#39; x:&#39;, x , &#39; y:&#39;, y);  var z = yield (y / 3);  console.log(&#39;第三个:&#39;, &#39; x:&#39;, x, &#39; y:&#39;, y, &#39; z:&#39;, z);  return (x + y + z);}var a = foo(5); // 返回一个generator对象a.next(10);// console.log输出：第一个:  x: 5，因为这是第一个执行的next方法，它之前并没有yield语句// 返回的值为：{value: 6, done: false}a.next(11);// console.log输出：第二个:  x: 5  y: 22，11被当成上一个yield表达式的结果，即：var y = 2 * 11// 返回的值为：{value: 7.333333333333333, done: false}a.next(12);// console.log输出：第三个:  x: 5  y: 22  z: 12，道理同上// 返回的值为：{value: 39, done: true}a.next(); // {value: undefined, done: true}</code></pre><p>Generator的其他内容强烈建议阅读：<a href="http://es6.ruanyifeng.com/#docs/generator" target="_blank" rel="noopener">阮一峰的Generator 函数的语法</a>，里面内容很多。</p><h1><span id="for-of">for-of</span><a href="#for-of" class="header-anchor">#</a></h1><p>在ES6中，js借鉴C++、Java等语言，引入了for…of循环，作为便利所有数据结构的统一方法。一个数据结构只要部署了Symbol.iterator属性，就被视为具有Iterator接口，就可以使用for…of循环进行遍历，也就是说for…of循环内部调用的是数据结构的Symbol.iterator方法，这就为我们在for…of内进行异步调用提供了可能。</p><p>for-of方法可以自动遍历Generator函数运行时生成的Iterator对象，且此时不在需要next方法。</p><h1><span id="yu-for-in-qu-bie">与for-in区别</span><a href="#yu-for-in-qu-bie" class="header-anchor">#</a></h1><p>for…in只能获取键名，for…of可以获取键值 </p><p>let arr = [1,2,3]; <a href="http://arr.foo" target="_blank" rel="noopener">arr.foo</a> = ‘hello’; for…in 循环arr的结果：0,1,2,hello，for…of循环arr的结果：1,2,3。可以看出for…of循环数组只会遍历有数字索引的属性。</p><p>for…of支持异步调用</p><p>for…in 循环会循环原型链上的键</p><p>参考：</p><p>迭代协议：<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Iteration_protocols</a></p><p>Generator 函数的语法：<a href="http://es6.ruanyifeng.com/#docs/iterator" target="_blank" rel="noopener">http://es6.ruanyifeng.com/#docs/iterator</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1&gt;&lt;span id=&quot;for-of-zhong-wei-shi-me-ke-yi-zuo-yi-bu-hui-diao&quot;&gt;for-of 中为什么可以做异步回调&lt;/span&gt;&lt;a href=&quot;#for-of-zhong-wei-shi-me-ke-yi-zuo-yi-bu-h
+      
+    
+    </summary>
+    
+      <category term="javascript" scheme="http://happybug.top/categories/javascript/"/>
+    
+    
+      <category term="for-of" scheme="http://happybug.top/tags/for-of/"/>
+    
+      <category term="javascript" scheme="http://happybug.top/tags/javascript/"/>
+    
+  </entry>
   
   <entry>
     <title>JS中的模块化</title>
@@ -528,9 +580,9 @@
       <category term="jsonp" scheme="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/jsonp/"/>
     
     
-      <category term="前端" scheme="http://happybug.top/tags/%E5%89%8D%E7%AB%AF/"/>
-    
       <category term="jsonp" scheme="http://happybug.top/tags/jsonp/"/>
+    
+      <category term="前端" scheme="http://happybug.top/tags/%E5%89%8D%E7%AB%AF/"/>
     
       <category term="跨域" scheme="http://happybug.top/tags/%E8%B7%A8%E5%9F%9F/"/>
     

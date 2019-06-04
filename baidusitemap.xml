@@ -4,6 +4,48 @@
 
     
   <url>
+    <loc>http://happybug.top/2019/06/04/BFC/</loc>
+    <lastmod>2019-06-04T07:09:24.573Z</lastmod>
+    <data>
+        <display>
+        <title>BFC</title>
+        <pubTime>2019-06-04T07:07:45.000Z</pubTime>
+        
+        <tag>BFC</tag>
+         
+         
+           
+             
+              <breadCrumb title="CSS" url="http://happybug.top/categories/CSS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://happybug.top/2019/06/04/for-of/</loc>
+    <lastmod>2019-06-04T07:07:30.158Z</lastmod>
+    <data>
+        <display>
+        <title>for-of 中为什么可以做异步回调</title>
+        <pubTime>2019-06-04T07:00:55.000Z</pubTime>
+        
+        <tag>for-of</tag>
+         
+        <tag>javascript</tag>
+         
+         
+           
+             
+              <breadCrumb title="javascript" url="http://happybug.top/categories/javascript/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://happybug.top/2017/09/05/hexo/</loc>
     <lastmod>2019-05-20T06:37:18.895Z</lastmod>
     <data>
@@ -217,30 +259,6 @@
     
     
   <url>
-    <loc>http://happybug.top/2017/10/09/vscode-vue-emmet/</loc>
-    <lastmod>2018-03-08T01:51:12.524Z</lastmod>
-    <data>
-        <display>
-        <title>vscode中vue文件emmet进行tab不起作用</title>
-        <pubTime>2017-10-09T09:33:13.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="vscode" url="http://happybug.top/categories/vscode/"/>
-          
-             
-              <breadCrumb title="vue" url="http://happybug.top/categories/vscode/vue/"/>
-          
-             
-              <breadCrumb title="emmet" url="http://happybug.top/categories/vscode/vue/emmet/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://happybug.top/2018/01/30/v-model/</loc>
     <lastmod>2018-03-08T01:51:12.524Z</lastmod>
     <data>
@@ -259,6 +277,30 @@
           
              
               <breadCrumb title="前端" url="http://happybug.top/categories/vue/%E5%89%8D%E7%AB%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://happybug.top/2017/10/09/vscode-vue-emmet/</loc>
+    <lastmod>2018-03-08T01:51:12.524Z</lastmod>
+    <data>
+        <display>
+        <title>vscode中vue文件emmet进行tab不起作用</title>
+        <pubTime>2017-10-09T09:33:13.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="vscode" url="http://happybug.top/categories/vscode/"/>
+          
+             
+              <breadCrumb title="vue" url="http://happybug.top/categories/vscode/vue/"/>
+          
+             
+              <breadCrumb title="emmet" url="http://happybug.top/categories/vscode/vue/emmet/"/>
           
         </display>
     </data>
@@ -312,6 +354,33 @@
 
     
   <url>
+    <loc>http://happybug.top/2017/09/12/jsonp/</loc>
+    <lastmod>2018-03-08T01:51:12.523Z</lastmod>
+    <data>
+        <display>
+        <title>跨域请求之JSONP</title>
+        <pubTime>2017-09-12T13:35:05.000Z</pubTime>
+        
+        <tag>jsonp</tag>
+         
+        <tag>前端</tag>
+         
+        <tag>跨域</tag>
+         
+         
+           
+             
+              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
+          
+             
+              <breadCrumb title="jsonp" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/jsonp/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://happybug.top/2017/11/24/iphoneX/</loc>
     <lastmod>2018-03-08T01:51:12.523Z</lastmod>
     <data>
@@ -332,33 +401,6 @@
           
              
               <breadCrumb title="前端适配" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E9%80%82%E9%85%8D/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://happybug.top/2017/09/12/jsonp/</loc>
-    <lastmod>2018-03-08T01:51:12.523Z</lastmod>
-    <data>
-        <display>
-        <title>跨域请求之JSONP</title>
-        <pubTime>2017-09-12T13:35:05.000Z</pubTime>
-        
-        <tag>前端</tag>
-         
-        <tag>jsonp</tag>
-         
-        <tag>跨域</tag>
-         
-         
-           
-             
-              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
-          
-             
-              <breadCrumb title="jsonp" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/jsonp/"/>
           
         </display>
     </data>

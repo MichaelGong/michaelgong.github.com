@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="逍遥很晕"><title>BFC · 逍遥很晕</title><meta name="description" content="BFC#什么是BFC？#BFC(Block Formatting Context) 块级格式化上下文，是W3C CSS 2.1规范中的一个概念，它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用。BFC中的内容不会影响到其外部的内容，类似于一个BFC就是一个独立的行政单位，也就是说BF"><meta name="keywords" content="BFC"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.jpeg" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-hopscotch.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/mg.jpeg" style="width:150px;border-radius: 50%;"><h3 title=""><a href="/">逍遥很晕</a></h3><div class="description"><p>开心了就笑，不开心了就过会再笑~~</p></div></div></div><ul class="social-links"></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li></div><div class="information"><div class="back_btn"><li><a onclick="window.history.go(-1)" class="fa fa-chevron-left"> </a></li></div><div class="avatar"><img></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>BFC</a></h3><div class="post-other-info"><span class="wordcount"><i class="fa fa-calendar-o"></i><span class="post-count">2019-06-04</span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-folder-o"></i><span class="post-count"><a href="/categories/CSS/" title class="tag">CSS</a></span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-edit"></i><span class="post-count">字数统计562</span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-clock-o"></i><span class="post-count">阅读时长2分钟</span></span></div></div><div class="post-content"><h1><span id="bfc">BFC</span><a href="#bfc" class="header-anchor">#</a></h1><h2><span id="shi-me-shi-bfc">什么是BFC？</span><a href="#shi-me-shi-bfc" class="header-anchor">#</a></h2><p>BFC(Block Formatting Context) 块级格式化上下文，是W3C CSS 2.1规范中的一个概念，它决定了元素如何对其内容进行定位，以及与其他元素的关系和相互作用。BFC中的内容不会影响到其外部的内容，类似于一个BFC就是一个独立的行政单位，也就是说BFC就是一个作用范围，可以把它理解成是一个独立的容器，容器内的元素不会在布局上影响到外面的元素，并且BFC具有普通容器所没有的一些特性。</p>
+<h2><span id="zen-yang-hong-fa-bfc">怎样触发BFC？</span><a href="#zen-yang-hong-fa-bfc" class="header-anchor">#</a></h2><ol>
+<li>根元素</li>
+<li>float属性值不为none</li>
+<li>overflow属性值不为visible</li>
+<li>position属性值absolute、fixed</li>
+<li>display属性：inline-block、table、table-row、table-row-group、table-header-group、table-cell、table-caption、table-header-footer-group、inline-block、flow-root、flex\inline-flex、grid\inline-grid</li>
+<li>column-count或column-width不为auto</li>
+<li>column-span的属性为all的元素</li>
+</ol>
+<blockquote>
+<p>1、外边距折叠(Margin collapsing) 也只会发生在属于同一BFC的块级元素之间。<br>2、浮动定位和清除浮动时只会应用于同一个BFC内的元素。<br>3、浮动不会影响其他BFC中元素的布局，而清除浮动只能清除同一BFC中在它前面的元素的浮动。</p>
+</blockquote>
+<h2><span id="te-dian">特点</span><a href="#te-dian" class="header-anchor">#</a></h2><ol>
+<li>BFC垂直方向边距重叠(margin-collapsing)</li>
+<li>BFC区域不会与浮动元素重叠(经典的左右两栏布局)</li>
+<li>计算BFC高度的时候，浮动子元素也会参与计算</li>
+<li>BFC就是一个独立的容器</li>
+</ol>
+<h2><span id="shi-ti">试题</span><a href="#shi-ti" class="header-anchor">#</a></h2><pre><code>&lt;body&gt;
+    &lt;div id=&quot;div1&quot; style=&quot;margin: 10px;&quot;&gt;&lt;/div&gt;
+    &lt;div id=&quot;div2&quot; style=&quot;margin: 20px;&quot;&gt;&lt;/div&gt;
+&lt;body&gt;
+</code></pre><p>div1 与 div2 之间的间距是多少？为什么？</p>
+<p>答：div1与div2之间的间距是20px，因为在BFC中触发了margin-collapsing，在这种情况下取较大的margin值。</p>
+<pre><code>&lt;body&gt;
+    &lt;div id=&quot;div&quot; style=&quot;margin: 10px;&quot;&gt;&lt;/div&gt;
+    &lt;span id=&quot;span&quot; style=&quot;margin: 20px;&quot;&gt;&lt;/span&gt;
+&lt;body&gt;
+</code></pre><p>div 与 span 之间的间距是多少？为什么？</p>
+<p>答：div1与div2之间的间距是10px，因为对于span来说padding-top\padding-bottom\margin-top\margin-bottom都不起作用</p>
+<h2><span id="can-kao">参考</span><a href="#can-kao" class="header-anchor">#</a></h2><p>块格式化上下文：<a href="https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context" target="_blank" rel="noopener">https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Block_formatting_context</a></p>
+<p>BFC 深入理解, 什么是BFC ?：<a href="https://juejin.im/post/5b724d5051882561131aaa52" target="_blank" rel="noopener">https://juejin.im/post/5b724d5051882561131aaa52</a></p>
+<p>10 分钟理解 BFC 原理：<a href="https://zhuanlan.zhihu.com/p/25321647" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/25321647</a></p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2019-06-04</span><i class="fa fa-tag"></i><a href="/tags/BFC/" title="BFC" class="tag">BFC </a></div></div></div></div><div class="share"><div class="evernote"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></div><div class="weibo"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></div><div class="twitter"><a href="http://twitter.com/home?status=,http://happybug.top/2019/06/04/BFC/,逍遥很晕,BFC,;" class="fa fa-twitter"></a></div></div><div class="pagination"><ul class="clearfix"><li class="next pagbuttons"><a role="navigation" href="/2019/06/04/for-of/" title="for-of 中为什么可以做异步回调" class="btn">下一篇</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7b168a4f1a257e5aaf73660ae4ffad1c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></body></html>
