@@ -102,7 +102,7 @@ console.log(child instanceof Object); // true
 4、判断`L === R.prototype`，如果为true，返回true，否则执行步骤2。
 </div>可以看到，这其实是一个循环的过程，会不断的取`L.__proto__`的值和`R.prototype`进行对比。这个地方涉及到了原型链的相关知识，这里不做深入探讨，引入一张经典图供参考：
 
-![原型链图](http://ovtdovq9q.bkt.clouddn.com/prototype.jpg)
+![原型链图](/images/prototype.jpg)
 
 有关于`instanceof`的规范可以查看[11.8.6 The instanceof operator](http://www.ecma-international.org/ecma-262/5.1/#sec-11.8.6)，其中的第7步中涉及到的`[[HasInstance]]`相关的方法，可以查看[15.3.5.3 [[HasInstance]] (V)](http://www.ecma-international.org/ecma-262/5.1/index.html#sec-15.3.5.3)，其中的参数V就是我们例子中的L，F就是我们例子中的R，O就是R.prototype。
 

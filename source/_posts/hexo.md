@@ -78,7 +78,7 @@ Hexo安装完成之后，就可以创建自己的网站了。
 ### 1. 注册github
 如果已经注册，直接跳过
 官网：[github.com](github.com)
-![注册](github/login.jpg?imageMogr2/thumbnail/350x)
+![注册](/images/github/login.jpg?imageMogr2/thumbnail/350x)
 填写必要的信息，注册完成直接登录。
 
 ### 2. 创建代码库
