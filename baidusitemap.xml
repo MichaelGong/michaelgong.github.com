@@ -4,6 +4,65 @@
 
     
   <url>
+    <loc>http://happybug.top/2019/07/19/call-apply-bind/</loc>
+    <lastmod>2019-07-19T03:51:56.308Z</lastmod>
+    <data>
+        <display>
+        <title>call-apply-bind</title>
+        <pubTime>2019-07-19T02:58:31.000Z</pubTime>
+        
+        <tag>this</tag>
+         
+         
+           
+             
+              <breadCrumb title="javascript" url="http://happybug.top/categories/javascript/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://happybug.top/2018/02/06/type/</loc>
+    <lastmod>2019-07-19T03:40:40.566Z</lastmod>
+    <data>
+        <display>
+        <title>js对象类型的判断</title>
+        <pubTime>2018-02-06T07:10:09.000Z</pubTime>
+        
+        <tag>前端</tag>
+         
+        <tag>原型</tag>
+         
+         
+           
+             
+              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://happybug.top/2017/09/05/hexo/</loc>
+    <lastmod>2019-07-19T03:31:09.670Z</lastmod>
+    <data>
+        <display>
+        <title>利用Hexo配置个人博客</title>
+        <pubTime>2017-09-05T15:28:46.000Z</pubTime>
+        
+        <tag>hexo</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://happybug.top/2019/06/04/BFC/</loc>
     <lastmod>2019-06-04T07:09:24.573Z</lastmod>
     <data>
@@ -40,23 +99,6 @@
              
               <breadCrumb title="javascript" url="http://happybug.top/categories/javascript/"/>
           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://happybug.top/2017/09/05/hexo/</loc>
-    <lastmod>2019-05-20T06:37:18.895Z</lastmod>
-    <data>
-        <display>
-        <title>利用Hexo配置个人博客</title>
-        <pubTime>2017-09-05T15:28:46.000Z</pubTime>
-        
-        <tag>hexo</tag>
-         
-         
-           
         </display>
     </data>
     </url>
@@ -332,55 +374,6 @@
 
     
   <url>
-    <loc>http://happybug.top/2018/02/06/type/</loc>
-    <lastmod>2018-03-08T01:51:12.524Z</lastmod>
-    <data>
-        <display>
-        <title>js对象类型的判断</title>
-        <pubTime>2018-02-06T07:10:09.000Z</pubTime>
-        
-        <tag>前端</tag>
-         
-        <tag>原型</tag>
-         
-         
-           
-             
-              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://happybug.top/2017/09/12/jsonp/</loc>
-    <lastmod>2018-03-08T01:51:12.523Z</lastmod>
-    <data>
-        <display>
-        <title>跨域请求之JSONP</title>
-        <pubTime>2017-09-12T13:35:05.000Z</pubTime>
-        
-        <tag>jsonp</tag>
-         
-        <tag>前端</tag>
-         
-        <tag>跨域</tag>
-         
-         
-           
-             
-              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
-          
-             
-              <breadCrumb title="jsonp" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/jsonp/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://happybug.top/2017/11/24/iphoneX/</loc>
     <lastmod>2018-03-08T01:51:12.523Z</lastmod>
     <data>
@@ -401,6 +394,33 @@
           
              
               <breadCrumb title="前端适配" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/%E5%89%8D%E7%AB%AF%E9%80%82%E9%85%8D/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://happybug.top/2017/09/12/jsonp/</loc>
+    <lastmod>2018-03-08T01:51:12.523Z</lastmod>
+    <data>
+        <display>
+        <title>跨域请求之JSONP</title>
+        <pubTime>2017-09-12T13:35:05.000Z</pubTime>
+        
+        <tag>前端</tag>
+         
+        <tag>jsonp</tag>
+         
+        <tag>跨域</tag>
+         
+         
+           
+             
+              <breadCrumb title="前端" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/"/>
+          
+             
+              <breadCrumb title="jsonp" url="http://happybug.top/categories/%E5%89%8D%E7%AB%AF/jsonp/"/>
           
         </display>
     </data>
