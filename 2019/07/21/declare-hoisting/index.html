@@ -1,0 +1,105 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="逍遥很晕"><title>声明提升 · 逍遥很晕</title><meta name="description" content="变量的声明周期#当引擎处理变量的时候，变量的生命周期大致分为一下阶段：
+
+声明阶段(Declaration phase):在作用域中注册一个变量
+初始化阶段(Initialization phase): 为变量分配内存地址并为作用域中的变量创建绑定，在此步骤中变量使用undefined来初始化
+赋值"><meta name="keywords"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.jpeg" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-hopscotch.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/mg.jpeg" style="width:150px;border-radius: 50%;"><h3 title=""><a href="/">逍遥很晕</a></h3><div class="description"><p>开心了就笑，不开心了就过会再笑~~</p></div></div></div><ul class="social-links"></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li></div><div class="information"><div class="back_btn"><li><a onclick="window.history.go(-1)" class="fa fa-chevron-left"> </a></li></div><div class="avatar"><img></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>声明提升</a></h3><div class="post-other-info"><span class="wordcount"><i class="fa fa-calendar-o"></i><span class="post-count">2019-07-21</span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-folder-o"></i><span class="post-count"><a href="/categories/javascript/" title class="tag">javascript</a></span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-edit"></i><span class="post-count">字数统计1,188</span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-clock-o"></i><span class="post-count">阅读时长4分钟</span></span></div></div><div class="post-content"><h2><span id="bian-liang-de-sheng-ming-zhou-qi">变量的声明周期</span><a href="#bian-liang-de-sheng-ming-zhou-qi" class="header-anchor">#</a></h2><p>当引擎处理变量的时候，变量的生命周期大致分为一下阶段：</p>
+<ol>
+<li>声明阶段(Declaration phase):在作用域中注册一个变量</li>
+<li>初始化阶段(Initialization phase): 为变量分配内存地址并为作用域中的变量创建绑定，在此步骤中变量使用undefined来初始化</li>
+<li>赋值阶段(Assignment phase): 为初始化的变量赋值</li>
+</ol>
+<p><img src="/images/Untitled-9807c575-8d4b-442f-884d-3f32c8d950f0.png" alt=""></p>
+<h2><span id="bian-liang-sheng-ming-ti-sheng">变量声明提升</span><a href="#bian-liang-sheng-ming-ti-sheng" class="header-anchor">#</a></h2><p>var变量的生命周期：</p>
+<p>对于var变量而言，它的声明与初始化阶段是同时完成的，但是在初始化阶段，给变量赋的值是 undefined</p>
+<p><img src="/images/Untitled-aea48e91-7023-428d-86fd-50b8db377d5e.png" alt=""></p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>对于上面的代码，执行的时候，会输出undefined，并不会报错。原因在于变量的声明提升，在js的编译阶段，引擎会将变量的声明统一提升到作用域的顶部，也就是说，一句 <code>var a = 3;</code> 会被替换成先声明后赋值的2句语句 <code>var a; a=3;</code> ,所以上面的代码等同于：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> a<span class="token punctuation">;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  a <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2><span id="han-shu-sheng-ming-ti-sheng">函数声明提升</span><a href="#han-shu-sheng-ming-ti-sheng" class="header-anchor">#</a></h2><p>函数声明的生命周期：</p>
+<p><img src="/images/Untitled-7566e819-f83a-480b-a1f3-164c9f0851a6.png" alt=""></p>
+<p>从上图可以看到，函数声明的生命周期的三个过程是一次性完成的，也就是说函数声明提升，会直接提升整个函数体。</p>
+<p>函数声明提升是指对<code>函数声明</code>进行操作的提升。</p>
+<p>我们可以通过两种方式声明函数：</p>
+<p>1、function func(){}</p>
+<p>2、var a = function(){}</p>
+<p>第一种方式就是函数的声明，第二种方式是函数表达式，其实与变量的声明相同。所以接下来我们说的函数声明提升都是指的是第一种形式的函数。</p>
+<p>对于函数声明提升而言，js引擎会把函数声明整体移动到当前作用域的顶部。</p>
+<p>看个🌰：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">function</span> <span class="token function">a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>执行上述代码会把函数a打印出来，实际上这段代码等同于：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript">    <span class="token keyword">function</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">function</span> <span class="token function">a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>再举个🌰：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript">    <span class="token keyword">function</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span><span class="token punctuation">;</span>
+      <span class="token keyword">function</span> <span class="token function">a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出：ƒ a(){}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在这个例子中，我们的函数a出现在return之后，但是声明提升的过程是发生在编译阶段的，并不是发生在执行阶段的，所以即便是有return，也不会起到其他的作用，该提升的内容依然会进行提升的。</p>
+<p>再看一个🌰：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript">    <span class="token keyword">function</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">function</span> <span class="token function">a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">function</span> <span class="token function">a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出：ƒ a(){}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>这个🌰的特别之处在于：变量a被声明了2次，并且每次被赋予的值的类型是不同的，一次是变量，一次是函数，那么为什么输出的是函数a呢？原因在于函数的提升的优先级高于变量提升的优先级，且在同名的情况下不会被同名的变量覆盖，但是会被同名的函数覆盖。</p>
+<p>所以下面这个输出的是带有console.log的函数a</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript">    <span class="token keyword">function</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">function</span> <span class="token function">a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+        <span class="token keyword">function</span> <span class="token function">a</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
+        <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 输出：ƒ ƒ a(){console.log(1)}</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2><span id="let-const-class-de-zan-shi-xing-si-qu">let、const、class的暂时性死区</span><a href="#let-const-class-de-zan-shi-xing-si-qu" class="header-anchor">#</a></h2><p>let变量的生命周期中，声明、初始化、赋值三个阶段的完全分开的（const class与之相同），从图中可以看到，当进入到一个有let变量的作用域内时，let变量首先会进行声明，在作用域中注册其名称，然后解析器继续解析语句。如果在这个时候，尝试去访问let变量的话，就会报错ReferenceError，因为此时let变量的未被初始化，let变量处于暂时性死区。当解析到let variable;这句时才会进行初始化的操作，并将其初始化成undefined。</p>
+<p><img src="/images/Untitled-57572934-21cf-4c55-b699-1574614a593a.png" alt=""></p>
+<p>举个🌰：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript">    <span class="token keyword">function</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">let</span> a<span class="token punctuation">;</span>
+        a <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 报错：Uncaught ReferenceError: Cannot access 'a' before initialization</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2><span id="zong-jie">总结</span><a href="#zong-jie" class="header-anchor">#</a></h2><p>1、var变量声明提升会在一开始进行声明、初始化成undefined两步操作</p>
+<p>2、函数的声明提升会将整个函数体进行提升（更精确的说法是：函数声明提升会在一开始就进行声明、初始化、赋值等操作）</p>
+<p>3、函数声明的优先级要搞与变量声明的优先级，且不会被变量声明所覆盖，但是会被同名的函数声明覆盖</p>
+<p>4、let、const、class等变量的暂时性死区是因为在声明、初始化、赋值操作都是分开的，声明之后并没有立即进行初始化操作，而是等待代码执行到声明语句的位置再进行初始化操作。</p>
+<p>参考：</p>
+<ul>
+<li>JS 变量生命周期：为什么 let 没有被提升：<a href="https://juejin.im/post/5d2fb820e51d454f723025bb" target="_blank" rel="noopener">https://juejin.im/post/5d2fb820e51d454f723025bb</a></li>
+</ul>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2019-07-21</span><i class="fa fa-tag"></i><a href="/tags/基础/" title="基础" class="tag">基础 </a><a href="/tags/声明提升/" title="声明提升" class="tag">声明提升 </a></div></div></div></div><div class="share"><div class="evernote"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></div><div class="weibo"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></div><div class="twitter"><a href="http://twitter.com/home?status=,http://happybug.top/2019/07/21/declare-hoisting/,逍遥很晕,声明提升,;" class="fa fa-twitter"></a></div></div><div class="pagination"><ul class="clearfix"><li class="next pagbuttons"><a role="navigation" href="/2019/07/19/call-apply-bind/" title="call-apply-bind" class="btn">下一篇</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7b168a4f1a257e5aaf73660ae4ffad1c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></body></html>
