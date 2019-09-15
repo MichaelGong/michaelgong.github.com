@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="逍遥很晕"><title>CSS选择器相关 · 逍遥很晕</title><meta name="description" content="css引入方式有哪些？#
+行内样式： &amp;lt;div style=&amp;quot;color: red;&amp;quot;&amp;gt;&amp;lt;/div&amp;gt;
+内联样式：&amp;lt;style type=&amp;quot;text/css&amp;quot;&amp;gt;&amp;lt;/style&amp;gt;  
+外部样式：1、 link标签：&amp;"><meta name="keywords" content="css selector"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.jpeg" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><link rel="stylesheet" href="/css/prism-hopscotch.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/mg.jpeg" style="width:150px;border-radius: 50%;"><h3 title=""><a href="/">逍遥很晕</a></h3><div class="description"><p>开心了就笑，不开心了就过会再笑~~</p></div></div></div><ul class="social-links"></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai </a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li></div><div class="information"><div class="back_btn"><li><a onclick="window.history.go(-1)" class="fa fa-chevron-left"> </a></li></div><div class="avatar"><img></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>CSS选择器相关</a></h3><div class="post-other-info"><span class="wordcount"><i class="fa fa-calendar-o"></i><span class="post-count">2019-09-15</span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-folder-o"></i><span class="post-count"><a href="/categories/css/" title class="tag">css</a></span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-edit"></i><span class="post-count">字数统计907</span></span><span class="post-meta-divider">|</span><span class="wordcount"><i class="fa fa-clock-o"></i><span class="post-count">阅读时长4分钟</span></span></div></div><div class="post-content"><h2><span id="css-yin-ru-fang-shi-you-na-xie">css引入方式有哪些？</span><a href="#css-yin-ru-fang-shi-you-na-xie" class="header-anchor">#</a></h2><ul>
+<li>行内样式： <code>&lt;div style=&quot;color: red;&quot;&gt;&lt;/div&gt;</code></li>
+<li>内联样式：<code>&lt;style type=&quot;text/css&quot;&gt;&lt;/style&gt;</code>  </li>
+<li>外部样式：1、 link标签：<code>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;xxx&quot; /&gt;</code> 2、 @import 的方式</li>
+</ul>
+<h2><span id="css-xuan-ze-qi-de-fen-lei">css选择器的分类</span><a href="#css-xuan-ze-qi-de-fen-lei" class="header-anchor">#</a></h2><p>css选择器有这么几个分类:</p>
+<ul>
+<li>基础选择器</li>
+<li>组合选择器</li>
+<li>伪类</li>
+<li>伪元素</li>
+</ul>
+<p>其中基础选择器分为几下几类：</p>
+<ol>
+<li>id选择器: <code>#id</code></li>
+<li>类选择器: <code>.class</code></li>
+<li>标签选择器: <code>div</code></li>
+<li>通用选择器: <code>*</code></li>
+<li>属性选择器: <ul>
+<li><code>[attr]</code> 选中带有指定属性的元素</li>
+<li><code>[attr=value]</code> 选中属性等于value值的元素</li>
+<li><code>[attr~=value]</code> 选中属性中的值以空格为分隔符隔开的列表中的某一项完全匹配到value的元素，比如：[type~=’a’]，可以匹配到<code>&lt;div type=&quot;a&quot;&gt;&lt;/div&gt;</code> \ <code>&lt;div type=&quot;a bc&quot;&gt;&lt;/div&gt;</code> \ <code>&lt;div type=&quot;d a b&quot;&gt;&lt;/div&gt;</code>，但是无法匹配到<code>&lt;div type=&quot;abc&quot;&gt;&lt;/div&gt;</code></li>
+<li><code>[attr|=value]</code> 这个选择器有两个解析：1. 选中属性值完全匹配到value值的元素 2. 选中属性值以’value-‘开头的元素，一般用于语言选择</li>
+<li><code>[attr^=value]</code> 选中属性值以value开头的元素</li>
+<li><code>[attr$=value]</code> 选中属性值以value结尾的元素</li>
+<li><code>[attr*=value]</code> 选中属性值中包含至少一个value的元素</li>
+</ul>
+</li>
+</ol>
+<p>组合选择器分类如下：</p>
+<ol>
+<li>紧邻兄弟选择器+， A+B 选择紧跟在A后面的B选择器，它们拥有共同的父元素，就是A后面的第一个元素且满足B</li>
+<li>一般兄弟选择器~，A~B 选择A后面的B选择器，它们拥有共同的父元素</li>
+<li>子选择器 &gt;， A &gt; B, A选择器内部的B选择器匹配的元素，且B是A的直接子元素</li>
+<li>后代选择器 ‘ ‘ 空格， A B, A内部的所有B，不论层级</li>
+</ol>
+<p>伪类的内容比较多，可以参考<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes#Index_of_standard_pseudo-classes" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes#Index_of_standard_pseudo-classes</a>, 以下举例一些常用的伪类： :hover, :active, :focus, :link, :visited, :not, :checked<br>:first-child,:first-of-type,:nth-child,:nth-of-type,:last-child,:last-of-type,:nth-last-child,:nth-last-of-type</p>
+<p>伪元素的内容也不少，可以参考<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements#Index_of_standard_pseudo-elements" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements#Index_of_standard_pseudo-elements</a><br>按照规范，伪元素是双冒号表示的。例如：::before, ::after, ::selection, ::placeholder, ::first-letter, ::first-line</p>
+<h2><span id="css-xuan-ze-qi-you-xian-ji">css选择器优先级</span><a href="#css-xuan-ze-qi-you-xian-ji" class="header-anchor">#</a></h2><p>!important &gt; id选择器 &gt; 类选择器/属性选择器/伪类 &gt; 标签选择器/伪元素 &gt; 通配符选择器 &gt; 继承 &gt; 浏览器自定义的属性</p>
+<h2><span id="ru-he-que-ding-yi-ge-css-shu-xing-de-you-xian-ji-ni">如何确定一个css属性的优先级呢？</span><a href="#ru-he-que-ding-yi-ge-css-shu-xing-de-you-xian-ji-ni" class="header-anchor">#</a></h2><p>css中哪一个属性值最终作用的目标元素上都是由css选择器优先级决定的，它的计算方式如下:<br>A selector’s specificity is calculated for a given element as follows:</p>
+<ol>
+<li>count the number of ID selectors in the selector (= A) </li>
+<li>count the number of class selectors, attributes selectors, and pseudo-classes in the selector (= B)</li>
+<li>count the number of type selectors and pseudo-elements in the selector (= C)</li>
+<li>ignore the universal selector</li>
+</ol>
+<p>以上步骤大致是这样的：<br>首先有3个变量 A、B、C<br>1、计算出选择器中id选择器的个数，赋值给A<br>2、计算出选择器中class选择器、属性选择器、伪类选择器的个数，赋值给B<br>3、计算出选择器中标签选择器、伪元素选择器的个数，赋值给C<br>4、忽略通配符选择器</p>
+<p>得到A、B、C三个值之后，其实就是把权重分成了A、B、C三个级别，<br>所以优先计算A的权重，当A的权重相等的时候才会去计算B的权重，否则就不需要计算B权重了，以此类推。</p>
+<h2><span id="can-kao">参考</span><a href="#can-kao" class="header-anchor">#</a></h2><p><a href="https://www.w3.org/TR/selectors/#specificity-rules" target="_blank" rel="noopener">w3c关于css优先级的计算</a></p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2019-09-15</span><i class="fa fa-tag"></i><a href="/tags/css/" title="css" class="tag">css </a></div></div></div></div><div class="share"><div class="evernote"><a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></div><div class="weibo"><a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></div><div class="twitter"><a href="http://twitter.com/home?status=,http://happybug.top/2019/09/15/css-selector/,逍遥很晕,CSS选择器相关,;" class="fa fa-twitter"></a></div></div><div class="pagination"><ul class="clearfix"><li class="next pagbuttons"><a role="navigation" href="/2019/07/21/declare-hoisting/" title="声明提升" class="btn">下一篇</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?7b168a4f1a257e5aaf73660ae4ffad1c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();</script></body></html>
