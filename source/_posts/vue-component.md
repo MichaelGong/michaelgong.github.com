@@ -144,7 +144,7 @@ section.confirm-pop-container : 最外层包装层
 <iframe width="100%" height="300" src="//jsfiddle.net/Michael_Gong/oznqcz6p/embedded/css,html/" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 样式添加完成后，confirm弹出框的样子(html中确定按钮添加了其他样式)：
-{% qnimg confirm.jpg %}
+![仓库](/images/confirm.jpg)
 
 这样就是confirm样式就暂时完成了。
 
