@@ -13,7 +13,7 @@ summary: iPhoneX的适配
 
 先来看下iPhone X的适配的安全区域：
 
-{% qnimg iphoneX.jpeg %}
+![iphoneX](/images/iphoneX.jpeg)
 
 下方的区域是用来充当实体home键的的区域，这个区域的高度是34px。
 
