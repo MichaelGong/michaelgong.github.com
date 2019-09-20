@@ -1,0 +1,17 @@
+language: node_js
+node_js: stable
+services:
+  - docker
+
+branches:
+  only:
+    - hexo
+
+before_install:
+  - npm install
+
+script:
+  - npm run build
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker build -t michaelgongm/blog:latest .
+  - docker push michaelgongm/blog:latest
