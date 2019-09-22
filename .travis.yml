@@ -24,3 +24,7 @@ script:
 
 after_success:
   - ssh root@$host_ip -o StrictHostKeyChecking=no "cd ~;docker-compose pull $DOCKER_NAME;docker-compose stop $DOCKER_NAME;docker-compose rm -f $DOCKER_NAME;docker-compose up -d $DOCKER_NAME;exit"
+
+deploy:
+  on:
+    tags: true
