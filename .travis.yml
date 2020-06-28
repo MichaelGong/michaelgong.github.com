@@ -33,5 +33,6 @@ after_success:
   stop $DOCKER_NAME;docker-compose rm -f $DOCKER_NAME;docker-compose up -d $DOCKER_NAME;exit"
 
 notifications:
-  email: 1506301420@qq.com
+  email:
+    - 1506301420@qq.com
 
