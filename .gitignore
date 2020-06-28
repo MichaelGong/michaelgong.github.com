@@ -6,3 +6,4 @@ node_modules/
 public/
 .deploy*/
 qn.json
+id_rsa

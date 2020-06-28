@@ -61,7 +61,7 @@ deploy:
 # 执行install之前的需要执行的命令
 before_install:
 - openssl aes-256-cbc -K $encrypted_f217180e22ee_key -iv $encrypted_f217180e22ee_iv
-  -in id_rsa.enc -out id_rsa -d
+  -in id_rsa.enc -out ~/.ssh/id_rsa -d
 - chmod 600 ~/.ssh/id_rsa
 # 设置ssh参数：StrictHostKeyChecking no ，保证ssh时命令不需要进行挂起操作
 - echo -e "Host $host_ip\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config

@@ -15,7 +15,7 @@ deploy:
     tags: true
 before_install:
 - openssl aes-256-cbc -K $encrypted_f217180e22ee_key -iv $encrypted_f217180e22ee_iv
-  -in id_rsa.enc -out id_rsa -d
+  -in id_rsa.enc -out ~/.ssh/id_rsa -d
 - chmod 600 ~/.ssh/id_rsa
 - echo -e "Host $host_ip\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 
@@ -29,8 +29,7 @@ script:
 - docker push michaelgongm/$DOCKER_NAME:latest
 
 after_success:
-- ssh root@$host_ip -o StrictHostKeyChecking=no "cd ~;docker-compose pull $DOCKER_NAME;docker-compose
-  stop $DOCKER_NAME;docker-compose rm -f $DOCKER_NAME;docker-compose up -d $DOCKER_NAME;exit"
+- ssh root@$host_ip -o StrictHostKeyChecking=no "cd ~;docker-compose pull $DOCKER_NAME;docker-compose stop $DOCKER_NAME;docker-compose rm -f $DOCKER_NAME;docker-compose up -d $DOCKER_NAME;exit"
 
 notifications:
   email:
