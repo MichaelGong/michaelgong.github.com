@@ -1,5 +1,5 @@
 FROM nginx
-MAINTAINER michaelgongm "gh1506301420@gmail.com"
+LABEL maintainer="gh1506301420@gmail.com"
 
 COPY ./public/ /usr/share/nginx/html/
 
