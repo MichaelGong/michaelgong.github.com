@@ -3,13 +3,13 @@ node_js: stable
 services:
 - docker
 addons:
-  ssh_known_hosts: "$host_ip"
+  ssh_known_hosts: $host_ip
 branches:
   only:
   - hexo
 cache:
   directories:
-  - node_modules
+    - node_modules
 deploy:
   on:
     tags: true
@@ -23,13 +23,13 @@ install:
   - npm install
 
 script:
-  - npm run build
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t michaelgongm/$DOCKER_NAME:latest .
-  - docker push michaelgongm/$DOCKER_NAME:latest
+- npm run build
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+- docker build -t michaelgongm/$DOCKER_NAME:latest .
+- docker push michaelgongm/$DOCKER_NAME:latest
 
 after_success:
-  - ssh root@$host_ip -o StrictHostKeyChecking=no "cd ~;docker-compose pull $DOCKER_NAME;docker-compose
+- ssh root@$host_ip -o StrictHostKeyChecking=no "cd ~;docker-compose pull $DOCKER_NAME;docker-compose
   stop $DOCKER_NAME;docker-compose rm -f $DOCKER_NAME;docker-compose up -d $DOCKER_NAME;exit"
 
 notifications:
